@@ -13,7 +13,7 @@ class Request extends State<Operations>{
 
   Future<PersonResponse> fetchOperation() {
     var url = "http://mitrakoff.com:8888/varlam/person/list";
-    var headers = {"username": "Tommy", "token": "02ae01a69d774ae389c827a9f9395f62"};
+    var headers = {"username": "Tommy", "token": "2f909edb87ba43f686046ed58c90e5d4"};
     return http.get(url, headers: headers).asStream().map((response) {
       if (response.statusCode == 200)
         return PersonResponse.fromJson(json.decode(response.body));
@@ -26,8 +26,10 @@ class Request extends State<Operations>{
     return FutureBuilder(
       future: categoriesFut,
       builder: (ctxt, snapshot) {
-        if (snapshot.hasData)
-          return Text(snapshot.data.persons[0]);
+        if (snapshot.hasData) {
+          PersonResponse p = snapshot.data;
+          return Text(p.getPersons()[0]);
+        }
         else if (snapshot.hasError)
           return Text("${snapshot.error}");
 
