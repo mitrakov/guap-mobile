@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:guap_mobile/redux/actions.dart';
 import 'package:redux/redux.dart';
-import 'package:redux_epics/redux_epics.dart';
-import 'package:guap_mobile/redux/ajax.dart';
+import 'package:redux_thunk/redux_thunk.dart';
 import 'package:guap_mobile/redux/appstate.dart';
-import 'package:guap_mobile/redux/reducer.dart';
-import 'package:guap_mobile/redux/saga.dart';
+import 'package:guap_mobile/redux/reducers.dart';
+import 'package:guap_mobile/redux/thunks.dart';
 
 void main() {
   final store = new Store<AppState>(
-      AppReducer().reducer(),
+      AppReducer.reducer,
       initialState: AppState(persons: [], lastError: ""),
-      middleware: [new EpicMiddleware<AppState>(Saga(Ajax()))]
+      middleware: [thunkMiddleware]
   );
 
   runApp(MyApp(store: store));
@@ -32,7 +30,7 @@ class MyApp extends StatelessWidget {
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                RaisedButton(child: Text("Hi, dude!"), onPressed: () => store.dispatch(FetchPersonsAction())),
+                RaisedButton(child: Text("Push me!"), onPressed: () => store.dispatch(Thunk.fetchPersons())),
                 StoreConnector<AppState, AppState>(
                   converter: (store) => store.state,
                   builder: (context, state) {
