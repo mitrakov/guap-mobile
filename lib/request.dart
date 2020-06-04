@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:guap_mobile/person.dart';
+import 'package:guap_mobile/person/person.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 

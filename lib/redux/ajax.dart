@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:guap_mobile/person.dart';
+import 'package:guap_mobile/person/person.dart';
 
 class Ajax {
   static final baseUrl = "http://mitrakoff.com:8888/varlam";
