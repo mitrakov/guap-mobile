@@ -1,16 +1,19 @@
+import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 part 'category.g.dart';
 
 @JsonSerializable()
 class Category {
-  final String label;
+  final String _label;
   final List<Category> items;
 
-  Category(this.label, this.items);
+  Category(this._label, this.items);
 
   factory Category.fromJson(Map<String, dynamic> json) => _$CategoryFromJson(json);
 
   Map<String, dynamic> toJson() => _$CategoryToJson(this);
+
+  String get label => _label != null ? utf8.decode(_label.runes.toList()) : '';
 }
 
 @JsonSerializable()
