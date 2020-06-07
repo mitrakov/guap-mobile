@@ -4,10 +4,10 @@ import 'package:guap_mobile/redux/appstate.dart';
 
 class AppReducer {
   static AppState personsFetchedReducer(AppState state, PersonsFetchedAction action) {
-    return AppState(persons: action.persons);
+    return AppState();
   }
   static AppState fetchErrorReducer(AppState state, FetchErrorAction action) {
-    return AppState(lastError: action.error);
+    return AppState();
   }
 
   static Reducer<AppState> reducer = combineReducers<AppState>([
