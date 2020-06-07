@@ -9,7 +9,7 @@ class Ajax {
   static final token = "1617b58596f14cddb31cf153d977954d";
 
   Future<List<String>> fetchPersons() {
-    var headers = {"username": "Tommy", "token": token};
+    final headers = {"username": "Tommy", "token": token};
     return http.get("$baseUrl/person/list", headers: headers).asStream().map((response) {
       if (response.statusCode == 200) {
         print("Ajax made: ${response.body}");
@@ -23,7 +23,7 @@ class Ajax {
   }
 
   Future<List<Category>> fetchCategoriesTree() {
-    var headers = {"username": "Tommy", "token": token};
+    final headers = {"username": "Tommy", "token": token};
     return http.get("$baseUrl/category/list", headers: headers).asStream().map((response) {
       if (response.statusCode == 200) {
         print("Ajax made: ${response.body}");
@@ -37,8 +37,9 @@ class Ajax {
   }
 
   Future<List<int>> fetchOperations() {
-    var headers = {"username": "Tommy", "token": token};
-    return http.get("$baseUrl/operations/list", headers: headers).asStream().map((response) {
+    final category = "Транспорт";
+    final headers = {"username": "Tommy", "token": token};
+    return http.get("$baseUrl/operation/list?category=$category", headers: headers).asStream().map((response) {
       if (response.statusCode == 200) {
         print("Ajax made: ${response.body}");
         final operationListResponse = OperationListResponse.fromJson(json.decode(response.body));

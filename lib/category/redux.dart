@@ -5,34 +5,17 @@ import 'package:guap_mobile/redux/ajax.dart';
 
 class CategoryState {
   final List<Category> categories;
-  final String error;
-
-  CategoryState({this.categories = const [], this.error = ''});
+  const CategoryState({this.categories = const []});
 }
 
 class CategoriesFetchedAction {
   final List<Category> categories;
-
   CategoriesFetchedAction(this.categories);
 }
 
-class FetchErrorAction {
+class CategoriesFetchErrorAction {
   final String error;
-  FetchErrorAction(this.error);
-}
-
-class CategoryReducer {
-  static CategoryState categoriesFetchedReducer(CategoryState state, CategoriesFetchedAction action) {
-    return CategoryState(categories: action.categories);
-  }
-  static CategoryState fetchErrorReducer(CategoryState state, FetchErrorAction action) {
-    return CategoryState(error: action.error);
-  }
-
-  static Reducer<CategoryState> reducer = combineReducers<CategoryState>([
-    TypedReducer<CategoryState, CategoriesFetchedAction>(categoriesFetchedReducer),
-    TypedReducer<CategoryState, FetchErrorAction>(fetchErrorReducer)
-  ]);
+  CategoriesFetchErrorAction(this.error);
 }
 
 class CategoryThunk {
@@ -43,7 +26,7 @@ class CategoryThunk {
       try {
         store.dispatch(CategoriesFetchedAction(await ajax.fetchCategoriesTree()));
       } catch(e) {
-        store.dispatch(FetchErrorAction(e.toString()));
+        store.dispatch(CategoriesFetchErrorAction(e.toString()));
       }
     };
   }
