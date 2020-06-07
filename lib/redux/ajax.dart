@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:guap_mobile/category/category.dart';
+import 'package:guap_mobile/operation/operation.dart';
 import 'package:http/http.dart' as http;
 import 'package:guap_mobile/person/person.dart';
 
@@ -11,6 +12,7 @@ class Ajax {
     var headers = {"username": "Tommy", "token": token};
     return http.get("$baseUrl/person/list", headers: headers).asStream().map((response) {
       if (response.statusCode == 200) {
+        print("Ajax made: ${response.body}");
         final personResponse = PersonResponse.fromJson(json.decode(response.body));
         if (personResponse.code == 0)
           return personResponse.getPersons();
@@ -24,12 +26,27 @@ class Ajax {
     var headers = {"username": "Tommy", "token": token};
     return http.get("$baseUrl/category/list", headers: headers).asStream().map((response) {
       if (response.statusCode == 200) {
+        print("Ajax made: ${response.body}");
         final categoryResponse = CategoryResponse.fromJson(json.decode(response.body));
         if (categoryResponse.code == 0)
           return categoryResponse.categories;
         else throw Exception("Failed to load categories (error code ${categoryResponse.code})");
       }
       else throw Exception("Failed to load categories (http code ${response.statusCode})");
+    }).single;
+  }
+
+  Future<List<int>> fetchOperations() {
+    var headers = {"username": "Tommy", "token": token};
+    return http.get("$baseUrl/operations/list", headers: headers).asStream().map((response) {
+      if (response.statusCode == 200) {
+        print("Ajax made: ${response.body}");
+        final operationListResponse = OperationListResponse.fromJson(json.decode(response.body));
+        if (operationListResponse.code == 0)
+          return operationListResponse.ids;
+        else throw Exception("Failed to load operations (error code ${operationListResponse.code})");
+      }
+      else throw Exception("Failed to load operations (http code ${response.statusCode})");
     }).single;
   }
 }

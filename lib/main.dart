@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:guap_mobile/category/redux.dart';
+import 'package:guap_mobile/operation/redux.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 
@@ -40,7 +41,16 @@ class MyScaffold extends StatelessWidget {
         drawer: MyDrawer(store: store),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[RaisedButton(child: Text("Hello!"), onPressed: () => print(1))],
+          children: <Widget>[
+            RaisedButton(child: Text("Hello!"), onPressed: () => store.dispatch(OperationsThunk.fetchOperations())),
+            Expanded(child: ListView.builder(
+                itemCount: state.error.isNotEmpty ? 1 : state.categories.length,
+                itemBuilder: (ctxt, i) {
+                  final item = state.error.isNotEmpty ? state.error : state.categories[i].label;
+                  return ListTile(title: Text(item));
+                })
+            )
+          ],
         )
     );
   }
