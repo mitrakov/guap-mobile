@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:guap_mobile/category/redux.dart';
 import 'package:guap_mobile/operation/redux.dart';
+import 'package:guap_mobile/operation/widget.dart';
 import 'package:guap_mobile/redux/appstate.dart';
 import 'package:guap_mobile/redux/reducers.dart';
 import 'package:redux/redux.dart';
@@ -67,10 +68,8 @@ class OperationsView extends StatelessWidget {
             RaisedButton(child: Text("Fetch operations"), onPressed: () => print("Hello")),
             Expanded(child: ListView.builder(
                 itemCount: state.operations.length,
-                itemBuilder: (ctxt, i) {
-                  final item = state.operations[i].toString();
-                  return ListTile(title: Text(item));
-                })
+                itemBuilder: (ctxt, i) => OperationTile(id: state.operations[i])
+              )
             )
           ],
         );

@@ -1,20 +1,29 @@
+import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 part 'operation.g.dart';
 
 @JsonSerializable()
 class Operation {
   final int id;
-  final String item;
-  final String category;
+  final String _item;
+  final String _category;
   final int summa;
-  final String time;
-  final String person;
+  final String _time;
+  final String _person;
 
-  Operation(this.id, this.item, this.category, this.summa, this.time, this.person);
+  Operation(this.id, this._item, this._category, this.summa, this._time, this._person);
 
   factory Operation.fromJson(Map<String, dynamic> json) => _$OperationFromJson(json);
 
   Map<String, dynamic> toJson() => _$OperationToJson(this);
+
+  String get item => _item != null ? utf8.decode(_item.runes.toList()) : '';
+
+  String get category => _category != null ? utf8.decode(_category.runes.toList()) : '';
+
+  String get time => _time != null ? utf8.decode(_time.runes.toList()) : '';
+
+  String get person => _person != null ? utf8.decode(_person.runes.toList()) : '';
 }
 
 @JsonSerializable()

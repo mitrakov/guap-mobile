@@ -49,4 +49,18 @@ class Ajax {
       else throw Exception("Failed to load operations (http code ${response.statusCode})");
     }).single;
   }
+
+  Future<Operation> fetchOperation(int id) {
+    final headers = {"username": "Tommy", "token": token};
+    return http.get("$baseUrl/operation/get?id=$id", headers: headers).asStream().map((response) {
+      if (response.statusCode == 200) {
+        print("Ajax made: ${response.body}");
+        final operationResponse = OperationResponse.fromJson(json.decode(response.body));
+        if (operationResponse.code == 0)
+          return operationResponse.operation;
+        else throw Exception("Failed to load operation (error code ${operationResponse.code})");
+      }
+      else throw Exception("Failed to load operation (http code ${response.statusCode})");
+    }).single;
+  }
 }
