@@ -64,8 +64,7 @@ class OperationsView extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            RaisedButton(child: Text("Fetch operations"), onPressed: () =>
-                StoreProvider.of<AppState>(context).dispatch(OperationsThunk.fetchOperations())),
+            RaisedButton(child: Text("Fetch operations"), onPressed: () => print("Hello")),
             Expanded(child: ListView.builder(
                 itemCount: state.operations.length,
                 itemBuilder: (ctxt, i) {
@@ -88,13 +87,17 @@ class CategoriesTreeView extends StatelessWidget {
         converter: (store) => store.state.categoryState,
         builder: (context, state) {
           print("Rebiulding categories");
+          final store = StoreProvider.of<AppState>(context);
           if (state.categories.length == 0)
-            StoreProvider.of<AppState>(context).dispatch(CategoryThunk.fetchCategories());
+            store.dispatch(CategoryThunk.fetchCategories());
           return Expanded(child: ListView.builder(
               itemCount: state.categories.length,
               itemBuilder: (ctxt, i) {
                 final item = state.categories[i].label;
-                return ListTile(title: Text(item));
+                return ListTile(title: Text(item), onTap: () {
+                  store.dispatch(OperationsThunk.fetchOperations(item));
+                  Navigator.pop(ctxt);
+                });
               })
           );
         }

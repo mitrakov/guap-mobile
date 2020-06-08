@@ -36,8 +36,7 @@ class Ajax {
     }).single;
   }
 
-  Future<List<int>> fetchOperations() {
-    final category = "Транспорт";
+  Future<List<int>> fetchOperations(String category) {
     final headers = {"username": "Tommy", "token": token};
     return http.get("$baseUrl/operation/list?category=$category", headers: headers).asStream().map((response) {
       if (response.statusCode == 200) {
