@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:guap_mobile/category/redux.dart';
+import 'package:guap_mobile/myview.dart';
 import 'package:guap_mobile/operation/redux.dart';
 import 'package:guap_mobile/operation/widget.dart';
 import 'package:guap_mobile/redux/appstate.dart';
 import 'package:guap_mobile/redux/reducers.dart';
+import 'package:guap_mobile/widget/addoperation.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 
@@ -25,9 +27,27 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (store.state.categoryState.categories.length == 0)
+      store.dispatch(CategoryThunk.fetchCategories());
     return StoreProvider<AppState>(store: store, child: MaterialApp(
         title: "Guap",
-        home: MyScaffold()
+        initialRoute: "/main",
+        routes: {
+          "/main": (context1) => MyScaffold(),
+          "/chooseCategory": (context1) => Scaffold(
+              appBar: AppBar(title: Text("Guap application")),
+              body: MyTreeView(store.state.categoryState.categories)
+          )
+        },
+        onGenerateRoute: (routeSettings) {
+          if (routeSettings.name == "/addOperation") {
+            return MaterialPageRoute(builder: (context1) => Scaffold(
+                appBar: AppBar(title: Text("Guap application")),
+                body: AddOperationScreen(routeSettings.arguments.toString())
+            ));
+          }
+          return null;
+        },
     ));
   }
 }
@@ -39,11 +59,17 @@ class MyScaffold extends StatelessWidget {
     return StoreConnector<AppState, String> (
       distinct: true,
       converter: (store) => store.state.lastError,
-      builder: (context, state) {
+      builder: (context1, state) {
         print("Rebiulding scaffold");
-        return Scaffold(appBar: AppBar(
+        return Scaffold(
+          appBar: AppBar(
             title: Text("Guap application")),
             drawer: MyDrawer(),
+            floatingActionButton: FloatingActionButton(
+              child: Icon(Icons.add),
+              tooltip: "Add operation",
+              onPressed: () => Navigator.pushNamed(context1, "/chooseCategory"),
+            ),
             body: Column(children: <Widget>[
               Text(state.isEmpty ? "No errors": state),
               Expanded(child: OperationsView())
@@ -60,15 +86,14 @@ class OperationsView extends StatelessWidget {
     return StoreConnector<AppState, OperationsState> (
       distinct: true,
       converter: (store) => store.state.operationsState,
-      builder: (context, state) {
+      builder: (context1, state) {
         print("Rebiulding operations");
         return Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            RaisedButton(child: Text("Fetch operations"), onPressed: () => print("Hello")),
             Expanded(child: ListView.builder(
                 itemCount: state.operations.length,
-                itemBuilder: (ctxt, i) => OperationTile(state.operations[i], ValueKey(state.operations[i]))
+                itemBuilder: (context2, i) => OperationTile(state.operations[i], ValueKey(state.operations[i]))
               )
             )
           ],
@@ -84,18 +109,18 @@ class CategoriesTreeView extends StatelessWidget {
     return StoreConnector<AppState, CategoryState>(
         distinct: true,
         converter: (store) => store.state.categoryState,
-        builder: (context, state) {
+        builder: (context1, state) {
           print("Rebiulding categories");
-          final store = StoreProvider.of<AppState>(context);
+          final store = StoreProvider.of<AppState>(context1);
           if (state.categories.length == 0)
             store.dispatch(CategoryThunk.fetchCategories());
           return Expanded(child: ListView.builder(
               itemCount: state.categories.length,
-              itemBuilder: (ctxt, i) {
+              itemBuilder: (context2, i) {
                 final item = state.categories[i].label;
                 return ListTile(title: Text(item), onTap: () {
                   store.dispatch(OperationsThunk.fetchOperations(item));
-                  Navigator.pop(ctxt);
+                  Navigator.pop(context2);
                 });
               })
           );

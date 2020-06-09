@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:guap_mobile/category/category.dart';
+import 'package:guap_mobile/item/item.dart';
 import 'package:guap_mobile/operation/operation.dart';
 import 'package:http/http.dart' as http;
 import 'package:guap_mobile/person/person.dart';
@@ -15,7 +16,7 @@ class Ajax {
         print("Ajax made: ${response.body}");
         final personResponse = PersonResponse.fromJson(json.decode(response.body));
         if (personResponse.code == 0)
-          return personResponse.getPersons();
+          return personResponse.persons;
         else throw Exception("Failed to load persons (error code ${personResponse.code})");
       }
       else throw Exception("Failed to load persons (http code ${response.statusCode})");
@@ -33,6 +34,20 @@ class Ajax {
         else throw Exception("Failed to load categories (error code ${categoryResponse.code})");
       }
       else throw Exception("Failed to load categories (http code ${response.statusCode})");
+    }).single;
+  }
+
+  Future<List<String>> fetchItems(String category) {
+    final headers = {"username": "Tommy", "token": token};
+    return http.get("$baseUrl/item/list?category=$category", headers: headers).asStream().map((response) {
+      if (response.statusCode == 200) {
+        print("Ajax made: ${response.body}");
+        final itemResponse = ItemResponse.fromJson(json.decode(response.body));
+        if (itemResponse.code == 0)
+          return itemResponse.items;
+        else throw Exception("Failed to load items (error code ${itemResponse.code})");
+      }
+      else throw Exception("Failed to load items (http code ${response.statusCode})");
     }).single;
   }
 

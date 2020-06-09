@@ -18,7 +18,7 @@ class OperationTileState extends State<OperationTile> {
   Widget build(BuildContext context) {
     return FutureBuilder<Operation>(
       future: future,
-      builder: (ctxt, snapshot) {
+      builder: (context2, snapshot) {
         if (snapshot.hasData)
           return ListTile(
             title: Text(snapshot.data.item),

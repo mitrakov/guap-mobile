@@ -6,13 +6,13 @@ part 'person.g.dart';
 class PersonResponse {
   final int code;
   @JsonKey(name: "msg")
-  final List<String> persons;
+  final List<String> _persons;
 
-  PersonResponse(this.code, this.persons);
+  PersonResponse(this.code, this._persons);
 
   factory PersonResponse.fromJson(Map<String, dynamic> json) => _$PersonResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$PersonResponseToJson(this);
 
-  List<String> getPersons() => persons.map((s) => utf8.decode(s.runes.toList())).toList();
+  List<String> get persons => _persons.map((s) => utf8.decode(s.runes.toList())).toList();
 }
