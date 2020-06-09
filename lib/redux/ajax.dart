@@ -6,7 +6,7 @@ import 'package:guap_mobile/person/person.dart';
 
 class Ajax {
   static final baseUrl = "http://mitrakoff.com:8888/varlam";
-  static final token = "1617b58596f14cddb31cf153d977954d";
+  static final token = "555445079bcf4bada8c025082f8f546b";
 
   Future<List<String>> fetchPersons() {
     final headers = {"username": "Tommy", "token": token};

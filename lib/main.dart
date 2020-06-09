@@ -68,7 +68,7 @@ class OperationsView extends StatelessWidget {
             RaisedButton(child: Text("Fetch operations"), onPressed: () => print("Hello")),
             Expanded(child: ListView.builder(
                 itemCount: state.operations.length,
-                itemBuilder: (ctxt, i) => OperationTile(id: state.operations[i])
+                itemBuilder: (ctxt, i) => OperationTile(state.operations[i], ValueKey(state.operations[i]))
               )
             )
           ],

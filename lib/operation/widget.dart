@@ -4,7 +4,7 @@ import 'package:guap_mobile/operation/operation.dart';
 
 class OperationTile extends StatefulWidget {
   final int id;
-  const OperationTile({Key key, this.id}) : super(key: key);
+  const OperationTile(this.id, Key key) : super(key: key);
   State<StatefulWidget> createState() => OperationTileState(id);
 }
 
