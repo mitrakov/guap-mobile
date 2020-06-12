@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:guap_mobile/item/itemschooser.dart';
+import 'package:guap_mobile/person/personChooser.dart';
 
 class AddOperationScreen extends StatelessWidget {
   final String category;
@@ -9,33 +10,15 @@ class AddOperationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ;
     return Column(children: <Widget>[
       ItemsChooser(category),
-      TextField(
-        decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          labelText: "Choose a category"
-        ),
-      ),
-      TextField(
-        decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: "Choose a item"
-        ),
-      ),
       TextField(
         decoration: InputDecoration(
             border: OutlineInputBorder(),
             labelText: "Input sum"
         ),
       ),
-      TextField(
-        decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: "Choose a person"
-        ),
-      ),
+      PersonChooser(),
       TextField(
         decoration: InputDecoration(
             border: OutlineInputBorder(),

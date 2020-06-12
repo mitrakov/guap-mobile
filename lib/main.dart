@@ -4,6 +4,7 @@ import 'package:guap_mobile/category/redux.dart';
 import 'package:guap_mobile/myview.dart';
 import 'package:guap_mobile/operation/redux.dart';
 import 'package:guap_mobile/operation/widget.dart';
+import 'package:guap_mobile/person/redux.dart';
 import 'package:guap_mobile/redux/appstate.dart';
 import 'package:guap_mobile/redux/reducers.dart';
 import 'package:guap_mobile/widget/addoperation.dart';
@@ -16,6 +17,8 @@ void main() {
       initialState: AppState(),
       middleware: [thunkMiddleware]
   );
+  store.dispatch(CategoryThunk.fetchCategories());
+  store.dispatch(PersonsThunk.fetchPersons());
 
   runApp(MyApp(store: store));
 }
@@ -27,8 +30,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (store.state.categoryState.categories.length == 0)
-      store.dispatch(CategoryThunk.fetchCategories());
     return StoreProvider<AppState>(store: store, child: MaterialApp(
         title: "Guap",
         initialRoute: "/main",
