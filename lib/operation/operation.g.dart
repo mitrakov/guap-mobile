@@ -55,3 +55,35 @@ Map<String, dynamic> _$OperationListResponseToJson(
       'code': instance.code,
       'msg': instance.ids,
     };
+
+AddOperationRequest _$AddOperationRequestFromJson(Map<String, dynamic> json) {
+  return AddOperationRequest(
+    json['itemName'] as String,
+    json['personName'] as String,
+    json['summa'] as int,
+    json['date'] as String,
+  );
+}
+
+Map<String, dynamic> _$AddOperationRequestToJson(
+        AddOperationRequest instance) =>
+    <String, dynamic>{
+      'itemName': instance.itemName,
+      'personName': instance.personName,
+      'summa': instance.summa,
+      'date': instance.date,
+    };
+
+AddOperationResponse _$AddOperationResponseFromJson(Map<String, dynamic> json) {
+  return AddOperationResponse(
+    json['code'] as int,
+    json['msg'] as String,
+  );
+}
+
+Map<String, dynamic> _$AddOperationResponseToJson(
+        AddOperationResponse instance) =>
+    <String, dynamic>{
+      'code': instance.code,
+      'msg': instance.msg,
+    };

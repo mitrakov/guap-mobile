@@ -5,13 +5,10 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:guap_mobile/person/redux.dart';
 import 'package:guap_mobile/redux/appstate.dart';
 
-class PersonChooser extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => PersonChooserState();
-}
+class PersonChooser extends StatelessWidget {
+  final ValueChanged<String> onPersonChange;
 
-class PersonChooserState extends State<PersonChooser> {
-  String currentValue;
+  const PersonChooser(this.onPersonChange, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +28,10 @@ class PersonChooserState extends State<PersonChooser> {
             return list;
           },
           itemBuilder: (context2, suggestion) => ListTile(title: Text(suggestion)),
-          onSuggestionSelected: (x) => ctrl.text = x
+          onSuggestionSelected: (newValue) {
+            onPersonChange(newValue);
+            ctrl.text = newValue;
+          }
       )
     );
   }

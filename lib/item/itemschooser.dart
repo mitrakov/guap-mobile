@@ -3,16 +3,18 @@ import 'package:guap_mobile/item/global.dart';
 
 class ItemsChooser extends StatefulWidget {
   final String category;
-  const ItemsChooser(this.category, {Key key}) : super(key: key);
-  State<StatefulWidget> createState() => ItemsChooserState(category);
+  final ValueChanged<String> callback;
+  const ItemsChooser(this.category, this.callback, {Key key}) : super(key: key);
+  State<StatefulWidget> createState() => ItemsChooserState(category, callback);
 }
 
 class ItemsChooserState extends State<ItemsChooser> {
   final String category;
+  final ValueChanged<String> callback;
   Future<List<String>> future;
   String currentValue;
 
-  ItemsChooserState(this.category);
+  ItemsChooserState(this.category, this.callback);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class ItemsChooserState extends State<ItemsChooser> {
       future: future,
       builder: (context2, snapshot) {
         if (snapshot.hasData) {
-          return DropdownButton(
+          return DropdownButton( // TODO check stateless widget with Controller
             value: currentValue,
             hint: Text("Choose the value"),
             icon: Icon(Icons.keyboard_arrow_down),
@@ -28,6 +30,7 @@ class ItemsChooserState extends State<ItemsChooser> {
             elevation: 16,
             onChanged: (String newValue) {
               setState(() {
+                callback(newValue);
                 currentValue = newValue;
               });
             },
@@ -43,6 +46,6 @@ class ItemsChooserState extends State<ItemsChooser> {
   @override
   void initState() {
     super.initState();
-    future = GlobalItemStore.get(category);
+    future = GlobalItemStore.get(category); // TODO move Future into a widget
   }
 }

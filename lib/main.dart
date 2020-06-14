@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:guap_mobile/category/redux.dart';
 import 'package:guap_mobile/myview.dart';
+import 'package:guap_mobile/operation/operation.dart';
 import 'package:guap_mobile/operation/redux.dart';
 import 'package:guap_mobile/operation/widget.dart';
 import 'package:guap_mobile/person/redux.dart';
+import 'package:guap_mobile/redux/ajax.dart';
 import 'package:guap_mobile/redux/appstate.dart';
 import 'package:guap_mobile/redux/reducers.dart';
 import 'package:guap_mobile/widget/addoperation.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 
+// TODO: operation for KFC 1517₽ Kate-Z (2020-06-13) check in DB
 void main() {
   final store = new Store<AppState>(
       AppReducer.reducer,
@@ -42,9 +45,24 @@ class MyApp extends StatelessWidget {
         },
         onGenerateRoute: (routeSettings) {
           if (routeSettings.name == "/addOperation") {
+            String item = "";
+            String person = "";
+            String date = "";
+            int summa = 0;
             return MaterialPageRoute(builder: (context1) => Scaffold(
                 appBar: AppBar(title: Text("Guap application")),
-                body: AddOperationScreen(routeSettings.arguments.toString())
+                body: AddOperationScreen(
+                    routeSettings.arguments.toString(),
+                    onItemChanged: (value) => item = value,
+                    onDateChanged: (value) => date = value,
+                    onPersonChanged: (value) => person = value,
+                    onSummaChanged: (value) => summa = value
+                ),
+              floatingActionButton: FloatingActionButton(
+                child: Icon(Icons.check, size: 36),
+                tooltip: "Confirm",
+                onPressed: () => Ajax().addOperation(AddOperationRequest(item, person, summa, date)),
+              ),
             ));
           }
           return null;
@@ -118,7 +136,7 @@ class CategoriesTreeView extends StatelessWidget {
           return Expanded(child: ListView.builder(
               itemCount: state.categories.length,
               itemBuilder: (context2, i) {
-                final item = state.categories[i].label;
+                final item = state.categories[i].labelUtf8;
                 return ListTile(title: Text(item), onTap: () {
                   store.dispatch(OperationsThunk.fetchOperations(item));
                   Navigator.pop(context2);

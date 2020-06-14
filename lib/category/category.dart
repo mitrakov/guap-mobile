@@ -4,16 +4,16 @@ part 'category.g.dart';
 
 @JsonSerializable()
 class Category {
-  final String _label;
+  final String label;
   final List<Category> items;
 
-  Category(this._label, this.items);
+  Category(this.label, this.items);
 
   factory Category.fromJson(Map<String, dynamic> json) => _$CategoryFromJson(json);
 
   Map<String, dynamic> toJson() => _$CategoryToJson(this);
 
-  String get label => _label != null ? utf8.decode(_label.runes.toList()) : '';
+  String get labelUtf8 => label != null ? utf8.decode(label.runes.toList()) : '';
 }
 
 @JsonSerializable()

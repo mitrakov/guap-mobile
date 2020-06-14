@@ -28,8 +28,8 @@ class MyTreeView extends StatelessWidget {
 
   Node<Category> toNode(Category category) {
     return Node(
-        key: category.label,
-        label: category.label,
+        key: category.labelUtf8,
+        label: category.labelUtf8,
         children: category.items.map(toNode).toList(),
         expanded: true,
         icon: NodeIcon.fromIconData(category.items.isEmpty ? Icons.stop : Icons.folder),

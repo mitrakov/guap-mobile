@@ -19,19 +19,21 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  http: ^0.12.1
-  flutter_redux: 0.5.0
-  redux_thunk: ^0.2.1
-  json_annotation: ^3.0.0
-  flutter_treeview: ^0.4.1+1
-  flutter_typeahead: ^1.8.3
+  intl: ^0.16.1                      # formatting messages
+  http: ^0.12.1                      # http client
+  flutter_redux: 0.5.0               # redux
+  redux_thunk: ^0.2.1                # redux thunk middleware
+  json_annotation: ^3.0.0            # json auto-generation
+  flutter_treeview: ^0.4.1+1         # treeview
+  flutter_typeahead: ^1.8.3          # auto-complete textbox
+  flutter_rounded_date_picker: 1.0.4 # calendar
   cupertino_icons: ^0.1.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  build_runner: ^1.0.0
-  json_serializable: ^3.2.0
+  build_runner: ^1.0.0               # json auto-generation
+  json_serializable: ^3.2.0          # json auto-generation
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

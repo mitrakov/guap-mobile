@@ -16,7 +16,7 @@ class Ajax {
         print("Ajax made: ${response.body}");
         final personResponse = PersonResponse.fromJson(json.decode(response.body));
         if (personResponse.code == 0)
-          return personResponse.persons;
+          return personResponse.personsUtf8;
         else throw Exception("Failed to load persons (error code ${personResponse.code})");
       }
       else throw Exception("Failed to load persons (http code ${response.statusCode})");
@@ -44,7 +44,7 @@ class Ajax {
         print("Ajax made: ${response.body}");
         final itemResponse = ItemResponse.fromJson(json.decode(response.body));
         if (itemResponse.code == 0)
-          return itemResponse.items;
+          return itemResponse.itemsUtf8;
         else throw Exception("Failed to load items (error code ${itemResponse.code})");
       }
       else throw Exception("Failed to load items (http code ${response.statusCode})");
@@ -76,6 +76,20 @@ class Ajax {
         else throw Exception("Failed to load operation (error code ${operationResponse.code})");
       }
       else throw Exception("Failed to load operation (http code ${response.statusCode})");
+    }).single;
+  }
+
+  Future<void> addOperation(AddOperationRequest operation) {
+    print("Ajax prepare: ${json.encode(operation.toJson())}");
+    final headers = {"username": "Tommy", "token": token};
+    return http.post("$baseUrl/operation/new", headers: headers, body: json.encode(operation.toJson())).asStream().map((response) {
+      if (response.statusCode == 200) {
+        print("Ajax made: ${response.body}");
+        final operationResponse = AddOperationResponse.fromJson(json.decode(response.body));
+        if (operationResponse.code == 0) return;
+        else throw Exception("Failed to add operation (error code ${operationResponse.code})");
+      }
+      else throw Exception("Failed to add operation (http code ${response.statusCode})");
     }).single;
   }
 }

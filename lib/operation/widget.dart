@@ -21,8 +21,8 @@ class OperationTileState extends State<OperationTile> {
       builder: (context2, snapshot) {
         if (snapshot.hasData)
           return ListTile(
-            title: Text(snapshot.data.item),
-            subtitle: Text(snapshot.data.time),
+            title: Text(snapshot.data.itemUtf8),
+            subtitle: Text(snapshot.data.timeUtf8),
             trailing: Text(snapshot.data.summa.toString(), style: TextStyle(fontSize: 22)),
           );
         if (snapshot.hasError)
