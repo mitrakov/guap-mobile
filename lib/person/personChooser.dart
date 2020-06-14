@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:guap_mobile/person/redux.dart';
 import 'package:guap_mobile/redux/appstate.dart';
 
@@ -14,21 +15,24 @@ class PersonChooserState extends State<PersonChooser> {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController ctrl = TextEditingController();
     return StoreConnector<AppState, PersonsState>(
       distinct: true,
       converter: (store) => store.state.personsState,
-      builder: (context1, state) => DropdownButton(
-          value: currentValue,
-          hint: Text("Choose a person"),
-          icon: Icon(Icons.keyboard_arrow_down),
-          items: state.persons.map((person) => DropdownMenuItem(value: person, child: Text(person))).toList(),
-          elevation: 4,
-          onChanged: (String newValue) {
-            setState(() {
-              currentValue = newValue;
-            });
+      builder: (context1, state) => TypeAheadField(
+          textFieldConfiguration: TextFieldConfiguration(
+            controller: ctrl,
+            style: DefaultTextStyle.of(context1).style.copyWith(fontStyle: FontStyle.italic),
+            decoration: InputDecoration(border: OutlineInputBorder()),
+          ),
+          suggestionsCallback: (prefix) {
+            final list = new List<String>.from(state.persons);
+            list.retainWhere((s) => s.toLowerCase().contains(prefix.toLowerCase()));
+            return list;
           },
-        ),
+          itemBuilder: (context2, suggestion) => ListTile(title: Text(suggestion)),
+          onSuggestionSelected: (x) => ctrl.text = x
+      )
     );
   }
   
