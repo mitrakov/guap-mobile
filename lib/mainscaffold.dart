@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:guap_mobile/main.dart';
+import 'package:guap_mobile/operation/widgets/operationview.dart';
 import 'package:guap_mobile/redux/appstate.dart';
 
 class MainScaffold extends StatelessWidget {

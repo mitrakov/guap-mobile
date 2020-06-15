@@ -5,7 +5,6 @@ import 'package:guap_mobile/mainscaffold.dart';
 import 'package:guap_mobile/myview.dart';
 import 'package:guap_mobile/operation/redux.dart';
 import 'package:guap_mobile/operation/widgets/operationscaffold.dart';
-import 'package:guap_mobile/operation/widgets/operationtile.dart';
 import 'package:guap_mobile/person/redux.dart';
 import 'package:guap_mobile/redux/appstate.dart';
 import 'package:guap_mobile/redux/reducers.dart';
@@ -49,29 +48,6 @@ class MyApp extends StatelessWidget {
           return null;
         },
     ));
-  }
-}
-
-class OperationsView extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return StoreConnector<AppState, OperationsState> (
-      distinct: true,
-      converter: (store) => store.state.operationsState,
-      builder: (context1, state) {
-        print("Rebiulding operations");
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Expanded(child: ListView.builder(
-                itemCount: state.operations.length,
-                itemBuilder: (context2, i) => OperationTile(state.operations[i], ValueKey(state.operations[i]))
-              )
-            )
-          ],
-        );
-      },
-    );
   }
 }
 
