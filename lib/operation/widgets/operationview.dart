@@ -24,9 +24,9 @@ class OperationsView extends StatelessWidget {
                 }
               )
             )
-          ],
+          ]
         );
-      },
+      }
     );
   }
 }

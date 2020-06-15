@@ -17,23 +17,22 @@ class PersonChooser extends StatelessWidget {
       distinct: true,
       converter: (store) => store.state.personsState,
       builder: (context1, state) => TypeAheadField(
-          textFieldConfiguration: TextFieldConfiguration(
-            controller: ctrl,
-            style: DefaultTextStyle.of(context1).style.copyWith(fontStyle: FontStyle.italic),
-            decoration: InputDecoration(border: OutlineInputBorder()),
-          ),
-          suggestionsCallback: (prefix) {
-            final list = new List<String>.from(state.persons);
-            list.retainWhere((s) => s.toLowerCase().contains(prefix.toLowerCase()));
-            return list;
-          },
-          itemBuilder: (context2, suggestion) => ListTile(title: Text(suggestion)),
-          onSuggestionSelected: (newValue) {
-            onPersonChange(newValue);
-            ctrl.text = newValue;
-          }
+        textFieldConfiguration: TextFieldConfiguration(
+          controller: ctrl,
+          style: DefaultTextStyle.of(context1).style.copyWith(fontStyle: FontStyle.italic),
+          decoration: InputDecoration(border: OutlineInputBorder())
+        ),
+        suggestionsCallback: (prefix) {
+          final list = new List<String>.from(state.persons);
+          list.retainWhere((s) => s.toLowerCase().contains(prefix.toLowerCase()));
+          return list;
+        },
+        itemBuilder: (context2, suggestion) => ListTile(title: Text(suggestion)),
+        onSuggestionSelected: (newValue) {
+          onPersonChange(newValue);
+          ctrl.text = newValue;
+        }
       )
     );
   }
-  
 }

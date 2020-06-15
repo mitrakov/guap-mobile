@@ -32,13 +32,13 @@ class ItemsChooserState extends State<ItemsChooser> {
                 callback(newValue);
                 currentValue = newValue;
               });
-            },
+            }
           );
         }
         if (snapshot.hasError)
           return Text("${snapshot.error}");
         return CircularProgressIndicator();
-      },
+      }
     );
   }
 }
