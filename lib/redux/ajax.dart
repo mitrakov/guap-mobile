@@ -9,7 +9,7 @@ class Ajax {
   static final baseUrl = "http://mitrakoff.com:8888/varlam";
   static final token = "555445079bcf4bada8c025082f8f546b";
 
-  Future<List<String>> fetchPersons() {
+  static Future<List<String>> fetchPersons() {
     final headers = {"username": "Tommy", "token": token};
     return http.get("$baseUrl/person/list", headers: headers).asStream().map((response) {
       if (response.statusCode == 200) {
@@ -23,7 +23,7 @@ class Ajax {
     }).single;
   }
 
-  Future<List<Category>> fetchCategoriesTree() {
+  static Future<List<Category>> fetchCategoriesTree() {
     final headers = {"username": "Tommy", "token": token};
     return http.get("$baseUrl/category/list", headers: headers).asStream().map((response) {
       if (response.statusCode == 200) {
@@ -37,7 +37,7 @@ class Ajax {
     }).single;
   }
 
-  Future<List<String>> fetchItems(String category) {
+  static Future<List<String>> fetchItems(String category) {
     final headers = {"username": "Tommy", "token": token};
     return http.get("$baseUrl/item/list?category=$category", headers: headers).asStream().map((response) {
       if (response.statusCode == 200) {
@@ -51,7 +51,7 @@ class Ajax {
     }).single;
   }
 
-  Future<List<int>> fetchOperations(String category) {
+  static Future<List<int>> fetchOperations(String category) {
     final headers = {"username": "Tommy", "token": token};
     return http.get("$baseUrl/operation/list?category=$category", headers: headers).asStream().map((response) {
       if (response.statusCode == 200) {
@@ -65,7 +65,7 @@ class Ajax {
     }).single;
   }
 
-  Future<Operation> fetchOperation(int id) {
+  static Future<Operation> fetchOperation(int id) {
     final headers = {"username": "Tommy", "token": token};
     return http.get("$baseUrl/operation/get?id=$id", headers: headers).asStream().map((response) {
       if (response.statusCode == 200) {
@@ -79,7 +79,7 @@ class Ajax {
     }).single;
   }
 
-  Future<void> addOperation(AddOperationRequest operation) {
+  static Future<void> addOperation(AddOperationRequest operation) {
     print("Ajax prepare: ${json.encode(operation.toJson())}");
     final headers = {"username": "Tommy", "token": token};
     return http.post("$baseUrl/operation/new", headers: headers, body: json.encode(operation.toJson())).asStream().map((response) {

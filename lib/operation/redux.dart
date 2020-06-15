@@ -18,12 +18,10 @@ class OperationsFetchErrorAction {
 }
 
 class OperationsThunk {
-  static final Ajax ajax = Ajax();
-
   static ThunkAction fetchOperations(String category) {
     return (Store store) async {
       try {
-        store.dispatch(OperationsFetchedAction(await ajax.fetchOperations(category)));
+        store.dispatch(OperationsFetchedAction(await Ajax.fetchOperations(category)));
       } catch(e) {
         store.dispatch(OperationsFetchErrorAction(e.toString()));
       }

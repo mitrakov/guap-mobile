@@ -19,12 +19,10 @@ class CategoriesFetchErrorAction {
 }
 
 class CategoryThunk {
-  static final Ajax ajax = Ajax();
-
   static ThunkAction fetchCategories() {
     return (Store store) async {
       try {
-        store.dispatch(CategoriesFetchedAction(await ajax.fetchCategoriesTree()));
+        store.dispatch(CategoriesFetchedAction(await Ajax.fetchCategoriesTree()));
       } catch(e) {
         store.dispatch(CategoriesFetchErrorAction(e.toString()));
       }

@@ -13,7 +13,6 @@ import 'package:guap_mobile/widget/addoperation.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 
-// TODO: operation for KFC 1517₽ Kate-Z (2020-06-13) check in DB
 void main() {
   final store = new Store<AppState>(
       AppReducer.reducer,
@@ -62,7 +61,7 @@ class MyApp extends StatelessWidget {
               floatingActionButton: FloatingActionButton(
                 child: Icon(Icons.check, size: 36),
                 tooltip: "Confirm",
-                onPressed: () => Ajax().addOperation(AddOperationRequest(item, person, summa, date))
+                onPressed: () => Ajax.addOperation(AddOperationRequest(item, person, summa, date))
                       .then((r) => Navigator.popUntil(context1, ModalRoute.withName(mainRoute))),
               ),
             ));
