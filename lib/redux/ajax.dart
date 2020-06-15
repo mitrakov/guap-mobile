@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:guap_mobile/category/category.dart';
 import 'package:guap_mobile/item/item.dart';
+import 'package:guap_mobile/login/login.dart';
 import 'package:guap_mobile/operation/operation.dart';
 import 'package:http/http.dart' as http;
 import 'package:guap_mobile/person/person.dart';
@@ -8,6 +9,20 @@ import 'package:guap_mobile/person/person.dart';
 class Ajax {
   static final baseUrl = "http://mitrakoff.com:8888/varlam";
   static final token = "555445079bcf4bada8c025082f8f546b";
+
+  static Future<void> signIn(LoginRequest request) {
+    print("Ajax prepare: ${json.encode(request.toJson())}");
+    return http.put("$baseUrl/sign/in", body: json.encode(request.toJson())).asStream().map((response) {
+      print("@@@@@@@: ${response.body}");
+      if (response.statusCode == 200) {
+        print("Ajax made: ${response.body}");
+        final tokenResponse = TokenResponse.fromJson(json.decode(response.body));
+        if (tokenResponse.code == 0) return;
+        else throw Exception("Failed to sign in (error code ${tokenResponse.code})");
+      }
+      else throw Exception("Failed to sign in (http code ${response.statusCode})");
+    }).single;
+  }
 
   static Future<List<String>> fetchPersons() {
     final headers = {"username": "Tommy", "token": token};
