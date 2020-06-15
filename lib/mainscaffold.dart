@@ -12,20 +12,20 @@ class MainScaffold extends StatelessWidget {
       converter: (store) => store.state.lastError,
       builder: (context1, state) {
         print("Rebiulding scaffold");
-        return Scaffold(
-            appBar: AppBar(title: Text("Guap application")),
-            drawer: CategoriesDrawer(),
-            floatingActionButton: FloatingActionButton(
-              child: Icon(Icons.add),
-              tooltip: "Add operation",
-              onPressed: () => Navigator.pushNamed(context1, "/chooseCategory"),
-            ),
-            body: Column(children: <Widget>[
-              Text(state.isEmpty ? "No errors": state),
-              Expanded(child: OperationsView())
-            ],)
+        return Scaffold (
+          appBar: AppBar(title: Text("Guap application")),
+          drawer: CategoriesDrawer(),
+          floatingActionButton: FloatingActionButton(
+            child: Icon(Icons.add),
+            tooltip: "Add operation",
+            onPressed: () => Navigator.pushNamed(context1, "/chooseCategory")
+          ),
+          body: Column(children: <Widget>[
+            Text(state.isEmpty ? "No errors": state),
+            Expanded(child: OperationsView())
+          ])
         );
-      },
+      }
     );
   }
 }

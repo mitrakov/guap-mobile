@@ -2,38 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:flutter_treeview/tree_view.dart';
 import 'package:guap_mobile/category/category.dart';
 
-class MyTreeView extends StatelessWidget {
+class CategoriesChooser extends StatelessWidget {
   final List<Category> categories;
 
-  MyTreeView(this.categories, {Key key}) : super(key: key);
+  CategoriesChooser(this.categories, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    TreeViewController _treeViewController = TreeViewController(children: categories.map(toNode).toList());
+    TreeViewController ctrl = TreeViewController(children: categories.map(toNode).toList());
 
-    return TreeView(
-        controller: _treeViewController,
-        allowParentSelect: true,
-        supportParentDoubleTap: false,
-        //onExpansionChanged: _expandNodeHandler,
-        onNodeTap: (key) {
-          Navigator.pushNamed(context, "/addOperation", arguments: key);
-          //setState(() {
-            //_treeViewController = _treeViewController.copyWith(selectedKey: key);
-          //});
-        },
-        theme: treeViewTheme
+    return TreeView (
+      controller: ctrl,
+      allowParentSelect: true,
+      supportParentDoubleTap: false,
+      //onExpansionChanged: _expandNodeHandler,
+      onNodeTap: (key) {
+        Navigator.pushNamed(context, "/addOperation", arguments: key);
+        //setState(() {
+          //ctrl = ctrl.copyWith(selectedKey: key);
+        //});
+      },
+      theme: treeViewTheme
     );
   }
 
   Node<Category> toNode(Category category) {
-    return Node(
-        key: category.labelUtf8,
-        label: category.labelUtf8,
-        children: category.items.map(toNode).toList(),
-        expanded: true,
-        icon: NodeIcon.fromIconData(category.items.isEmpty ? Icons.stop : Icons.folder),
-        data: category
+    return Node (
+      key: category.labelUtf8,
+      label: category.labelUtf8,
+      children: category.items.map(toNode).toList(),
+      expanded: true,
+      icon: NodeIcon.fromIconData(category.items.isEmpty ? Icons.stop : Icons.folder),
+      data: category
     );
   }
 
