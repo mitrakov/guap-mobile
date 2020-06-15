@@ -34,18 +34,16 @@ class AddOperationScreen extends StatelessWidget {
         onTap: () async {
           ctrl.text = formatter.format(await _showCalendar(context));
           onDateChanged(ctrl.text);
-        },
-      ),
-    ],);
+        }
+      )
+    ]);
   }
 
-  Future<DateTime> _showCalendar(BuildContext context) {
-    return showRoundedDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(DateTime.now().year - 1),
-      lastDate: DateTime(DateTime.now().year + 1),
-      borderRadius: 16
-    );
-  }
+  Future<DateTime> _showCalendar(BuildContext context) => showRoundedDatePicker(
+    context: context,
+    initialDate: DateTime.now(),
+    firstDate: DateTime(DateTime.now().year - 1),
+    lastDate: DateTime(DateTime.now().year + 1),
+    borderRadius: 16
+  );
 }

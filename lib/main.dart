@@ -33,11 +33,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const mainRoute = "/main";
     return StoreProvider<AppState>(store: store, child: MaterialApp(
         title: "Guap",
-        initialRoute: "/main",
+        initialRoute: mainRoute,
         routes: {
-          "/main": (context1) => MyScaffold(),
+          mainRoute: (context1) => MyScaffold(),
           "/chooseCategory": (context1) => Scaffold(
               appBar: AppBar(title: Text("Guap application")),
               body: MyTreeView(store.state.categoryState.categories)
@@ -61,7 +62,8 @@ class MyApp extends StatelessWidget {
               floatingActionButton: FloatingActionButton(
                 child: Icon(Icons.check, size: 36),
                 tooltip: "Confirm",
-                onPressed: () => Ajax().addOperation(AddOperationRequest(item, person, summa, date)),
+                onPressed: () => Ajax().addOperation(AddOperationRequest(item, person, summa, date))
+                      .then((r) => Navigator.popUntil(context1, ModalRoute.withName(mainRoute))),
               ),
             ));
           }
