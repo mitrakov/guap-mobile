@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:guap_mobile/category/redux.dart';
+import 'package:guap_mobile/mainscaffold.dart';
 import 'package:guap_mobile/myview.dart';
-import 'package:guap_mobile/operation/operation.dart';
 import 'package:guap_mobile/operation/redux.dart';
-import 'package:guap_mobile/operation/widget.dart';
+import 'package:guap_mobile/operation/widgets/operationscaffold.dart';
+import 'package:guap_mobile/operation/widgets/operationtile.dart';
 import 'package:guap_mobile/person/redux.dart';
-import 'package:guap_mobile/redux/ajax.dart';
 import 'package:guap_mobile/redux/appstate.dart';
 import 'package:guap_mobile/redux/reducers.dart';
-import 'package:guap_mobile/widget/addoperation.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 
@@ -37,66 +36,19 @@ class MyApp extends StatelessWidget {
         title: "Guap",
         initialRoute: mainRoute,
         routes: {
-          mainRoute: (context1) => MyScaffold(),
+          mainRoute: (context1) => MainScaffold(),
           "/chooseCategory": (context1) => Scaffold(
               appBar: AppBar(title: Text("Guap application")),
               body: MyTreeView(store.state.categoryState.categories)
           )
         },
         onGenerateRoute: (routeSettings) {
-          if (routeSettings.name == "/addOperation") {
-            String item = "";
-            String person = "";
-            String date = "";
-            int summa = 0;
-            return MaterialPageRoute(builder: (context1) => Scaffold(
-                appBar: AppBar(title: Text("Guap application")),
-                body: AddOperationScreen(
-                    routeSettings.arguments.toString(),
-                    onItemChanged: (value) => item = value,
-                    onDateChanged: (value) => date = value,
-                    onPersonChanged: (value) => person = value,
-                    onSummaChanged: (value) => summa = value
-                ),
-              floatingActionButton: FloatingActionButton(
-                child: Icon(Icons.check, size: 36),
-                tooltip: "Confirm",
-                onPressed: () => Ajax.addOperation(AddOperationRequest(item, person, summa, date))
-                      .then((r) => Navigator.popUntil(context1, ModalRoute.withName(mainRoute))),
-              ),
-            ));
-          }
+          if (routeSettings.name == "/addOperation")
+            return MaterialPageRoute(builder: (context1) =>
+                OperationScaffold(routeSettings.arguments.toString()));
           return null;
         },
     ));
-  }
-}
-
-class MyScaffold extends StatelessWidget {
-
-  @override
-  Widget build(BuildContext context) {
-    return StoreConnector<AppState, String> (
-      distinct: true,
-      converter: (store) => store.state.lastError,
-      builder: (context1, state) {
-        print("Rebiulding scaffold");
-        return Scaffold(
-          appBar: AppBar(
-            title: Text("Guap application")),
-            drawer: MyDrawer(),
-            floatingActionButton: FloatingActionButton(
-              child: Icon(Icons.add),
-              tooltip: "Add operation",
-              onPressed: () => Navigator.pushNamed(context1, "/chooseCategory"),
-            ),
-            body: Column(children: <Widget>[
-              Text(state.isEmpty ? "No errors": state),
-              Expanded(child: OperationsView())
-            ],)
-        );
-      },
-    );
   }
 }
 
