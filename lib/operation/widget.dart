@@ -11,12 +11,12 @@ class OperationTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder<Operation>(
       future: GlobalOperationStore.get(id), // it's ok to run future here because it's cached
-      builder: (context2, snapshot) {
+      builder: (context1, snapshot) {
         if (snapshot.hasData)
           return ListTile(
             title: Text(snapshot.data.itemUtf8),
             subtitle: Text(snapshot.data.timeUtf8),
-            trailing: Text(snapshot.data.summa.toString(), style: TextStyle(fontSize: 22)),
+            trailing: Text("${snapshot.data.summa} ₽", style: TextStyle(fontSize: 22)),
           );
         if (snapshot.hasError)
           return Text("${snapshot.error}");
