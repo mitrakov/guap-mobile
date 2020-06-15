@@ -11,7 +11,6 @@ class ItemsChooser extends StatefulWidget {
 class ItemsChooserState extends State<ItemsChooser> {
   final String category;
   final ValueChanged<String> callback;
-  Future<List<String>> future;
   String currentValue;
 
   ItemsChooserState(this.category, this.callback);
@@ -19,10 +18,10 @@ class ItemsChooserState extends State<ItemsChooser> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<String>>(
-      future: future,
+      future: GlobalItemStore.get(category), // it's ok to run future here because it's cached
       builder: (context2, snapshot) {
         if (snapshot.hasData) {
-          return DropdownButton( // TODO check stateless widget with Controller
+          return DropdownButton(
             value: currentValue,
             hint: Text("Choose the value"),
             icon: Icon(Icons.keyboard_arrow_down),
@@ -41,11 +40,5 @@ class ItemsChooserState extends State<ItemsChooser> {
         return CircularProgressIndicator();
       },
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    future = GlobalItemStore.get(category); // TODO move Future into a widget
   }
 }
