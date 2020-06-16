@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:guap_mobile/category/redux.dart';
 import 'package:guap_mobile/login/loginscreen.dart';
 import 'package:guap_mobile/mainscaffold.dart';
 import 'package:guap_mobile/category/widgets/categorieschooser.dart';
 import 'package:guap_mobile/operation/widgets/operationscaffold.dart';
-import 'package:guap_mobile/person/redux.dart';
 import 'package:guap_mobile/redux/appstate.dart';
 import 'package:guap_mobile/redux/reducers.dart';
 import 'package:redux/redux.dart';
@@ -13,9 +11,6 @@ import 'package:redux_thunk/redux_thunk.dart';
 
 void main() {
   final store = new Store<AppState>(AppReducer.reducer, initialState: AppState(), middleware: [thunkMiddleware]);
-  store.dispatch(CategoryThunk.fetchCategories());
-  store.dispatch(PersonsThunk.fetchPersons());
-
   runApp(MyApp(store));
 }
 

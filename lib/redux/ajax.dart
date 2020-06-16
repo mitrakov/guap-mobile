@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:crypto/crypto.dart';
 import 'package:guap_mobile/category/category.dart';
 import 'package:guap_mobile/item/item.dart';
 import 'package:guap_mobile/login/login.dart';
@@ -8,17 +9,22 @@ import 'package:guap_mobile/person/person.dart';
 
 class Ajax {
   static final baseUrl = "http://mitrakoff.com:8888/varlam";
-  static final token = "555445079bcf4bada8c025082f8f546b";
+  static String token = "";
 
-  static Future<void> signIn(LoginRequest request) {
+  static Future<void> signIn(String name, String purePassword) {
+    print("$name, $purePassword");
+    final hash = sha256.convert(utf8.encode(purePassword)).toString();
+    final request = LoginRequest(name, hash);
     print("Ajax prepare: ${json.encode(request.toJson())}");
+
     return http.put("$baseUrl/sign/in", body: json.encode(request.toJson())).asStream().map((response) {
       print("@@@@@@@: ${response.body}");
       if (response.statusCode == 200) {
         print("Ajax made: ${response.body}");
         final tokenResponse = TokenResponse.fromJson(json.decode(response.body));
-        if (tokenResponse.code == 0) return;
-        else throw Exception("Failed to sign in (error code ${tokenResponse.code})");
+        if (tokenResponse.code == 0) {
+          token = tokenResponse.token;
+        } else throw Exception("Failed to sign in (error code ${tokenResponse.code})");
       }
       else throw Exception("Failed to sign in (http code ${response.statusCode})");
     }).single;
