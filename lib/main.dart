@@ -30,8 +30,8 @@ class MyApp extends StatelessWidget {
           "/login": (context1) => LoginScreen(),
           "/main": (context1) => MainScaffold(),
           "/chooseCategory": (context1) => Scaffold(
-              appBar: AppBar(title: Text("Guap application")),
-              body: CategoriesChooser(store.state.categoryState.categories)
+            appBar: AppBar(title: Text("Guap application")),
+            body: CategoriesChooser()
           )
         },
         onGenerateRoute: (routeSettings) {

@@ -10,7 +10,7 @@ class OperationScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // no need in Stateful widget for these 4 variables:
+    // no need in Stateful widget for these 4 variables: // TODO are you sure?
     String item = "";
     String date = "";
     String person = "";

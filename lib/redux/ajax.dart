@@ -18,9 +18,8 @@ class Ajax {
     print("Ajax prepare: ${json.encode(request.toJson())}");
 
     return http.put("$baseUrl/sign/in", body: json.encode(request.toJson())).asStream().map((response) {
-      print("@@@@@@@: ${response.body}");
       if (response.statusCode == 200) {
-        print("Ajax made: ${response.body}");
+        print("Ajax sign in: ${response.body}");
         final tokenResponse = TokenResponse.fromJson(json.decode(response.body));
         if (tokenResponse.code == 0) {
           token = tokenResponse.token;
@@ -31,10 +30,10 @@ class Ajax {
   }
 
   static Future<List<String>> fetchPersons() {
-    final headers = {"username": "Tommy", "token": token};
+    final headers = {"username": "Tommy", "token": token}; // TODO
     return http.get("$baseUrl/person/list", headers: headers).asStream().map((response) {
       if (response.statusCode == 200) {
-        print("Ajax made: ${response.body}");
+        print("Ajax persons: ${response.body}");
         final personResponse = PersonResponse.fromJson(json.decode(response.body));
         if (personResponse.code == 0)
           return personResponse.personsUtf8;
@@ -48,7 +47,7 @@ class Ajax {
     final headers = {"username": "Tommy", "token": token};
     return http.get("$baseUrl/category/list", headers: headers).asStream().map((response) {
       if (response.statusCode == 200) {
-        print("Ajax made: ${response.body}");
+        print("Ajax categories tree: ${response.body}");
         final categoryResponse = CategoryResponse.fromJson(json.decode(response.body));
         if (categoryResponse.code == 0)
           return categoryResponse.categories;
@@ -62,7 +61,7 @@ class Ajax {
     final headers = {"username": "Tommy", "token": token};
     return http.get("$baseUrl/item/list?category=$category", headers: headers).asStream().map((response) {
       if (response.statusCode == 200) {
-        print("Ajax made: ${response.body}");
+        print("Ajax items: ${response.body}");
         final itemResponse = ItemResponse.fromJson(json.decode(response.body));
         if (itemResponse.code == 0)
           return itemResponse.itemsUtf8;
@@ -76,7 +75,7 @@ class Ajax {
     final headers = {"username": "Tommy", "token": token};
     return http.get("$baseUrl/operation/list?category=$category", headers: headers).asStream().map((response) {
       if (response.statusCode == 200) {
-        print("Ajax made: ${response.body}");
+        print("Ajax operations: ${response.body}");
         final operationListResponse = OperationListResponse.fromJson(json.decode(response.body));
         if (operationListResponse.code == 0)
           return operationListResponse.ids;
@@ -90,7 +89,7 @@ class Ajax {
     final headers = {"username": "Tommy", "token": token};
     return http.get("$baseUrl/operation/get?id=$id", headers: headers).asStream().map((response) {
       if (response.statusCode == 200) {
-        print("Ajax made: ${response.body}");
+        print("Ajax operation: ${response.body}");
         final operationResponse = OperationResponse.fromJson(json.decode(response.body));
         if (operationResponse.code == 0)
           return operationResponse.operation;
@@ -105,7 +104,7 @@ class Ajax {
     final headers = {"username": "Tommy", "token": token};
     return http.post("$baseUrl/operation/new", headers: headers, body: json.encode(operation.toJson())).asStream().map((response) {
       if (response.statusCode == 200) {
-        print("Ajax made: ${response.body}");
+        print("Ajax add operation: ${response.body}");
         final operationResponse = AddOperationResponse.fromJson(json.decode(response.body));
         if (operationResponse.code == 0) return;
         else throw Exception("Failed to add operation (error code ${operationResponse.code})");

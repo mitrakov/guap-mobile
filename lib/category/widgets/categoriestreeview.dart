@@ -12,16 +12,15 @@ class CategoriesTreeView extends StatelessWidget {
       converter: (store) => store.state.categoryState,
       builder: (context1, state) {
         print("Rebiulding categories");
-        final store = StoreProvider.of<AppState>(context1);
-        if (state.categories.length == 0)
-          store.dispatch(CategoryThunk.fetchCategories());
+        if (state.categories.isEmpty)
+          StoreProvider.of<AppState>(context1).dispatch(CategoryThunk.fetchCategories());
         return Expanded(
           child: ListView.builder(
             itemCount: state.categories.length,
             itemBuilder: (context2, i) {
               final item = state.categories[i].labelUtf8;
               return ListTile(title: Text(item), onTap: () {
-                store.dispatch(OperationsThunk.fetchOperations(item));
+                StoreProvider.of<AppState>(context2).dispatch(OperationsThunk.fetchOperations(item));
                 Navigator.pop(context2);
               });
             }

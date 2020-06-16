@@ -12,27 +12,32 @@ class PersonChooser extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("Rebiulding person chooser");
     final TextEditingController ctrl = TextEditingController();
     return StoreConnector<AppState, PersonsState>(
       distinct: true,
       converter: (store) => store.state.personsState,
-      builder: (context1, state) => TypeAheadField(
-        textFieldConfiguration: TextFieldConfiguration(
-          controller: ctrl,
-          style: DefaultTextStyle.of(context1).style.copyWith(fontStyle: FontStyle.italic),
-          decoration: InputDecoration(border: OutlineInputBorder())
-        ),
-        suggestionsCallback: (prefix) {
-          final list = new List<String>.from(state.persons);
-          list.retainWhere((s) => s.toLowerCase().contains(prefix.toLowerCase()));
-          return list;
-        },
-        itemBuilder: (context2, suggestion) => ListTile(title: Text(suggestion)),
-        onSuggestionSelected: (newValue) {
-          onPersonChange(newValue);
-          ctrl.text = newValue;
-        }
-      )
+      builder: (context1, state) {
+        if (state.persons.isEmpty)
+          StoreProvider.of<AppState>(context1).dispatch(PersonsThunk.fetchPersons());
+        return TypeAheadField(
+          textFieldConfiguration: TextFieldConfiguration(
+            controller: ctrl,
+            style: DefaultTextStyle.of(context1).style.copyWith(fontStyle: FontStyle.italic),
+            decoration: InputDecoration(border: OutlineInputBorder())
+          ),
+          suggestionsCallback: (prefix) {
+            final list = new List<String>.from(state.persons);
+            list.retainWhere((s) => s.toLowerCase().contains(prefix.toLowerCase()));
+            return list;
+          },
+          itemBuilder: (context2, suggestion) => ListTile(title: Text(suggestion)),
+          onSuggestionSelected: (newValue) {
+            onPersonChange(newValue);
+            ctrl.text = newValue;
+          }
+        );
+      }
     );
   }
 }

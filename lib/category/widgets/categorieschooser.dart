@@ -1,28 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_treeview/tree_view.dart';
 import 'package:guap_mobile/category/category.dart';
+import 'package:guap_mobile/category/redux.dart';
+import 'package:guap_mobile/redux/appstate.dart';
 
 class CategoriesChooser extends StatelessWidget {
-  final List<Category> categories;
-
-  CategoriesChooser(this.categories, {Key key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    TreeViewController ctrl = TreeViewController(children: categories.map(toNode).toList());
-
-    return TreeView (
-      controller: ctrl,
-      allowParentSelect: true,
-      supportParentDoubleTap: false,
-      //onExpansionChanged: _expandNodeHandler,
-      onNodeTap: (key) {
-        Navigator.pushNamed(context, "/addOperation", arguments: key);
-        //setState(() {
-          //ctrl = ctrl.copyWith(selectedKey: key);
-        //});
-      },
-      theme: treeViewTheme
+    return StoreConnector<AppState, CategoryState>(
+      distinct: true,
+      converter: (store) => store.state.categoryState,
+      builder: (context1, state) {
+        if (state.categories.isEmpty)
+          StoreProvider.of<AppState>(context1).dispatch(CategoryThunk.fetchCategories());
+        TreeViewController ctrl = TreeViewController(children: state.categories.map(toNode).toList());
+        return TreeView (
+          controller: ctrl,
+          allowParentSelect: true,
+          supportParentDoubleTap: false,
+          //onExpansionChanged: _expandNodeHandler,
+          onNodeTap: (key) {
+            Navigator.pushNamed(context, "/addOperation", arguments: key);
+            //setState(() {
+            //ctrl = ctrl.copyWith(selectedKey: key);
+            //});
+          },
+          theme: treeViewTheme
+        );
+      }
     );
   }
 
