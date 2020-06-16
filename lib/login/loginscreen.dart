@@ -26,6 +26,7 @@ class LoginScreenState extends State<LoginScreen> {
           Padding(
             padding: EdgeInsets.all(10),
             child: TextField(
+              obscureText: true,
               decoration: InputDecoration(border: OutlineInputBorder(), labelText: "Password"),
               onChanged: (value) => password = value
             )
