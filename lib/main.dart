@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:guap_mobile/login/loginscreen.dart';
+import 'package:guap_mobile/login/passcodechecker.dart';
+import 'package:guap_mobile/login/passcodesetter.dart';
 import 'package:guap_mobile/mainscaffold.dart';
 import 'package:guap_mobile/category/widgets/categorieschooser.dart';
 import 'package:guap_mobile/operation/widgets/operationscaffold.dart';
@@ -25,9 +27,11 @@ class MyApp extends StatelessWidget {
       store: store,
       child: MaterialApp(
         title: "Guap",
-        initialRoute: "/login",
+        initialRoute: "/checkPasscode",
         routes: {
+          "/checkPasscode": (context1) => PasscodeChecker(),
           "/login": (context1) => LoginScreen(),
+          "/setPasscode": (context1) => PasscodeSetter(),
           "/main": (context1) => MainScaffold(),
           "/chooseCategory": (context1) => Scaffold(
             appBar: AppBar(title: Text("Guap application")),

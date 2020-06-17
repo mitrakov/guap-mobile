@@ -11,7 +11,7 @@ class LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print("Rebuilding Login screen");
+    print("Rebuilding login screen");
     return Scaffold(body: Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -33,11 +33,11 @@ class LoginScreenState extends State<LoginScreen> {
           ),
           Padding(
             padding: EdgeInsets.all(40),
-            child: MaterialButton(
+            child: RaisedButton(
               color: Theme.of(context).primaryColor,
-              child: Text("Sign in", style: TextStyle(color: Colors.white70, fontWeight: FontWeight.w800, fontSize: 18)),
+              child: Text("Sign in", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 18)),
               onPressed: () =>
-                  Ajax.signIn(login, password).then((v) => Navigator.popAndPushNamed(context, "/main"))
+                  Ajax.signIn(login, password).then((v) => Navigator.popAndPushNamed(context, "/setPasscode"))
             )
           )
         ]

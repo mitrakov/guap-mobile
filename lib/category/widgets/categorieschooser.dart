@@ -58,7 +58,7 @@ class CategoriesChooser extends StatelessWidget {
     parentLabelStyle: TextStyle(
       fontSize: 16,
       letterSpacing: 0.1,
-      fontWeight: FontWeight.w800,
+      fontWeight: FontWeight.w600,
       color: Colors.black87,
     ),
     iconTheme: IconThemeData(
