@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'category.g.dart';
 
@@ -14,6 +15,14 @@ class Category {
   Map<String, dynamic> toJson() => _$CategoryToJson(this);
 
   String get labelUtf8 => label != null ? utf8.decode(label.runes.toList()) : '';
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is Category && runtimeType == other.runtimeType && label == other.label && listEquals(items, other.items);
+
+  @override
+  int get hashCode => label.hashCode ^ items.hashCode;
 }
 
 @JsonSerializable()

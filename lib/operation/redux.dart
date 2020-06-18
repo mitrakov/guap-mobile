@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 import 'package:guap_mobile/redux/ajax.dart';
@@ -5,6 +6,16 @@ import 'package:guap_mobile/redux/ajax.dart';
 class OperationsState {
   final List<int> operations;
   const OperationsState({this.operations = const []});
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is OperationsState &&
+              runtimeType == other.runtimeType &&
+              listEquals(operations, other.operations);
+
+  @override
+  int get hashCode => operations.hashCode;
 }
 
 class OperationsFetchedAction {

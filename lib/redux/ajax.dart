@@ -14,7 +14,6 @@ class Ajax {
   static String _token = "";
 
   static Future<void> signIn(String name, String purePassword) async {
-    print("$name, $purePassword");
     final hash = sha256.convert(utf8.encode(purePassword)).toString();
     final request = LoginRequest(name, hash);
     print("Ajax prepare: ${json.encode(request.toJson())}");
@@ -24,17 +23,14 @@ class Ajax {
       print("Ajax sign in: ${response.body}");
       final tokenResponse = TokenResponse.fromJson(json.decode(response.body));
       if (tokenResponse.code == 0) {
-        SharedPreferences.getInstance().then((storage) {
-          storage.setString("token", tokenResponse.token);
-          storage.setString("username", name);
-        });
+        _saveHeaders(tokenResponse.token, name);
       } else throw Exception("Failed to sign in (error code ${tokenResponse.code})");
     }
     else throw Exception("Failed to sign in (http code ${response.statusCode})");
   }
 
   static Future<List<String>> fetchPersons() async {
-    final response = await http.get("$baseUrl/person/list", headers: await headers());
+    final response = await http.get("$baseUrl/person/list", headers: await _headers());
     if (response.statusCode == 200) {
       print("Ajax persons: ${response.body}");
       final personResponse = PersonResponse.fromJson(json.decode(response.body));
@@ -46,7 +42,7 @@ class Ajax {
   }
 
   static Future<List<Category>> fetchCategoriesTree() async {
-    final response = await http.get("$baseUrl/category/list", headers: await headers());
+    final response = await http.get("$baseUrl/category/list", headers: await _headers());
     if (response.statusCode == 200) {
       print("Ajax categories tree: ${response.body}");
       final categoryResponse = CategoryResponse.fromJson(json.decode(response.body));
@@ -58,7 +54,7 @@ class Ajax {
   }
 
   static Future<List<String>> fetchItems(String category) async {
-    final response = await http.get("$baseUrl/item/list?category=$category", headers: await headers());
+    final response = await http.get("$baseUrl/item/list?category=$category", headers: await _headers());
     if (response.statusCode == 200) {
       print("Ajax items: ${response.body}");
       final itemResponse = ItemResponse.fromJson(json.decode(response.body));
@@ -70,7 +66,7 @@ class Ajax {
   }
 
   static Future<List<int>> fetchOperations(String category) async {
-    final response = await http.get("$baseUrl/operation/list?category=$category", headers: await headers());
+    final response = await http.get("$baseUrl/operation/list?category=$category", headers: await _headers());
     if (response.statusCode == 200) {
       print("Ajax operations: ${response.body}");
       final operationListResponse = OperationListResponse.fromJson(json.decode(response.body));
@@ -82,7 +78,7 @@ class Ajax {
   }
 
   static Future<Operation> fetchOperation(int id) async {
-    final response = await http.get("$baseUrl/operation/get?id=$id", headers: await headers());
+    final response = await http.get("$baseUrl/operation/get?id=$id", headers: await _headers());
     if (response.statusCode == 200) {
       print("Ajax operation: ${response.body}");
       final operationResponse = OperationResponse.fromJson(json.decode(response.body));
@@ -95,7 +91,7 @@ class Ajax {
 
   static Future<void> addOperation(AddOperationRequest operation) async {
     print("Ajax prepare: ${json.encode(operation.toJson())}");
-    final response = await http.post("$baseUrl/operation/new", headers: await headers(), body: json.encode(operation.toJson()));
+    final response = await http.post("$baseUrl/operation/new", headers: await _headers(), body: json.encode(operation.toJson()));
     if (response.statusCode == 200) {
       print("Ajax add operation: ${response.body}");
       final operationResponse = AddOperationResponse.fromJson(json.decode(response.body));
@@ -105,7 +101,7 @@ class Ajax {
     else throw Exception("Failed to add operation (http code ${response.statusCode})");
   }
 
-  static Future<Map<String, String>> headers() async {
+  static Future<Map<String, String>> _headers() async {
     if (_token.isEmpty || _username.isEmpty) {
       final storage = await SharedPreferences.getInstance();
       _token = storage.containsKey("token") ? storage.getString("token") : "no token";
@@ -113,5 +109,14 @@ class Ajax {
     }
 
     return {"username": _username, "token": _token};
+  }
+
+  static void _saveHeaders(String token, String name) {
+    SharedPreferences.getInstance().then((storage) {
+      _token = token;
+      _username = name;
+      storage.setString("token", token);
+      storage.setString("username", name);
+    });
   }
 }

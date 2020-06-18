@@ -7,7 +7,7 @@ class LoginRequest {
   final String password;
   final String client;
 
-  LoginRequest(this.username, this.password, {this.client = 'web'});
+  LoginRequest(this.username, this.password, {this.client = 'android'});
 
   factory LoginRequest.fromJson(Map<String, dynamic> json) => _$LoginRequestFromJson(json);
 

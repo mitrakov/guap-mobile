@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:guap_mobile/category/widgets/categoriesdrawer.dart';
 import 'package:guap_mobile/operation/widgets/operationview.dart';
+import 'package:guap_mobile/redux/actions.dart';
 import 'package:guap_mobile/redux/appstate.dart';
 
 class MainScaffold extends StatelessWidget {
@@ -12,6 +13,7 @@ class MainScaffold extends StatelessWidget {
       converter: (store) => store.state.lastError,
       builder: (context1, state) {
         print("Rebiulding scaffold");
+        if (state.contains("(http code 401)")) relogin(context1);
         return Scaffold (
           appBar: AppBar(title: Text("Guap application")),
           drawer: CategoriesDrawer(),
@@ -27,5 +29,12 @@ class MainScaffold extends StatelessWidget {
         );
       }
     );
+  }
+
+  void relogin(BuildContext context) {
+    Future.delayed(Duration(seconds: 0), () {
+      StoreProvider.of<AppState>(context).dispatch(StdActions.resetAll());
+      Navigator.popAndPushNamed(context, "/login");
+    });
   }
 }
