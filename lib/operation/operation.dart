@@ -64,15 +64,3 @@ class AddOperationRequest {
 
   Map<String, dynamic> toJson() => _$AddOperationRequestToJson(this);
 }
-
-@JsonSerializable()
-class AddOperationResponse {
-  final int code;
-  final String msg;
-
-  AddOperationResponse(this.code, this.msg);
-
-  factory AddOperationResponse.fromJson(Map<String, dynamic> json) => _$AddOperationResponseFromJson(json);
-
-  Map<String, dynamic> toJson() => _$AddOperationResponseToJson(this);
-}

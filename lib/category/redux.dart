@@ -1,7 +1,8 @@
 import 'package:flutter/foundation.dart' as f;
-import 'package:guap_mobile/category/category.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
+import 'package:guap_mobile/category/category.dart';
+import 'package:guap_mobile/redux/actions.dart';
 import 'package:guap_mobile/redux/ajax.dart';
 
 class CategoryState {
@@ -24,18 +25,13 @@ class CategoriesFetchedAction {
   CategoriesFetchedAction(this.categories);
 }
 
-class CategoriesFetchErrorAction {
-  final String error;
-  CategoriesFetchErrorAction(this.error);
-}
-
 class CategoryThunk {
   static ThunkAction fetchCategories() {
     return (Store store) async {
       try {
         store.dispatch(CategoriesFetchedAction(await Ajax.fetchCategoriesTree()));
       } catch(e) {
-        store.dispatch(CategoriesFetchErrorAction(e.toString()));
+        store.dispatch(ErrorAction(e.toString()));
       }
     };
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
+import 'package:guap_mobile/redux/actions.dart';
 import 'package:guap_mobile/redux/ajax.dart';
 
 class PersonsState {
@@ -21,18 +22,13 @@ class PersonsFetchedAction {
   PersonsFetchedAction(this.persons);
 }
 
-class PersonsFetchErrorAction {
-  final String error;
-  PersonsFetchErrorAction(this.error);
-}
-
 class PersonsThunk {
   static ThunkAction fetchPersons() {
     return (Store store) async {
       try {
         store.dispatch(PersonsFetchedAction(await Ajax.fetchPersons()));
       } catch(e) {
-        store.dispatch(PersonsFetchErrorAction(e.toString()));
+        store.dispatch(ErrorAction(e.toString()));
       }
     };
   }

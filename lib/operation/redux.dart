@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:guap_mobile/redux/actions.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 import 'package:guap_mobile/redux/ajax.dart';
@@ -23,18 +24,13 @@ class OperationsFetchedAction {
   OperationsFetchedAction(this.operations);
 }
 
-class OperationsFetchErrorAction {
-  final String error;
-  OperationsFetchErrorAction(this.error);
-}
-
 class OperationsThunk {
   static ThunkAction fetchOperations(String category) {
     return (Store store) async {
       try {
         store.dispatch(OperationsFetchedAction(await Ajax.fetchOperations(category)));
       } catch(e) {
-        store.dispatch(OperationsFetchErrorAction(e.toString()));
+        store.dispatch(ErrorAction(e.toString()));
       }
     };
   }

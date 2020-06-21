@@ -4,6 +4,7 @@ import 'package:guap_mobile/category/category.dart';
 import 'package:guap_mobile/item/item.dart';
 import 'package:guap_mobile/login/login.dart';
 import 'package:guap_mobile/operation/operation.dart';
+import 'package:guap_mobile/redux/common.dart';
 import 'package:http/http.dart' as http;
 import 'package:guap_mobile/person/person.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -94,11 +95,23 @@ class Ajax {
     final response = await http.post("$baseUrl/operation/new", headers: await _headers(), body: json.encode(operation.toJson()));
     if (response.statusCode == 200) {
       print("Ajax add operation: ${response.body}");
-      final operationResponse = AddOperationResponse.fromJson(json.decode(response.body));
+      final operationResponse = CommonResponse.fromJson(json.decode(response.body));
       if (operationResponse.code == 0) return;
       else throw Exception("Failed to add operation (error code ${operationResponse.code})");
     }
     else throw Exception("Failed to add operation (http code ${response.statusCode})");
+  }
+
+  static Future<void> addItem(AddItemRequest item) async {
+    print("Ajax prepare: ${json.encode(item.toJson())}");
+    final response = await http.post("$baseUrl/item/new", headers: await _headers(), body: json.encode(item.toJson()));
+    if (response.statusCode == 200) {
+      print("Ajax add item: ${response.body}");
+      final itemResponse = CommonResponse.fromJson(json.decode(response.body));
+      if (itemResponse.code == 0) return;
+      else throw Exception("Failed to add item (error code ${itemResponse.code})");
+    }
+    else throw Exception("Failed to add item (http code ${response.statusCode})");
   }
 
   static Future<Map<String, String>> _headers() async {

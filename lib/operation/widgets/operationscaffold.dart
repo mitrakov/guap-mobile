@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:guap_mobile/operation/operation.dart';
 import 'package:guap_mobile/redux/ajax.dart';
-import 'package:guap_mobile/widget/addoperation.dart';
+import 'package:guap_mobile/operation/widgets/addoperation.dart';
 
 class OperationScaffold extends StatelessWidget {
   final String category;

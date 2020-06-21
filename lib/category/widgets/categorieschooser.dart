@@ -3,6 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_treeview/tree_view.dart';
 import 'package:guap_mobile/category/category.dart';
 import 'package:guap_mobile/category/redux.dart';
+import 'package:guap_mobile/item/redux.dart';
 import 'package:guap_mobile/redux/appstate.dart';
 
 class CategoriesChooser extends StatelessWidget {
@@ -12,8 +13,9 @@ class CategoriesChooser extends StatelessWidget {
       distinct: true,
       converter: (store) => store.state.categoryState,
       builder: (context1, state) {
+        final store = StoreProvider.of<AppState>(context1);
         if (state.categories.isEmpty)
-          StoreProvider.of<AppState>(context1).dispatch(CategoryThunk.fetchCategories());
+          store.dispatch(CategoryThunk.fetchCategories());
         TreeViewController ctrl = TreeViewController(children: state.categories.map(toNode).toList());
         return TreeView (
           controller: ctrl,
@@ -21,6 +23,7 @@ class CategoriesChooser extends StatelessWidget {
           supportParentDoubleTap: false,
           //onExpansionChanged: _expandNodeHandler,
           onNodeTap: (key) {
+            store.dispatch(ItemsThunk.fetchItems(key));
             Navigator.pushNamed(context, "/addOperation", arguments: key);
             //setState(() {
             //ctrl = ctrl.copyWith(selectedKey: key);

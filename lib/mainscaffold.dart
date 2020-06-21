@@ -33,7 +33,7 @@ class MainScaffold extends StatelessWidget {
 
   void relogin(BuildContext context) {
     Future.delayed(Duration(seconds: 0), () {
-      StoreProvider.of<AppState>(context).dispatch(StdActions.resetAll());
+      StoreProvider.of<AppState>(context).dispatch(ThunkActions.resetAll());
       Navigator.popAndPushNamed(context, "/login");
     });
   }

@@ -73,17 +73,3 @@ Map<String, dynamic> _$AddOperationRequestToJson(
       'summa': instance.summa,
       'date': instance.date,
     };
-
-AddOperationResponse _$AddOperationResponseFromJson(Map<String, dynamic> json) {
-  return AddOperationResponse(
-    json['code'] as int,
-    json['msg'] as String,
-  );
-}
-
-Map<String, dynamic> _$AddOperationResponseToJson(
-        AddOperationResponse instance) =>
-    <String, dynamic>{
-      'code': instance.code,
-      'msg': instance.msg,
-    };

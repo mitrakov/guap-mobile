@@ -16,3 +16,15 @@ class ItemResponse {
 
   List<String> get itemsUtf8 => items.map((s) => utf8.decode(s.runes.toList())).toList();
 }
+
+@JsonSerializable()
+class AddItemRequest {
+  final String name;
+  final String category;
+
+  AddItemRequest(this.name, this.category);
+
+  factory AddItemRequest.fromJson(Map<String, dynamic> json) => _$AddItemRequestFromJson(json);
+
+  Map<String, dynamic> toJson() => _$AddItemRequestToJson(this);
+}
