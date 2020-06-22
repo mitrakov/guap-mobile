@@ -64,3 +64,14 @@ class AddOperationRequest {
 
   Map<String, dynamic> toJson() => _$AddOperationRequestToJson(this);
 }
+
+@JsonSerializable()
+class RemoveOperationRequest {
+  final int id;
+
+  RemoveOperationRequest(this.id);
+
+  factory RemoveOperationRequest.fromJson(Map<String, dynamic> json) => _$RemoveOperationRequestFromJson(json);
+
+  Map<String, dynamic> toJson() => _$RemoveOperationRequestToJson(this);
+}

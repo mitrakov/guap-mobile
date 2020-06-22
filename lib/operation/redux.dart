@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
+import 'package:guap_mobile/operation/operation.dart';
 import 'package:guap_mobile/redux/actions.dart';
+import 'package:guap_mobile/redux/appstate.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 import 'package:guap_mobile/redux/ajax.dart';
@@ -20,15 +22,27 @@ class OperationsState {
 }
 
 class OperationsFetchedAction {
+  final String category;
   final List<int> operations;
-  OperationsFetchedAction(this.operations);
+  OperationsFetchedAction(this.category, this.operations);
 }
 
 class OperationsThunk {
   static ThunkAction fetchOperations(String category) {
     return (Store store) async {
       try {
-        store.dispatch(OperationsFetchedAction(await Ajax.fetchOperations(category)));
+        store.dispatch(OperationsFetchedAction(category, await Ajax.fetchOperations(category)));
+      } catch(e) {
+        store.dispatch(ErrorAction(e.toString()));
+      }
+    };
+  }
+
+  static ThunkAction<AppState> removeOperation(int id) {
+    return (Store<AppState> store) {
+      try {
+        Ajax.removeOperation(RemoveOperationRequest(id))
+            .then((_) => store.dispatch(fetchOperations(store.state.currentCategory)));
       } catch(e) {
         store.dispatch(ErrorAction(e.toString()));
       }

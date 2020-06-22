@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:guap_mobile/operation/global.dart';
 import 'package:guap_mobile/operation/operation.dart';
+import 'package:guap_mobile/operation/redux.dart';
+import 'package:guap_mobile/redux/appstate.dart';
 
 class OperationTile extends StatelessWidget {
   final int id;
@@ -9,6 +13,22 @@ class OperationTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return Slidable(
+      actionPane: SlidableDrawerActionPane(),
+      actionExtentRatio: 0.25,
+      child: _createTile(),
+      secondaryActions: <Widget>[
+        IconSlideAction(
+          caption: "Delete",
+          color: Colors.red[400],
+          icon: Icons.delete_forever,
+          onTap: () => StoreProvider.of<AppState>(context).dispatch(OperationsThunk.removeOperation(id))
+        )
+      ]
+    );
+  }
+
+  Widget _createTile() {
     return FutureBuilder<Operation>(
       future: GlobalOperationStore.get(id), // it's ok to run future here because it's cached
       builder: (context1, snapshot) {
@@ -21,7 +41,7 @@ class OperationTile extends StatelessWidget {
         if (snapshot.hasError)
           return Text("${snapshot.error}");
         return CircularProgressIndicator();
-      },
+      }
     );
   }
 }

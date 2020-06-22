@@ -3,7 +3,6 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_rounded_date_picker/rounded_picker.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:intl/intl.dart';
-import 'package:guap_mobile/item/item.dart';
 import 'package:guap_mobile/item/itemschooser.dart';
 import 'package:guap_mobile/item/redux.dart';
 import 'package:guap_mobile/person/personchooser.dart';
@@ -73,7 +72,7 @@ class AddOperationScreen extends StatelessWidget {
         DialogButton(
           child: Text("Add", style: TextStyle(color: Colors.white, fontSize: 20)),
           onPressed: () {
-            StoreProvider.of<AppState>(context).dispatch(ItemsThunk.addItem(AddItemRequest(item, category)));
+            StoreProvider.of<AppState>(context).dispatch(ItemsThunk.addItem(item, category));
             Navigator.pop(context);
           }
         )

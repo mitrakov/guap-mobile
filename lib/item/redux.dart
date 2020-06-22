@@ -35,10 +35,10 @@ class ItemsThunk {
     };
   }
 
-  static ThunkAction addItem(AddItemRequest item) {
-    return (Store store) async {
+  static ThunkAction addItem(String item, category) {
+    return (Store store) {
       try {
-        Ajax.addItem(item).then((_) => store.dispatch(fetchItems(item.category)));
+        Ajax.addItem(AddItemRequest(item, category)).then((_) => store.dispatch(fetchItems(category)));
       } catch(e) {
         store.dispatch(ErrorAction(e.toString()));
       }

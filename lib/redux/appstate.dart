@@ -9,6 +9,7 @@ class AppState {
   final ItemState itemState;
   final OperationsState operationsState;
   final PersonsState personsState;
+  final String currentCategory;
   final String lastError;
 
   AppState({
@@ -16,9 +17,10 @@ class AppState {
     this.itemState = const ItemState(),
     this.operationsState = const OperationsState(),
     this.personsState = const PersonsState(),
+    this.currentCategory = '',
     this.lastError = '',
   }) {
-   print("Creating Appstate: categories ${categoryState.categories.length}, items ${itemState.items.length}, operations ${operationsState.operations.length}, persons ${personsState.persons.length}, $lastError");
+   print("Creating Appstate: categories ${categoryState.categories.length}, items ${itemState.items.length}, operations ${operationsState.operations.length}, persons ${personsState.persons.length}, $currentCategory, $lastError");
   }
 
   AppState withCategories(List<Category> categories) {
@@ -27,6 +29,7 @@ class AppState {
       itemState: this.itemState,
       operationsState: this.operationsState,
       personsState: this.personsState,
+      currentCategory: this.currentCategory,
       lastError: this.lastError,
     );
   }
@@ -37,16 +40,18 @@ class AppState {
       itemState: ItemState(items: items),
       operationsState: this.operationsState,
       personsState: this.personsState,
+      currentCategory: this.currentCategory,
       lastError: this.lastError,
     );
   }
 
-  AppState withOperations(List<int> operations) {
+  AppState withOperations(List<int> operations, {String category}) {
     return AppState(
       categoryState: this.categoryState,
       itemState: this.itemState,
       operationsState: OperationsState(operations: operations),
       personsState: this.personsState,
+      currentCategory: category ?? this.currentCategory,
       lastError: this.lastError,
     );
   }
@@ -57,6 +62,18 @@ class AppState {
       itemState: this.itemState,
       operationsState: this.operationsState,
       personsState: PersonsState(persons: persons),
+      currentCategory: this.currentCategory,
+      lastError: this.lastError,
+    );
+  }
+
+  AppState withCurrentCategory(String category) {
+    return AppState(
+      categoryState: this.categoryState,
+      itemState: this.itemState,
+      operationsState: this.operationsState,
+      personsState: this.personsState,
+      currentCategory: category,
       lastError: this.lastError,
     );
   }
@@ -67,6 +84,7 @@ class AppState {
       itemState: this.itemState,
       operationsState: this.operationsState,
       personsState: this.personsState,
+      currentCategory: this.currentCategory,
       lastError: error,
     );
   }
@@ -80,8 +98,9 @@ class AppState {
               itemState == other.itemState &&
               operationsState == other.operationsState &&
               personsState == other.personsState &&
+              currentCategory == other.currentCategory &&
               lastError == other.lastError;
 
   @override
-  int get hashCode => categoryState.hashCode ^ itemState.hashCode ^ operationsState.hashCode ^ personsState.hashCode ^ lastError.hashCode;
+  int get hashCode => categoryState.hashCode ^ itemState.hashCode ^ operationsState.hashCode ^ personsState.hashCode ^ currentCategory.hashCode ^ lastError.hashCode;
 }

@@ -27,11 +27,11 @@ dependencies:
   flutter_redux: 0.5.0               # redux
   redux_thunk: ^0.2.1                # redux thunk middleware
   json_annotation: ^3.0.0            # json auto-generation
+  flutter_slidable: ^0.5.4           # dismissible list tiles
   flutter_treeview: ^0.4.1+1         # treeview
   flutter_typeahead: ^1.8.3          # auto-complete textbox
   flutter_rounded_date_picker: 1.0.4 # calendar
   rflutter_alert: ^1.0.2             # pop-ups
-  cupertino_icons: ^0.1.2
 
 dev_dependencies:
   flutter_test:

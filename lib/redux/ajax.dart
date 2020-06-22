@@ -1,13 +1,13 @@
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:guap_mobile/category/category.dart';
 import 'package:guap_mobile/item/item.dart';
 import 'package:guap_mobile/login/login.dart';
 import 'package:guap_mobile/operation/operation.dart';
 import 'package:guap_mobile/redux/common.dart';
-import 'package:http/http.dart' as http;
 import 'package:guap_mobile/person/person.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Ajax {
   static final baseUrl = "http://mitrakoff.com:8888/varlam";
@@ -100,6 +100,21 @@ class Ajax {
       else throw Exception("Failed to add operation (error code ${operationResponse.code})");
     }
     else throw Exception("Failed to add operation (http code ${response.statusCode})");
+  }
+
+  static Future<void> removeOperation(RemoveOperationRequest operation) async {
+    final request = http.Request("DELETE", Uri.parse("$baseUrl/operation/delete"));
+    request.headers.addAll(await _headers());
+    request.body = json.encode(operation.toJson());
+    final response = await request.send();
+    final responseBody = await response.stream.bytesToString();
+    if (response.statusCode == 200) {
+      print("Ajax delete operation: $responseBody");
+      final operationResponse = CommonResponse.fromJson(json.decode(responseBody));
+      if (operationResponse.code == 0) return;
+      else throw Exception("Failed to delete operation (error code ${operationResponse.code})");
+    }
+    else throw Exception("Failed to delete operation (http code ${response.statusCode})");
   }
 
   static Future<void> addItem(AddItemRequest item) async {
