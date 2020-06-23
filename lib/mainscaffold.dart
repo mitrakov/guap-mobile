@@ -4,6 +4,7 @@ import 'package:guap_mobile/category/widgets/categoriesdrawer.dart';
 import 'package:guap_mobile/operation/widgets/operationview.dart';
 import 'package:guap_mobile/redux/actions.dart';
 import 'package:guap_mobile/redux/appstate.dart';
+import 'package:optional/optional.dart';
 
 class MainScaffold extends StatelessWidget {
   @override
@@ -20,7 +21,7 @@ class MainScaffold extends StatelessWidget {
           floatingActionButton: FloatingActionButton(
             child: Icon(Icons.add),
             tooltip: "Add operation",
-            onPressed: () => Navigator.pushNamed(context1, "/chooseCategory")
+            onPressed: () => Navigator.pushNamed(context1, "/chooseCategory", arguments: Optional<int>.empty())
           ),
           body: Column(children: <Widget>[
             Text(state.isEmpty ? "No errors": state),

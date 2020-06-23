@@ -19,8 +19,8 @@ class OperationsView extends StatelessWidget {
               child: ListView.builder(
                 itemCount: state.operations.length,
                 itemBuilder: (context2, i) {
-                  final operation = state.operations[i];
-                  return OperationTile(operation, ValueKey(operation));
+                  final operationId = state.operations[i];
+                  return OperationTile(operationId, ValueKey(operationId));
                 }
               )
             )

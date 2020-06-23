@@ -35,7 +35,7 @@ class ItemsThunk {
     };
   }
 
-  static ThunkAction addItem(String item, category) {
+  static ThunkAction addItem(String item, String category) {
     return (Store store) {
       try {
         Ajax.addItem(AddItemRequest(item, category)).then((_) => store.dispatch(fetchItems(category)));

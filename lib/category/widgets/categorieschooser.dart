@@ -5,8 +5,14 @@ import 'package:guap_mobile/category/category.dart';
 import 'package:guap_mobile/category/redux.dart';
 import 'package:guap_mobile/item/redux.dart';
 import 'package:guap_mobile/redux/appstate.dart';
+import 'package:optional/optional.dart';
+import 'package:tuple/tuple.dart';
 
 class CategoriesChooser extends StatelessWidget {
+  final Optional<int> idOpt;
+
+  CategoriesChooser(this.idOpt, {Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, CategoryState>(
@@ -24,7 +30,7 @@ class CategoriesChooser extends StatelessWidget {
           //onExpansionChanged: _expandNodeHandler,
           onNodeTap: (key) {
             store.dispatch(ItemsThunk.fetchItems(key));
-            Navigator.pushNamed(context, "/addOperation", arguments: key);
+            Navigator.pushNamed(context, "/operation", arguments: Tuple2(key, idOpt));
             //setState(() {
             //ctrl = ctrl.copyWith(selectedKey: key);
             //});

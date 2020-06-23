@@ -74,6 +74,27 @@ Map<String, dynamic> _$AddOperationRequestToJson(
       'date': instance.date,
     };
 
+ChangeOperationRequest _$ChangeOperationRequestFromJson(
+    Map<String, dynamic> json) {
+  return ChangeOperationRequest(
+    json['id'] as int,
+    json['itemName'] as String,
+    json['personName'] as String,
+    json['summa'] as int,
+    json['date'] as String,
+  );
+}
+
+Map<String, dynamic> _$ChangeOperationRequestToJson(
+        ChangeOperationRequest instance) =>
+    <String, dynamic>{
+      'itemName': instance.itemName,
+      'personName': instance.personName,
+      'summa': instance.summa,
+      'date': instance.date,
+      'id': instance.id,
+    };
+
 RemoveOperationRequest _$RemoveOperationRequestFromJson(
     Map<String, dynamic> json) {
   return RemoveOperationRequest(

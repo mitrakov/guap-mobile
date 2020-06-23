@@ -66,6 +66,17 @@ class AddOperationRequest {
 }
 
 @JsonSerializable()
+class ChangeOperationRequest extends AddOperationRequest {
+  final int id;
+
+  ChangeOperationRequest(this.id, String itemName, String personName, int summa, String date) : super(itemName, personName, summa, date);
+
+  factory ChangeOperationRequest.fromJson(Map<String, dynamic> json) => _$ChangeOperationRequestFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ChangeOperationRequestToJson(this);
+}
+
+@JsonSerializable()
 class RemoveOperationRequest {
   final int id;
 

@@ -9,7 +9,7 @@ class AppState {
   final ItemState itemState;
   final OperationsState operationsState;
   final PersonsState personsState;
-  final String currentCategory;
+  final String categoryToDisplay; // this CANNOT be used to determine item's category!
   final String lastError;
 
   AppState({
@@ -17,10 +17,10 @@ class AppState {
     this.itemState = const ItemState(),
     this.operationsState = const OperationsState(),
     this.personsState = const PersonsState(),
-    this.currentCategory = '',
+    this.categoryToDisplay = '',
     this.lastError = '',
   }) {
-   print("Creating Appstate: categories ${categoryState.categories.length}, items ${itemState.items.length}, operations ${operationsState.operations.length}, persons ${personsState.persons.length}, $currentCategory, $lastError");
+   print("Creating Appstate: categories ${categoryState.categories.length}, items ${itemState.items.length}, operations ${operationsState.operations.length}, persons ${personsState.persons.length}, $categoryToDisplay, $lastError");
   }
 
   AppState withCategories(List<Category> categories) {
@@ -29,7 +29,7 @@ class AppState {
       itemState: this.itemState,
       operationsState: this.operationsState,
       personsState: this.personsState,
-      currentCategory: this.currentCategory,
+      categoryToDisplay: this.categoryToDisplay,
       lastError: this.lastError,
     );
   }
@@ -40,7 +40,7 @@ class AppState {
       itemState: ItemState(items: items),
       operationsState: this.operationsState,
       personsState: this.personsState,
-      currentCategory: this.currentCategory,
+      categoryToDisplay: this.categoryToDisplay,
       lastError: this.lastError,
     );
   }
@@ -51,7 +51,7 @@ class AppState {
       itemState: this.itemState,
       operationsState: OperationsState(operations: operations),
       personsState: this.personsState,
-      currentCategory: category ?? this.currentCategory,
+      categoryToDisplay: category ?? this.categoryToDisplay,
       lastError: this.lastError,
     );
   }
@@ -62,7 +62,7 @@ class AppState {
       itemState: this.itemState,
       operationsState: this.operationsState,
       personsState: PersonsState(persons: persons),
-      currentCategory: this.currentCategory,
+      categoryToDisplay: this.categoryToDisplay,
       lastError: this.lastError,
     );
   }
@@ -73,7 +73,7 @@ class AppState {
       itemState: this.itemState,
       operationsState: this.operationsState,
       personsState: this.personsState,
-      currentCategory: category,
+      categoryToDisplay: category,
       lastError: this.lastError,
     );
   }
@@ -84,7 +84,7 @@ class AppState {
       itemState: this.itemState,
       operationsState: this.operationsState,
       personsState: this.personsState,
-      currentCategory: this.currentCategory,
+      categoryToDisplay: this.categoryToDisplay,
       lastError: error,
     );
   }
@@ -98,9 +98,9 @@ class AppState {
               itemState == other.itemState &&
               operationsState == other.operationsState &&
               personsState == other.personsState &&
-              currentCategory == other.currentCategory &&
+              categoryToDisplay == other.categoryToDisplay &&
               lastError == other.lastError;
 
   @override
-  int get hashCode => categoryState.hashCode ^ itemState.hashCode ^ operationsState.hashCode ^ personsState.hashCode ^ currentCategory.hashCode ^ lastError.hashCode;
+  int get hashCode => categoryState.hashCode ^ itemState.hashCode ^ operationsState.hashCode ^ personsState.hashCode ^ categoryToDisplay.hashCode ^ lastError.hashCode;
 }

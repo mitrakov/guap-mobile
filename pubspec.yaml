@@ -20,6 +20,7 @@ dependencies:
   flutter:
     sdk: flutter
   tuple: ^1.0.3                      # tuples support
+  optional: ^5.0.0                   # options support
   intl: ^0.16.1                      # formatting messages
   http: ^0.12.1                      # http client
   crypto: 2.1.3                      # SHA-256

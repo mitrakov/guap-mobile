@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:guap_mobile/operation/global.dart';
 import 'package:guap_mobile/operation/operation.dart';
 import 'package:guap_mobile/redux/ajax.dart';
 import 'package:guap_mobile/operation/widgets/addoperation.dart';
+import 'package:optional/optional.dart';
 
-class OperationScaffold extends StatelessWidget {
+class AddOperationScaffold extends StatelessWidget {
   final String category;
+  final Optional<int> idOpt;
 
-  const OperationScaffold(this.category, {Key key}) : super(key: key);
+  const AddOperationScaffold(this.category, this.idOpt, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +31,26 @@ class OperationScaffold extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.check, size: 36),
         tooltip: "Confirm",
-        onPressed: () => Ajax.addOperation(AddOperationRequest(item, person, summa, date))
-            .then((r) => Navigator.popUntil(context, ModalRoute.withName("/main")))
+        onPressed: () => onPress(context, item, date, person, summa),
       )
     );
+  }
+
+  void onPress(BuildContext context, String item, String date, String person, int summa) {
+    idOpt.ifPresent((id) => editOperation(context, id, item, date, person, summa),           // I love you, Scala ☹️
+              orElse: () => addOperation(context, item, date, person, summa)
+    );
+  }
+
+  void addOperation(BuildContext context, String item, String date, String person, int summa) {
+    Ajax.addOperation(AddOperationRequest(item, person, summa, date))
+        .then((_) => Navigator.popUntil(context, ModalRoute.withName("/main")));
+  }
+
+  void editOperation(BuildContext context, int id, String item, String date, String person, int summa) {
+    Ajax.changeOperation(ChangeOperationRequest(id, item, person, summa, date)).then((_) {
+      GlobalOperationStore.invalidate(id);
+      Navigator.popUntil(context, ModalRoute.withName("/main"));
+    });
   }
 }

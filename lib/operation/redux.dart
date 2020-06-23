@@ -42,7 +42,7 @@ class OperationsThunk {
     return (Store<AppState> store) {
       try {
         Ajax.removeOperation(RemoveOperationRequest(id))
-            .then((_) => store.dispatch(fetchOperations(store.state.currentCategory)));
+            .then((_) => store.dispatch(fetchOperations(store.state.categoryToDisplay)));
       } catch(e) {
         store.dispatch(ErrorAction(e.toString()));
       }

@@ -102,6 +102,18 @@ class Ajax {
     else throw Exception("Failed to add operation (http code ${response.statusCode})");
   }
 
+  static Future<void> changeOperation(ChangeOperationRequest operation) async {
+    print("Ajax prepare: ${json.encode(operation.toJson())}");
+    final response = await http.put("$baseUrl/operation/change", headers: await _headers(), body: json.encode(operation.toJson()));
+    if (response.statusCode == 200) {
+      print("Ajax change operation: ${response.body}");
+      final operationResponse = CommonResponse.fromJson(json.decode(response.body));
+      if (operationResponse.code == 0) return;
+      else throw Exception("Failed to add operation (error code ${operationResponse.code})");
+    }
+    else throw Exception("Failed to add operation (http code ${response.statusCode})");
+  }
+
   static Future<void> removeOperation(RemoveOperationRequest operation) async {
     final request = http.Request("DELETE", Uri.parse("$baseUrl/operation/delete"));
     request.headers.addAll(await _headers());

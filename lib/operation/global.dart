@@ -11,4 +11,8 @@ class GlobalOperationStore {
     _store.putIfAbsent(id, () => operation);
     return operation;
   }
+
+  static Operation invalidate(int id) {
+    return _store.remove(id);
+  }
 }

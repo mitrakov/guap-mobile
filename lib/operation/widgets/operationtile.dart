@@ -5,6 +5,7 @@ import 'package:guap_mobile/operation/global.dart';
 import 'package:guap_mobile/operation/operation.dart';
 import 'package:guap_mobile/operation/redux.dart';
 import 'package:guap_mobile/redux/appstate.dart';
+import 'package:optional/optional.dart';
 
 class OperationTile extends StatelessWidget {
   final int id;
@@ -18,6 +19,12 @@ class OperationTile extends StatelessWidget {
       actionExtentRatio: 0.25,
       child: _createTile(),
       secondaryActions: <Widget>[
+        IconSlideAction(
+          caption: "Edit",
+          color: Colors.grey[400],
+          icon: Icons.mode_edit,
+          onTap: () => Navigator.pushNamed(context, "/chooseCategory", arguments: Optional.of(id)),
+        ),
         IconSlideAction(
           caption: "Delete",
           color: Colors.red[400],
