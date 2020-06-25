@@ -6,11 +6,15 @@ class CategoriesDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer (
       child: Column(children: <Widget>[
-        DrawerHeader(
-          decoration: BoxDecoration(color: Colors.blue),
-          child: Text("Hey", style: TextStyle(color: Colors.white, fontSize: 24)),
+        Container(
+          height: 100,
+          width: double.infinity,
+          child: DrawerHeader(
+            decoration: BoxDecoration(color: Colors.blue),
+            child: Text("Categories", style: TextStyle(color: Colors.white, fontSize: 24)),
+          ),
         ),
-        CategoriesTreeView()
+        CategoriesTreeView(),
       ])
     );
   }
