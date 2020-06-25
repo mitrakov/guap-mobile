@@ -58,8 +58,5 @@ class MyApp extends StatelessWidget {
 
 // TODO
 // save all downloaded dependencies
-// } else
-// with -> copy in Store/Reducers
 // options to Joplin
-//
 //

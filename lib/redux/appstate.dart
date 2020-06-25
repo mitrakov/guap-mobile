@@ -23,69 +23,21 @@ class AppState {
    print("Creating Appstate: categories ${categoryState.categories.length}, items ${itemState.items.length}, operations ${operationsState.operations.length}, persons ${personsState.persons.length}, $categoryToDisplay, $lastError");
   }
 
-  AppState withCategories(List<Category> categories) {
-    return AppState(
-      categoryState: CategoryState(categories: categories),
-      itemState: this.itemState,
-      operationsState: this.operationsState,
-      personsState: this.personsState,
-      categoryToDisplay: this.categoryToDisplay,
-      lastError: this.lastError,
-    );
-  }
+  AppState copy({
+    List<Category> categories,
+    List<String> items,
+    List<int> operations,
+    List<String> persons,
+    String categoryToDisplay,
+    String lastError}) {
 
-  AppState withItems(List<String> items) {
     return AppState(
-      categoryState: this.categoryState,
-      itemState: ItemState(items: items),
-      operationsState: this.operationsState,
-      personsState: this.personsState,
-      categoryToDisplay: this.categoryToDisplay,
-      lastError: this.lastError,
-    );
-  }
-
-  AppState withOperations(List<int> operations, {String category}) {
-    return AppState(
-      categoryState: this.categoryState,
-      itemState: this.itemState,
-      operationsState: OperationsState(operations: operations),
-      personsState: this.personsState,
-      categoryToDisplay: category ?? this.categoryToDisplay,
-      lastError: this.lastError,
-    );
-  }
-
-  AppState withPersons(List<String> persons) {
-    return AppState(
-      categoryState: this.categoryState,
-      itemState: this.itemState,
-      operationsState: this.operationsState,
-      personsState: PersonsState(persons: persons),
-      categoryToDisplay: this.categoryToDisplay,
-      lastError: this.lastError,
-    );
-  }
-
-  AppState withCurrentCategory(String category) {
-    return AppState(
-      categoryState: this.categoryState,
-      itemState: this.itemState,
-      operationsState: this.operationsState,
-      personsState: this.personsState,
-      categoryToDisplay: category,
-      lastError: this.lastError,
-    );
-  }
-
-  AppState withLastError(String error) {
-    return AppState(
-      categoryState: this.categoryState,
-      itemState: this.itemState,
-      operationsState: this.operationsState,
-      personsState: this.personsState,
-      categoryToDisplay: this.categoryToDisplay,
-      lastError: error,
+      categoryState: categories != null ? CategoryState(categories: categories) : this.categoryState,
+      itemState: items != null ? ItemState(items: items) : this.itemState,
+      operationsState: operations != null ? OperationsState(operations: operations) : this.operationsState,
+      personsState: persons != null ? PersonsState(persons: persons) : this.personsState,
+      categoryToDisplay: categoryToDisplay ?? this.categoryToDisplay,
+      lastError: lastError ?? this.lastError,
     );
   }
 
