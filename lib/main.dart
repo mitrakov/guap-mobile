@@ -57,6 +57,5 @@ class MyApp extends StatelessWidget {
 }
 
 // TODO
-// save all downloaded dependencies
-// options to Joplin
+// numeric summa
 //
