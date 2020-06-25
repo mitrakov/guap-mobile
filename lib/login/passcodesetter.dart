@@ -39,7 +39,7 @@ class PasscodeSetter extends StatelessWidget {
               else Scaffold.of(context1).showSnackBar(SnackBar(content: Text("Passcode fields differ!")));
             }
           ))
-        )
+        ),
       ]
     )));
   }

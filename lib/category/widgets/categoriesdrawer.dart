@@ -8,7 +8,7 @@ class CategoriesDrawer extends StatelessWidget {
       child: Column(children: <Widget>[
         DrawerHeader(
           decoration: BoxDecoration(color: Colors.blue),
-          child: Text("Hey", style: TextStyle(color: Colors.white, fontSize: 24))
+          child: Text("Hey", style: TextStyle(color: Colors.white, fontSize: 24)),
         ),
         CategoriesTreeView()
       ])

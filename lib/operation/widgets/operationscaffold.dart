@@ -26,7 +26,7 @@ class AddOperationScaffold extends StatelessWidget {
         onItemChanged: (value) => item = value,
         onDateChanged: (value) => date = value,
         onPersonChanged: (value) => person = value,
-        onSummaChanged: (value) => summa = value
+        onSummaChanged: (value) => summa = value,
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.check, size: 36),

@@ -29,8 +29,8 @@ class OperationTile extends StatelessWidget {
           caption: "Delete",
           color: Colors.red[400],
           icon: Icons.delete_forever,
-          onTap: () => StoreProvider.of<AppState>(context).dispatch(OperationsThunk.removeOperation(id))
-        )
+          onTap: () => StoreProvider.of<AppState>(context).dispatch(OperationsThunk.removeOperation(id)),
+        ),
       ]
     );
   }

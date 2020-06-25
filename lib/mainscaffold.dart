@@ -21,11 +21,11 @@ class MainScaffold extends StatelessWidget {
           floatingActionButton: FloatingActionButton(
             child: Icon(Icons.add),
             tooltip: "Add operation",
-            onPressed: () => Navigator.pushNamed(context1, "/chooseCategory", arguments: Optional<int>.empty())
+            onPressed: () => Navigator.pushNamed(context1, "/chooseCategory", arguments: Optional<int>.empty()),
           ),
           body: Column(children: <Widget>[
             Text(state.isEmpty ? "No errors": state),
-            Expanded(child: OperationsView())
+            Expanded(child: OperationsView()),
           ])
         );
       }

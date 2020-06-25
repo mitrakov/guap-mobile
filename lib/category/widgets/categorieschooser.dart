@@ -35,7 +35,7 @@ class CategoriesChooser extends StatelessWidget {
             //ctrl = ctrl.copyWith(selectedKey: key);
             //});
           },
-          theme: treeViewTheme
+          theme: treeViewTheme,
         );
       }
     );
@@ -48,7 +48,7 @@ class CategoriesChooser extends StatelessWidget {
       children: category.items.map(toNode).toList(),
       expanded: true,
       icon: NodeIcon.fromIconData(category.items.isEmpty ? Icons.stop : Icons.folder),
-      data: category
+      data: category,
     );
   }
 

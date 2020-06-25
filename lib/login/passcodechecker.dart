@@ -20,7 +20,7 @@ class PasscodeCheckerState extends State<PasscodeChecker> {
         TextField(
           obscureText: true,
           decoration: InputDecoration(border: OutlineInputBorder(), labelText: "Input a passcode"),
-          onChanged: (value) => _myPasscode = value
+          onChanged: (value) => _myPasscode = value,
         ),
         Padding(
           padding: EdgeInsets.all(40),
@@ -31,9 +31,9 @@ class PasscodeCheckerState extends State<PasscodeChecker> {
                 if (_myPasscode == _curPasscode)
                   Navigator.popAndPushNamed(context1, "/main");
                 else Scaffold.of(context1).showSnackBar(SnackBar(content: Text("Incorrect passcode")));
-              }
+              },
           ))
-        )
+        ),
       ],
     )));
   }

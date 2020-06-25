@@ -23,7 +23,7 @@ class OperationsView extends StatelessWidget {
                   return OperationTile(operationId, ValueKey(operationId));
                 }
               )
-            )
+            ),
           ]
         );
       }

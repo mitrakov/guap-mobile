@@ -43,7 +43,7 @@ class AddOperationScreen extends StatelessWidget {
           ctrl.text = formatter.format(await _showCalendar(context));
           onDateChanged(ctrl.text);
         }
-      )
+      ),
     ]);
   }
 
@@ -52,7 +52,7 @@ class AddOperationScreen extends StatelessWidget {
     initialDate: DateTime.now(),
     firstDate: DateTime(DateTime.now().year - 1),
     lastDate: DateTime(DateTime.now().year + 1),
-    borderRadius: 16
+    borderRadius: 16,
   );
 
   Alert addItemDialog(BuildContext context) {
@@ -75,8 +75,8 @@ class AddOperationScreen extends StatelessWidget {
             StoreProvider.of<AppState>(context).dispatch(ItemsThunk.addItem(item, category));
             Navigator.pop(context);
           }
-        )
-      ]
+        ),
+      ],
     );
   }
 }
