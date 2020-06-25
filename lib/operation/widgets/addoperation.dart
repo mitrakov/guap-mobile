@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_rounded_date_picker/rounded_picker.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -30,6 +31,7 @@ class AddOperationScreen extends StatelessWidget {
       ),
       TextField(
         decoration: InputDecoration(border: OutlineInputBorder(), labelText: "Input sum"),
+        inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
         keyboardType: TextInputType.number,
         onChanged: (text) => onSummaChanged(int.parse(text)),
       ),
