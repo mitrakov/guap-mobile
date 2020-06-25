@@ -30,6 +30,7 @@ class AddOperationScreen extends StatelessWidget {
       ),
       TextField(
         decoration: InputDecoration(border: OutlineInputBorder(), labelText: "Input sum"),
+        keyboardType: TextInputType.number,
         onChanged: (text) => onSummaChanged(int.parse(text)),
       ),
       PersonChooser(onPersonChanged),
