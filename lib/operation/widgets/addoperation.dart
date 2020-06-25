@@ -14,18 +14,18 @@ class AddOperationScreen extends StatelessWidget {
   final ValueChanged<String> onPersonChanged;
   final ValueChanged<String> onDateChanged;
   final ValueChanged<int> onSummaChanged;
+  final DateFormat formatter = DateFormat("dd-MM-yyyy");
 
-  const AddOperationScreen(this.category, {Key key, this.onItemChanged, this.onPersonChanged, this.onDateChanged, this.onSummaChanged}) : super(key: key);
+  AddOperationScreen(this.category, {Key key, this.onItemChanged, this.onPersonChanged, this.onDateChanged, this.onSummaChanged}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final DateFormat formatter = DateFormat("dd-MM-yyyy");
     final ctrl = TextEditingController(text: formatter.format(DateTime.now()));
     return Column(children: <Widget>[
       Row(
         children: <Widget>[
           Expanded(child: ItemsChooser(onItemChanged)),
-          IconButton(icon: Icon(Icons.add_circle), onPressed: () => addItemDialog(context).show())
+          IconButton(icon: Icon(Icons.add_circle), onPressed: () => addItemDialog(context).show()),
         ]
       ),
       TextField(
