@@ -57,7 +57,6 @@ class MyApp extends StatelessWidget {
 }
 
 // TODO
-// commas , , ,
 // save all downloaded dependencies
 // } else
 // with -> copy in Store/Reducers

@@ -26,8 +26,7 @@ class Ajax {
       if (tokenResponse.code == 0) {
         _saveHeaders(tokenResponse.token, name);
       } else throw Exception("Failed to sign in (error code ${tokenResponse.code})");
-    }
-    else throw Exception("Failed to sign in (http code ${response.statusCode})");
+    } else throw Exception("Failed to sign in (http code ${response.statusCode})");
   }
 
   static Future<List<String>> fetchPersons() async {
@@ -38,8 +37,7 @@ class Ajax {
       if (personResponse.code == 0)
         return personResponse.personsUtf8;
       else throw Exception("Failed to load persons (error code ${personResponse.code})");
-    }
-    else throw Exception("Failed to load persons (http code ${response.statusCode})");
+    } else throw Exception("Failed to load persons (http code ${response.statusCode})");
   }
 
   static Future<List<Category>> fetchCategoriesTree() async {
@@ -50,8 +48,7 @@ class Ajax {
       if (categoryResponse.code == 0)
         return categoryResponse.categories;
       else throw Exception("Failed to load categories (error code ${categoryResponse.code})");
-    }
-    else throw Exception("Failed to load categories (http code ${response.statusCode})");
+    } else throw Exception("Failed to load categories (http code ${response.statusCode})");
   }
 
   static Future<List<String>> fetchItems(String category) async {
@@ -62,8 +59,7 @@ class Ajax {
       if (itemResponse.code == 0)
         return itemResponse.itemsUtf8;
       else throw Exception("Failed to load items (error code ${itemResponse.code})");
-    }
-    else throw Exception("Failed to load items (http code ${response.statusCode})");
+    } else throw Exception("Failed to load items (http code ${response.statusCode})");
   }
 
   static Future<List<int>> fetchOperations(String category) async {
@@ -74,8 +70,7 @@ class Ajax {
       if (operationListResponse.code == 0)
         return operationListResponse.ids;
       else throw Exception("Failed to load operations (error code ${operationListResponse.code})");
-    }
-    else throw Exception("Failed to load operations (http code ${response.statusCode})");
+    } else throw Exception("Failed to load operations (http code ${response.statusCode})");
   }
 
   static Future<Operation> fetchOperation(int id) async {
@@ -86,8 +81,7 @@ class Ajax {
       if (operationResponse.code == 0)
         return operationResponse.operation;
       else throw Exception("Failed to load operation (error code ${operationResponse.code})");
-    }
-    else throw Exception("Failed to load operation (http code ${response.statusCode})");
+    } else throw Exception("Failed to load operation (http code ${response.statusCode})");
   }
 
   static Future<void> addOperation(AddOperationRequest operation) async {
@@ -98,8 +92,7 @@ class Ajax {
       final operationResponse = CommonResponse.fromJson(json.decode(response.body));
       if (operationResponse.code == 0) return;
       else throw Exception("Failed to add operation (error code ${operationResponse.code})");
-    }
-    else throw Exception("Failed to add operation (http code ${response.statusCode})");
+    } else throw Exception("Failed to add operation (http code ${response.statusCode})");
   }
 
   static Future<void> changeOperation(ChangeOperationRequest operation) async {
@@ -110,8 +103,7 @@ class Ajax {
       final operationResponse = CommonResponse.fromJson(json.decode(response.body));
       if (operationResponse.code == 0) return;
       else throw Exception("Failed to add operation (error code ${operationResponse.code})");
-    }
-    else throw Exception("Failed to add operation (http code ${response.statusCode})");
+    } else throw Exception("Failed to add operation (http code ${response.statusCode})");
   }
 
   static Future<void> removeOperation(RemoveOperationRequest operation) async {
@@ -125,8 +117,7 @@ class Ajax {
       final operationResponse = CommonResponse.fromJson(json.decode(responseBody));
       if (operationResponse.code == 0) return;
       else throw Exception("Failed to delete operation (error code ${operationResponse.code})");
-    }
-    else throw Exception("Failed to delete operation (http code ${response.statusCode})");
+    } else throw Exception("Failed to delete operation (http code ${response.statusCode})");
   }
 
   static Future<void> addItem(AddItemRequest item) async {
@@ -137,8 +128,7 @@ class Ajax {
       final itemResponse = CommonResponse.fromJson(json.decode(response.body));
       if (itemResponse.code == 0) return;
       else throw Exception("Failed to add item (error code ${itemResponse.code})");
-    }
-    else throw Exception("Failed to add item (http code ${response.statusCode})");
+    } else throw Exception("Failed to add item (http code ${response.statusCode})");
   }
 
   static Future<Map<String, String>> _headers() async {
