@@ -20,7 +20,7 @@ class AddOperationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final DateFormat formatter = DateFormat("dd-MM-yyyy");
-    final ctrl = TextEditingController();
+    final ctrl = TextEditingController(text: formatter.format(DateTime.now()));
     return Column(children: <Widget>[
       Row(
         children: <Widget>[
@@ -40,16 +40,18 @@ class AddOperationScreen extends StatelessWidget {
           labelText: "Choose the date"
         ),
         onTap: () async {
-          ctrl.text = formatter.format(await _showCalendar(context));
+          final currentDate = formatter.parse(ctrl.text);
+          final newDate = await _showCalendar(context, currentDate) ?? currentDate;
+          ctrl.text = formatter.format(newDate);
           onDateChanged(ctrl.text);
         }
       ),
     ]);
   }
 
-  Future<DateTime> _showCalendar(BuildContext context) => showRoundedDatePicker(
+  Future<DateTime> _showCalendar(BuildContext context, DateTime initialDate) => showRoundedDatePicker(
     context: context,
-    initialDate: DateTime.now(),
+    initialDate: initialDate,
     firstDate: DateTime(DateTime.now().year - 1),
     lastDate: DateTime(DateTime.now().year + 1),
     borderRadius: 16,
