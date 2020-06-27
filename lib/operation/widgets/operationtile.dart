@@ -1,3 +1,5 @@
+import 'package:optional/optional.dart';
+import 'package:tuple/tuple.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -5,7 +7,6 @@ import 'package:guap_mobile/operation/global.dart';
 import 'package:guap_mobile/operation/operation.dart';
 import 'package:guap_mobile/operation/redux.dart';
 import 'package:guap_mobile/redux/appstate.dart';
-import 'package:optional/optional.dart';
 
 class OperationTile extends StatelessWidget {
   final int id;
@@ -16,14 +17,14 @@ class OperationTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Slidable(
       actionPane: SlidableDrawerActionPane(),
-      actionExtentRatio: 0.25,
+      actionExtentRatio: 0.2,
       child: _createTile(),
       secondaryActions: <Widget>[
         IconSlideAction(
           caption: "Edit",
           color: Colors.grey[400],
           icon: Icons.mode_edit,
-          onTap: () => Navigator.pushNamed(context, "/chooseCategory", arguments: Optional.of(id)),
+          onTap: () => Navigator.pushNamed(context, "/chooseCategory", arguments: Tuple2(Optional.of(id), "/operation")),
         ),
         IconSlideAction(
           caption: "Delete",

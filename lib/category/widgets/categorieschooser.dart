@@ -9,9 +9,10 @@ import 'package:optional/optional.dart';
 import 'package:tuple/tuple.dart';
 
 class CategoriesChooser extends StatelessWidget {
-  final Optional<int> idOpt;
+  final Optional<int> operationIdOpt;
+  final String nextRoute;
 
-  CategoriesChooser(this.idOpt, {Key key}) : super(key: key);
+  CategoriesChooser(this.operationIdOpt, this.nextRoute, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class CategoriesChooser extends StatelessWidget {
           //onExpansionChanged: _expandNodeHandler,
           onNodeTap: (key) {
             store.dispatch(ItemsThunk.fetchItems(key));
-            Navigator.pushNamed(context, "/operation", arguments: Tuple2(key, idOpt));
+            Navigator.pushNamed(context, nextRoute, arguments: Tuple2(key, operationIdOpt));
             //setState(() {
             //ctrl = ctrl.copyWith(selectedKey: key);
             //});

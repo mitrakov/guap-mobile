@@ -27,7 +27,7 @@ class PersonEditor extends StatelessWidget {
   Widget _createTile(BuildContext context, String person) {
     return Slidable(
       actionPane: SlidableDrawerActionPane(),
-      actionExtentRatio: 0.25,
+      actionExtentRatio: 0.2,
       child: ListTile(
         title: Text(person),
         leading: Icon(Icons.person),

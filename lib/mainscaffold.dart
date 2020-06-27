@@ -1,3 +1,4 @@
+import 'package:tuple/tuple.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:guap_mobile/category/widgets/categoriesdrawer.dart';
@@ -18,15 +19,13 @@ class MainScaffold extends StatelessWidget {
         return Scaffold (
           appBar: AppBar(
             title: Text("Guap application"),
-            actions: <Widget>[
-              IconButton(icon: Icon(Icons.settings), onPressed: () => Navigator.pushNamed(context1, "/persons"))
-            ],
+            actions: <Widget>[_popupMenu(context1)],
           ),
           drawer: CategoriesDrawer(),
           floatingActionButton: FloatingActionButton(
             child: Icon(Icons.add),
             tooltip: "Add operation",
-            onPressed: () => Navigator.pushNamed(context1, "/chooseCategory", arguments: Optional<int>.empty()),
+            onPressed: () => Navigator.pushNamed(context1, "/chooseCategory", arguments: Tuple2(Optional<int>.empty(), "/operation")),
           ),
           body: Column(children: <Widget>[
             Text(state.isEmpty ? "No errors": state),
@@ -42,5 +41,22 @@ class MainScaffold extends StatelessWidget {
       StoreProvider.of<AppState>(context).dispatch(ThunkActions.resetAll());
       Navigator.popAndPushNamed(context, "/login");
     });
+  }
+
+  Widget _popupMenu(BuildContext context) {
+    return PopupMenuButton<String>(
+      icon: Icon(Icons.settings),
+      onSelected: (route) => Navigator.pushNamed(context, route, arguments: Tuple2(Optional<int>.empty(), "/items")),
+      itemBuilder: (context1) => [
+        PopupMenuItem<String>(
+          value: "/persons",
+          child: Text("Persons"),
+        ),
+        PopupMenuItem<String>(
+          value: "/chooseCategory",
+          child: Text("Items"),
+        ),
+      ],
+    );
   }
 }

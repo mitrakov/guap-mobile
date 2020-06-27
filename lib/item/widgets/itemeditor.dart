@@ -28,7 +28,7 @@ class ItemEditor extends StatelessWidget {
   Widget _createTile(BuildContext context, String item) {
     return Slidable(
         actionPane: SlidableDrawerActionPane(),
-        actionExtentRatio: 0.75,
+        actionExtentRatio: 0.2,
         child: ListTile(
           title: Text(item),
           leading: Icon(Icons.satellite),
@@ -38,7 +38,7 @@ class ItemEditor extends StatelessWidget {
             caption: "Edit",
             color: Colors.grey[400],
             icon: Icons.mode_edit,
-            onTap: () => _changeItemDialog(context, item),
+            onTap: () => _changeItemDialog(context, item).show(),
           ),
           IconSlideAction(
             caption: "Delete",
