@@ -87,6 +87,31 @@ class Ajax {
     } else throw Exception("Failed to load items (http code ${response.statusCode})");
   }
 
+  static Future<void> changeItem(ChangeItemRequest itemRequest) async {
+    print("Ajax prepare: ${json.encode(itemRequest.toJson())}");
+    final response = await http.put("$baseUrl/item/change", headers: await _headers(), body: json.encode(itemRequest.toJson()));
+    if (response.statusCode == 200) {
+      print("Ajax change item: ${response.body}");
+      final itemResponse = CommonResponse.fromJson(json.decode(response.body));
+      if (itemResponse.code == 0) return;
+      else throw Exception("Failed to add item (error code ${itemResponse.code})");
+    } else throw Exception("Failed to add item (http code ${response.statusCode})");
+  }
+
+  static Future<void> removeItem(RemoveItemRequest itemRequest) async {
+    final request = http.Request("DELETE", Uri.parse("$baseUrl/item/delete"));
+    request.headers.addAll(await _headers());
+    request.body = json.encode(itemRequest.toJson());
+    final response = await request.send();
+    final responseBody = await response.stream.bytesToString();
+    if (response.statusCode == 200) {
+      print("Ajax delete item: $responseBody");
+      final itemResponse = CommonResponse.fromJson(json.decode(responseBody));
+      if (itemResponse.code == 0) return;
+      else throw Exception("Failed to delete item (error code ${itemResponse.code})");
+    } else throw Exception("Failed to delete item (http code ${response.statusCode})");
+  }
+
   static Future<List<int>> fetchOperations(String category) async {
     final response = await http.get("$baseUrl/operation/list?category=$category", headers: await _headers());
     if (response.statusCode == 200) {

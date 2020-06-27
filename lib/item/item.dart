@@ -28,3 +28,28 @@ class AddItemRequest {
 
   Map<String, dynamic> toJson() => _$AddItemRequestToJson(this);
 }
+
+@JsonSerializable()
+class ChangeItemRequest {
+  @JsonKey(name: "name")
+  final String oldName;
+  final String newName;
+  final String newCategoryName;
+
+  ChangeItemRequest(this.oldName, this.newName, this.newCategoryName);
+
+  factory ChangeItemRequest.fromJson(Map<String, dynamic> json) => _$ChangeItemRequestFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ChangeItemRequestToJson(this);
+}
+
+@JsonSerializable()
+class RemoveItemRequest {
+  final String name;
+
+  RemoveItemRequest(this.name);
+  
+  factory RemoveItemRequest.fromJson(Map<String, dynamic> json) => _$RemoveItemRequestFromJson(json);
+
+  Map<String, dynamic> toJson() => _$RemoveItemRequestToJson(this);
+}

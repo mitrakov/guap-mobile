@@ -31,3 +31,29 @@ Map<String, dynamic> _$AddItemRequestToJson(AddItemRequest instance) =>
       'name': instance.name,
       'category': instance.category,
     };
+
+ChangeItemRequest _$ChangeItemRequestFromJson(Map<String, dynamic> json) {
+  return ChangeItemRequest(
+    json['name'] as String,
+    json['newName'] as String,
+    json['newCategoryName'] as String,
+  );
+}
+
+Map<String, dynamic> _$ChangeItemRequestToJson(ChangeItemRequest instance) =>
+    <String, dynamic>{
+      'name': instance.oldName,
+      'newName': instance.newName,
+      'newCategoryName': instance.newCategoryName,
+    };
+
+RemoveItemRequest _$RemoveItemRequestFromJson(Map<String, dynamic> json) {
+  return RemoveItemRequest(
+    json['name'] as String,
+  );
+}
+
+Map<String, dynamic> _$RemoveItemRequestToJson(RemoveItemRequest instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+    };
