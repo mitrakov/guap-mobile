@@ -3,11 +3,12 @@ import 'package:flutter/rendering.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PasscodeSetter extends StatelessWidget {
+  final TextEditingController ctrl1 = TextEditingController();
+  final TextEditingController ctrl2 = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     print("Rebuilding passcode setter");
-    String passcode1 = "passcode1"; // may be dangerous to store variables here
-    String passcode2 = "passcode2"; // may be dangerous to store variables here
 
     return Scaffold(body: Center(child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -15,17 +16,17 @@ class PasscodeSetter extends StatelessWidget {
         Padding(
           padding: EdgeInsets.all(10),
           child: TextField(
+            controller: ctrl1,
             obscureText: true,
             decoration: InputDecoration(border: OutlineInputBorder(), labelText: "Set your passcode"),
-            onChanged: (value) => passcode1 = value
           )
         ),
         Padding(
           padding: EdgeInsets.all(10),
           child: TextField(
+            controller: ctrl2,
             obscureText: true,
             decoration: InputDecoration(border: OutlineInputBorder(), labelText: "Verify your passcode"),
-            onChanged: (value) => passcode2 = value
           )
         ),
         Padding(
@@ -34,8 +35,10 @@ class PasscodeSetter extends StatelessWidget {
             color: Theme.of(context1).primaryColor,
             child: Text("Set passcode", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 18)),
             onPressed: () {
-              if (passcode1 == passcode2)
-                setPasscode(passcode1).then((b) => Navigator.popAndPushNamed(context1, "/main"));
+              if (ctrl1.text.isEmpty || ctrl2.text.isEmpty)
+                Scaffold.of(context1).showSnackBar(SnackBar(content: Text("Empty passcode!")));
+              else if (ctrl1.text == ctrl2.text)
+                setPasscode(ctrl1.text).then((b) => Navigator.popAndPushNamed(context1, "/main"));
               else Scaffold.of(context1).showSnackBar(SnackBar(content: Text("Passcode fields differ!")));
             }
           ))

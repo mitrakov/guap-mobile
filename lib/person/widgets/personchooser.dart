@@ -6,14 +6,13 @@ import 'package:guap_mobile/person/redux.dart';
 import 'package:guap_mobile/redux/appstate.dart';
 
 class PersonChooser extends StatelessWidget {
-  final ValueChanged<String> onPersonChange;
+  final TextEditingController ctrl;
 
-  const PersonChooser(this.onPersonChange, {Key key}) : super(key: key);
+  const PersonChooser(this.ctrl, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     print("Rebiulding person chooser");
-    final TextEditingController ctrl = TextEditingController();
     return StoreConnector<AppState, PersonsState>(
       distinct: true,
       converter: (store) => store.state.personsState,
@@ -33,7 +32,6 @@ class PersonChooser extends StatelessWidget {
           },
           itemBuilder: (context2, suggestion) => ListTile(title: Text(suggestion)),
           onSuggestionSelected: (newValue) {
-            onPersonChange(newValue);
             ctrl.text = newValue;
           }
         );

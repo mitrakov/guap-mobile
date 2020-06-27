@@ -3,17 +3,16 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:guap_mobile/item/redux.dart';
 import 'package:guap_mobile/redux/appstate.dart';
 
-class ItemsChooser extends StatefulWidget {
-  final ValueChanged<String> callback;
-  const ItemsChooser(this.callback, {Key key}) : super(key: key);
-  State<StatefulWidget> createState() => ItemsChooserState(callback);
+class ItemsChooser extends StatefulWidget { // we need Stateful widget for DropdownButton
+  final TextEditingController ctrl;
+  const ItemsChooser(this.ctrl, {Key key}) : super(key: key);
+  State<StatefulWidget> createState() => ItemsChooserState(ctrl);
 }
 
 class ItemsChooserState extends State<ItemsChooser> {
-  final ValueChanged<String> callback;
-  String currentValue;
+  final TextEditingController ctrl;
 
-  ItemsChooserState(this.callback);
+  ItemsChooserState(this.ctrl);
 
   @override
   Widget build(BuildContext context) {
@@ -22,15 +21,14 @@ class ItemsChooserState extends State<ItemsChooser> {
       distinct: true,
       converter: (store) => store.state.itemState,
       builder: (context1, state) => DropdownButton(
-        value: currentValue,
+        value: ctrl.text.isEmpty ? null : ctrl.text, // hack: DropdownButtons cannot hold empty values, only NULLs 🙄
         hint: Text("Choose the value"),
         icon: Icon(Icons.keyboard_arrow_down),
         items: state.items.map((item) => DropdownMenuItem(value: item, child: Text(item))).toList(),
         elevation: 16,
         onChanged: (String newValue) {
           setState(() {
-            callback(newValue);
-            currentValue = newValue;
+            ctrl.text = newValue;
           });
         }
       )

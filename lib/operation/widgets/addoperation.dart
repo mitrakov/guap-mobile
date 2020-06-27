@@ -11,42 +11,42 @@ import 'package:guap_mobile/redux/appstate.dart';
 
 class AddOperationScreen extends StatelessWidget {
   final String category;
-  final ValueChanged<String> onItemChanged;
-  final ValueChanged<String> onPersonChanged;
-  final ValueChanged<String> onDateChanged;
-  final ValueChanged<int> onSummaChanged;
+  final TextEditingController itemChangedCtrl;
+  final TextEditingController personChangedCtrl;
+  final TextEditingController dateChangedCtrl;
+  final TextEditingController summaChangedCtrl;
+  final TextEditingController addItemCtrl = TextEditingController();
   final DateFormat formatter = DateFormat("dd-MM-yyyy");
 
-  AddOperationScreen(this.category, {Key key, this.onItemChanged, this.onPersonChanged, this.onDateChanged, this.onSummaChanged}) : super(key: key);
+  AddOperationScreen(this.category, {this.itemChangedCtrl, this.personChangedCtrl, this.dateChangedCtrl, this.summaChangedCtrl, Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final ctrl = TextEditingController(text: formatter.format(DateTime.now()));
+    dateChangedCtrl.text = formatter.format(DateTime.now());
     return Column(children: <Widget>[
       Row(
         children: <Widget>[
-          Expanded(child: ItemsChooser(onItemChanged)),
+          Expanded(child: ItemsChooser(itemChangedCtrl)),
           IconButton(icon: Icon(Icons.add_circle), onPressed: () => addItemDialog(context).show()),
         ]
       ),
       TextField(
+        controller: summaChangedCtrl,
         decoration: InputDecoration(border: OutlineInputBorder(), labelText: "Input sum"),
         inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
         keyboardType: TextInputType.number,
-        onChanged: (text) => onSummaChanged(int.parse(text)),
       ),
-      PersonChooser(onPersonChanged),
+      PersonChooser(personChangedCtrl),
       TextField(
-        controller: ctrl,
+        controller: dateChangedCtrl,
         decoration: InputDecoration(
           border: OutlineInputBorder(),
           labelText: "Choose the date"
         ),
         onTap: () async {
-          final currentDate = formatter.parse(ctrl.text);
+          final currentDate = formatter.parse(dateChangedCtrl.text);
           final newDate = await _showCalendar(context, currentDate) ?? currentDate;
-          ctrl.text = formatter.format(newDate);
-          onDateChanged(ctrl.text);
+          dateChangedCtrl.text = formatter.format(newDate);
         }
       ),
     ]);
@@ -61,15 +61,14 @@ class AddOperationScreen extends StatelessWidget {
   );
 
   Alert addItemDialog(BuildContext context) {
-    String item = ""; // comment: is it safe?
     return Alert(
       context: context,
       title: "Add item",
       content: Column(
         children: <Widget>[
           TextField(
+            controller: addItemCtrl,
             decoration: InputDecoration(icon: Icon(Icons.call_to_action), labelText: "Item name"),
-            onChanged: (text) => item = text
           )
         ],
       ),
@@ -77,7 +76,7 @@ class AddOperationScreen extends StatelessWidget {
         DialogButton(
           child: Text("Add", style: TextStyle(color: Colors.white, fontSize: 20)),
           onPressed: () {
-            StoreProvider.of<AppState>(context).dispatch(ItemsThunk.addItem(item, category));
+            StoreProvider.of<AppState>(context).dispatch(ItemsThunk.addItem(addItemCtrl.text, category));
             Navigator.pop(context);
           }
         ),
