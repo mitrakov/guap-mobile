@@ -4,9 +4,9 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_rounded_date_picker/rounded_picker.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:intl/intl.dart';
-import 'package:guap_mobile/item/itemschooser.dart';
+import 'package:guap_mobile/item/widgets/itemschooser.dart';
 import 'package:guap_mobile/item/redux.dart';
-import 'package:guap_mobile/person/personchooser.dart';
+import 'package:guap_mobile/person/widgets/personchooser.dart';
 import 'package:guap_mobile/redux/appstate.dart';
 
 class AddOperationScreen extends StatelessWidget {

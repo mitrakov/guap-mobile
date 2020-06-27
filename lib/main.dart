@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:guap_mobile/login/loginscreen.dart';
-import 'package:guap_mobile/login/passcodechecker.dart';
-import 'package:guap_mobile/login/passcodesetter.dart';
+import 'package:guap_mobile/login/widgets/loginscreen.dart';
+import 'package:guap_mobile/login/widgets/passcodechecker.dart';
+import 'package:guap_mobile/login/widgets/passcodesetter.dart';
 import 'package:guap_mobile/mainscaffold.dart';
 import 'package:guap_mobile/category/widgets/categorieschooser.dart';
 import 'package:guap_mobile/operation/widgets/operationscaffold.dart';
