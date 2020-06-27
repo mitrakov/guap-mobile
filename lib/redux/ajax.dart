@@ -40,6 +40,31 @@ class Ajax {
     } else throw Exception("Failed to load persons (http code ${response.statusCode})");
   }
 
+  static Future<void> changePerson(ChangePersonRequest personRequest) async {
+    print("Ajax prepare: ${json.encode(personRequest.toJson())}");
+    final response = await http.put("$baseUrl/person/change", headers: await _headers(), body: json.encode(personRequest.toJson()));
+    if (response.statusCode == 200) {
+      print("Ajax change person: ${response.body}");
+      final personResponse = CommonResponse.fromJson(json.decode(response.body));
+      if (personResponse.code == 0) return;
+      else throw Exception("Failed to add person (error code ${personResponse.code})");
+    } else throw Exception("Failed to add person (http code ${response.statusCode})");
+  }
+
+  static Future<void> removePerson(RemovePersonRequest personRequest) async {
+    final request = http.Request("DELETE", Uri.parse("$baseUrl/person/delete"));
+    request.headers.addAll(await _headers());
+    request.body = json.encode(personRequest.toJson());
+    final response = await request.send();
+    final responseBody = await response.stream.bytesToString();
+    if (response.statusCode == 200) {
+      print("Ajax delete person: $responseBody");
+      final personResponse = CommonResponse.fromJson(json.decode(responseBody));
+      if (personResponse.code == 0) return;
+      else throw Exception("Failed to delete person (error code ${personResponse.code})");
+    } else throw Exception("Failed to delete person (http code ${response.statusCode})");
+  }
+
   static Future<List<Category>> fetchCategoriesTree() async {
     final response = await http.get("$baseUrl/category/list", headers: await _headers());
     if (response.statusCode == 200) {

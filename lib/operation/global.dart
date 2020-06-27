@@ -15,4 +15,8 @@ class GlobalOperationStore {
   static Operation invalidate(int id) {
     return _store.remove(id);
   }
+
+  static void invalidateAll() {
+    _store.clear();
+  }
 }

@@ -39,11 +39,13 @@ class AddOperationScaffold extends StatelessWidget {
   }
 
   void addOperation(BuildContext context) {
+    // TODO Thunk?
     final r = AddOperationRequest(itemChangedCtrl.text, personChangedCtrl.text, int.parse(summaChangedCtrl.text), dateChangedCtrl.text);
     Ajax.addOperation(r).then((_) => Navigator.popUntil(context, ModalRoute.withName("/main")));
   }
 
   void editOperation(BuildContext context, int id) {
+    // TODO Thunk?
     final r = ChangeOperationRequest(id, itemChangedCtrl.text, personChangedCtrl.text, int.parse(summaChangedCtrl.text), dateChangedCtrl.text);
     Ajax.changeOperation(r).then((_) {
       GlobalOperationStore.invalidate(id);

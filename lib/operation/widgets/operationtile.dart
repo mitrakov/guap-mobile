@@ -42,7 +42,7 @@ class OperationTile extends StatelessWidget {
         if (snapshot.hasData)
           return ListTile(
             title: Text(snapshot.data.itemUtf8),
-            subtitle: Text("${snapshot.data.timeUtf8}\n${snapshot.data.person}"),
+            subtitle: Text("${snapshot.data.timeUtf8}\n${snapshot.data.personUtf8}"),
             trailing: Text("${snapshot.data.summa} ₽", style: TextStyle(fontSize: 22)),
           );
         if (snapshot.hasError)

@@ -16,7 +16,12 @@ class MainScaffold extends StatelessWidget {
         print("Rebiulding scaffold");
         if (state.contains("(http code 401)")) relogin(context1);
         return Scaffold (
-          appBar: AppBar(title: Text("Guap application")),
+          appBar: AppBar(
+            title: Text("Guap application"),
+            actions: <Widget>[
+              IconButton(icon: Icon(Icons.settings), onPressed: () => Navigator.pushNamed(context1, "/persons"))
+            ],
+          ),
           drawer: CategoriesDrawer(),
           floatingActionButton: FloatingActionButton(
             child: Icon(Icons.add),

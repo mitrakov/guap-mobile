@@ -6,6 +6,7 @@ import 'package:guap_mobile/login/widgets/passcodesetter.dart';
 import 'package:guap_mobile/mainscaffold.dart';
 import 'package:guap_mobile/category/widgets/categorieschooser.dart';
 import 'package:guap_mobile/operation/widgets/operationscaffold.dart';
+import 'package:guap_mobile/person/widgets/personeditor.dart';
 import 'package:guap_mobile/redux/appstate.dart';
 import 'package:guap_mobile/redux/reducers.dart';
 import 'package:optional/optional.dart';
@@ -35,6 +36,10 @@ class MyApp extends StatelessWidget {
           "/login": (context1) => LoginScreen(),
           "/setPasscode": (context1) => PasscodeSetter(),
           "/main": (context1) => MainScaffold(),
+          "/persons": (context1) => Scaffold(
+            appBar: AppBar(title: Text("Guap application")),
+            body: PersonEditor(),
+          ),
         },
         onGenerateRoute: (routeSettings) {
           if (routeSettings.name == "/operation")
@@ -47,7 +52,7 @@ class MyApp extends StatelessWidget {
           if (routeSettings.name == "/chooseCategory")
             return MaterialPageRoute(builder: (context1) => Scaffold(
               appBar: AppBar(title: Text("Guap application")),
-              body: CategoriesChooser(routeSettings.arguments)
+              body: CategoriesChooser(routeSettings.arguments),
             ));
           return null;
         },
@@ -57,5 +62,4 @@ class MyApp extends StatelessWidget {
 }
 
 // TODO
-// numeric summa
 //

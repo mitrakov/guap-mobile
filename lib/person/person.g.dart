@@ -18,3 +18,29 @@ Map<String, dynamic> _$PersonResponseToJson(PersonResponse instance) =>
       'code': instance.code,
       'msg': instance.persons,
     };
+
+ChangePersonRequest _$ChangePersonRequestFromJson(Map<String, dynamic> json) {
+  return ChangePersonRequest(
+    json['name'] as String,
+    json['newName'] as String,
+  );
+}
+
+Map<String, dynamic> _$ChangePersonRequestToJson(
+        ChangePersonRequest instance) =>
+    <String, dynamic>{
+      'name': instance.oldName,
+      'newName': instance.newName,
+    };
+
+RemovePersonRequest _$RemovePersonRequestFromJson(Map<String, dynamic> json) {
+  return RemovePersonRequest(
+    json['name'] as String,
+  );
+}
+
+Map<String, dynamic> _$RemovePersonRequestToJson(
+        RemovePersonRequest instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+    };
