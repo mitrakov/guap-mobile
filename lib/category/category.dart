@@ -20,10 +20,10 @@ class Category {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is Category && runtimeType == other.runtimeType && label == other.label && listEquals(items, other.items);
+          other is Category && runtimeType == other.runtimeType && labelUtf8 == other.labelUtf8 && listEquals(items, other.items);
 
   @override
-  int get hashCode => label.hashCode ^ items.hashCode;
+  int get hashCode => labelUtf8.hashCode ^ items.hashCode;
 }
 
 class CategoryItem {

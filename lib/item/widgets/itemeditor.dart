@@ -44,7 +44,7 @@ class ItemEditor extends StatelessWidget {
             caption: "Delete",
             color: Colors.red[400],
             icon: Icons.delete,
-            onTap: () => StoreProvider.of<AppState>(context).dispatch(ItemsThunk.removeItem(item, category)),
+            onTap: () => _removeItemDialog(context, item).show(),
           ),
         ]
     );
@@ -73,6 +73,27 @@ class ItemEditor extends StatelessWidget {
                 Navigator.pop(context);
               }
             }
+        ),
+      ],
+    );
+  }
+
+  Alert _removeItemDialog(BuildContext context, String item) {
+    return Alert(
+      context: context,
+      title: "Are you sure to remove item $item?",
+      buttons: [
+        DialogButton(
+          child: Text("Cancel", style: TextStyle(color: Colors.white, fontSize: 20)),
+          onPressed: () => Navigator.pop(context),
+        ),
+        DialogButton(
+          color: Colors.grey[300],
+          child: Text("Delete", style: TextStyle(color: Colors.deepOrange[800], fontSize: 20, fontWeight: FontWeight.w600)),
+          onPressed: () {
+            StoreProvider.of<AppState>(context).dispatch(ItemsThunk.removeItem(item, category));
+            Navigator.pop(context);
+          },
         ),
       ],
     );

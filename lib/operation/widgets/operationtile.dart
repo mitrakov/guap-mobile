@@ -3,6 +3,7 @@ import 'package:tuple/tuple.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:guap_mobile/operation/global.dart';
 import 'package:guap_mobile/operation/operation.dart';
 import 'package:guap_mobile/operation/redux.dart';
@@ -31,7 +32,7 @@ class OperationTile extends StatelessWidget {
           caption: "Delete",
           color: Colors.red[400],
           icon: Icons.delete_forever,
-          onTap: () => StoreProvider.of<AppState>(context).dispatch(OperationsThunk.removeOperation(id)),
+          onTap: () => _removeOperationDialog(context).show(),
         ),
       ]
     );
@@ -57,5 +58,27 @@ class OperationTile extends StatelessWidget {
   void onEdit(BuildContext context) async {
     final operation = await GlobalOperationStore.get(id);
     Navigator.pushNamed(context, "/chooseCategory", arguments: Tuple2(Optional.of(operation), "/operation"));
+  }
+
+  Alert _removeOperationDialog(BuildContext context) {
+    return Alert(
+      context: context,
+      title: "Are you sure to remove this operation?",
+      closeFunction: () => {},
+      buttons: [
+        DialogButton(
+          child: Text("Cancel", style: TextStyle(color: Colors.white, fontSize: 20)),
+          onPressed: () => Navigator.pop(context),
+        ),
+        DialogButton(
+          color: Colors.grey[300],
+          child: Text("Delete", style: TextStyle(color: Colors.deepOrange[800], fontSize: 20, fontWeight: FontWeight.w600)),
+          onPressed: () {
+            StoreProvider.of<AppState>(context).dispatch(OperationsThunk.removeOperation(id));
+            Navigator.pop(context);
+          },
+        ),
+      ],
+    );
   }
 }

@@ -27,13 +27,13 @@ class CategoryEditor extends StatelessWidget {
   }
 
   Widget _createTile(BuildContext context, CategoryItem item) {
-    final String category = "${" " * 6 * item.level}${item.category.labelUtf8}";
+    final String categoryText = "${" " * 6 * item.level}${item.category.labelUtf8}";
     final String parent = item.parentOpt.map((c) => "${c.labelUtf8}").orElseGet(() => "");
     return Slidable(
       actionPane: SlidableDrawerActionPane(),
       actionExtentRatio: 0.2,
       child: ListTile(
-        title: Text(category),
+        title: Text(categoryText),
         leading: Icon(item.level == 0 ? Icons.screen_lock_landscape : Icons.stop),
       ),
       secondaryActions: <Widget>[
@@ -47,7 +47,7 @@ class CategoryEditor extends StatelessWidget {
           caption: "Delete",
           color: Colors.red[400],
           icon: Icons.delete,
-          onTap: () => StoreProvider.of<AppState>(context).dispatch(CategoryThunk.removeCategory(item.category.labelUtf8)),
+          onTap: () => _removeCategoryDialog(context, item.category.labelUtf8).show(),
         ),
       ]
     );
@@ -76,6 +76,27 @@ class CategoryEditor extends StatelessWidget {
               Navigator.pop(context);
             }
           }
+        ),
+      ],
+    );
+  }
+
+  Alert _removeCategoryDialog(BuildContext context, String category) {
+    return Alert(
+      context: context,
+      title: "Are you sure to remove category $category?",
+      buttons: [
+        DialogButton(
+          child: Text("Cancel", style: TextStyle(color: Colors.white, fontSize: 20)),
+          onPressed: () => Navigator.pop(context),
+        ),
+        DialogButton(
+          color: Colors.grey[300],
+          child: Text("Delete", style: TextStyle(color: Colors.deepOrange[800], fontSize: 20, fontWeight: FontWeight.w600)),
+          onPressed: () {
+            StoreProvider.of<AppState>(context).dispatch(CategoryThunk.removeCategory(category));
+            Navigator.pop(context);
+          },
         ),
       ],
     );
