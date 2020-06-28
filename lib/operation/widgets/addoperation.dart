@@ -64,6 +64,7 @@ class AddOperationScreen extends StatelessWidget {
     return Alert(
       context: context,
       title: "Add item",
+      closeFunction: () => {},
       content: Column(
         children: <Widget>[
           TextField(

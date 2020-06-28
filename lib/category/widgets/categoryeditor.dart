@@ -58,6 +58,7 @@ class CategoryEditor extends StatelessWidget {
     return Alert(
       context: context,
       title: "Rename category",
+      closeFunction: () => {},
       content: Column(
         children: <Widget>[
           TextField(
@@ -85,6 +86,7 @@ class CategoryEditor extends StatelessWidget {
     return Alert(
       context: context,
       title: "Are you sure to remove category $category?",
+      closeFunction: () => {},
       buttons: [
         DialogButton(
           child: Text("Cancel", style: TextStyle(color: Colors.white, fontSize: 20)),

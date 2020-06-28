@@ -54,6 +54,7 @@ class PersonEditor extends StatelessWidget {
     return Alert(
       context: context,
       title: "Rename person",
+      closeFunction: () => {},
       content: Column(
         children: <Widget>[
           TextField(
@@ -81,6 +82,7 @@ class PersonEditor extends StatelessWidget {
     return Alert(
       context: context,
       title: "Are you sure to remove person $person?",
+      closeFunction: () => {},
       buttons: [
         DialogButton(
           child: Text("Cancel", style: TextStyle(color: Colors.white, fontSize: 20)),
