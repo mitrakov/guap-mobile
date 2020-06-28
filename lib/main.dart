@@ -10,6 +10,7 @@ import 'package:guap_mobile/login/widgets/passcodechecker.dart';
 import 'package:guap_mobile/login/widgets/passcodesetter.dart';
 import 'package:guap_mobile/mainscaffold.dart';
 import 'package:guap_mobile/category/widgets/categorieschooser.dart';
+import 'package:guap_mobile/category/widgets/categoryeditor.dart';
 import 'package:guap_mobile/operation/widgets/operationscaffold.dart';
 import 'package:guap_mobile/person/widgets/personeditor.dart';
 import 'package:guap_mobile/redux/appstate.dart';
@@ -40,6 +41,10 @@ class MyApp extends StatelessWidget {
           "/persons": (context1) => Scaffold(
             appBar: AppBar(title: Text("Guap application")),
             body: PersonEditor(),
+          ),
+          "/categories": (context1) => Scaffold(
+            appBar: AppBar(title: Text("Guap application")),
+            body: CategoryEditor(),
           ),
         },
         onGenerateRoute: (routeSettings) {

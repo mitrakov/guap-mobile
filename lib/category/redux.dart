@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart' as f;
+import 'package:optional/optional.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 import 'package:guap_mobile/category/category.dart';
@@ -6,7 +7,7 @@ import 'package:guap_mobile/operation/global.dart';
 import 'package:guap_mobile/redux/actions.dart';
 import 'package:guap_mobile/redux/ajax.dart';
 
-typedef CategoryListFunc = void Function(List<Category> list, int level);
+typedef CategoryListFunc = void Function(List<Category> list, Optional<Category> parent, int level);
 
 class CategoryState {
   final List<Category> categories;
@@ -26,14 +27,14 @@ class CategoryState {
     final result = new List<CategoryItem>();
 
     CategoryListFunc f;
-    f = (List<Category> lst, int level) {
+    f = (List<Category> lst, Optional<Category> parent, int level) {
       lst.forEach((c) {
-        result.add(CategoryItem(c, level));
-        f(c.items, level + 1);
+        result.add(CategoryItem(c, parent, level));
+        f(c.items, Optional.of(c), level + 1);
       });
     };
 
-    f(categories, 0);
+    f(categories, Optional.empty(), 0);
     return result;
   }
 }
@@ -54,10 +55,10 @@ class CategoryThunk {
     };
   }
 
-  static ThunkAction changeCategory(String oldName, String newName, String parentNullable) {
+  static ThunkAction changeCategory(String oldName, String newName, String parent) {
     return (Store store) async {
       try {
-        Ajax.changeCategory(ChangeCategoryRequest(oldName, newName, parentNullable)).then((_) {
+        Ajax.changeCategory(ChangeCategoryRequest(oldName, newName, parent)).then((_) {
           store.dispatch(fetchCategories());
           GlobalOperationStore.invalidateAll(); // recreate all operations to update category names
         });

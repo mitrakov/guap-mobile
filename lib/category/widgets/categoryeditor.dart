@@ -27,14 +27,14 @@ class CategoryEditor extends StatelessWidget {
   }
 
   Widget _createTile(BuildContext context, CategoryItem item) {
-    final String category = "${" " * 4 * item.level}${item.category.labelUtf8}";
-    final String parent = item.parentOpt.map((c) => "${c.labelUtf8}").orElseGet(() => null);
+    final String category = "${" " * 6 * item.level}${item.category.labelUtf8}";
+    final String parent = item.parentOpt.map((c) => "${c.labelUtf8}").orElseGet(() => "");
     return Slidable(
       actionPane: SlidableDrawerActionPane(),
       actionExtentRatio: 0.2,
       child: ListTile(
         title: Text(category),
-        leading: Icon(Icons.screen_lock_landscape),
+        leading: Icon(item.level == 0 ? Icons.screen_lock_landscape : Icons.stop),
       ),
       secondaryActions: <Widget>[
         IconSlideAction(
@@ -53,7 +53,7 @@ class CategoryEditor extends StatelessWidget {
     );
   }
 
-  Alert _changeCategoryDialog(BuildContext context, String curName, String parentNullable) {
+  Alert _changeCategoryDialog(BuildContext context, String curName, String parent) {
     changeCategoryCtrl.text = curName;
     return Alert(
       context: context,
@@ -72,7 +72,7 @@ class CategoryEditor extends StatelessWidget {
           onPressed: () {
             final newName = changeCategoryCtrl.text;
             if (newName.isNotEmpty && newName != curName) {
-              StoreProvider.of<AppState>(context).dispatch(CategoryThunk.changeCategory(curName, newName, parentNullable));
+              StoreProvider.of<AppState>(context).dispatch(CategoryThunk.changeCategory(curName, newName, parent));
               Navigator.pop(context);
             }
           }
