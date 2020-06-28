@@ -32,7 +32,7 @@ class LoginScreen extends StatelessWidget {
             child: RaisedButton(
               color: Theme.of(context).primaryColor,
               child: Text("Sign in", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 18)),
-              onPressed: () =>
+              onPressed: () => // no thunks needed
                   Ajax.signIn(loginCtrl.text, passwordCtrl.text).then((v) => Navigator.popAndPushNamed(context, "/setPasscode"))
             )
           )

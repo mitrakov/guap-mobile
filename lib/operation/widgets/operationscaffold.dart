@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:guap_mobile/operation/global.dart';
-import 'package:guap_mobile/operation/operation.dart';
-import 'package:guap_mobile/redux/ajax.dart';
-import 'package:guap_mobile/operation/widgets/addoperation.dart';
 import 'package:optional/optional.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter/material.dart';
+import 'package:guap_mobile/redux/appstate.dart';
+import 'package:guap_mobile/operation/operation.dart';
+import 'package:guap_mobile/operation/widgets/addoperation.dart';
+import 'package:guap_mobile/operation/redux.dart';
 
 class AddOperationScaffold extends StatelessWidget {
   final String category;
@@ -44,17 +45,14 @@ class AddOperationScaffold extends StatelessWidget {
   }
 
   void addOperation(BuildContext context) {
-    // TODO Thunk?
-    final r = AddOperationRequest(itemChangedCtrl.text, personChangedCtrl.text, int.parse(summaChangedCtrl.text), dateChangedCtrl.text);
-    Ajax.addOperation(r).then((_) => Navigator.popUntil(context, ModalRoute.withName("/main")));
+    final action = OperationsThunk.addOperation(itemChangedCtrl.text, personChangedCtrl.text, int.parse(summaChangedCtrl.text),dateChangedCtrl.text);
+    StoreProvider.of<AppState>(context).dispatch(action);
+    Navigator.popUntil(context, ModalRoute.withName("/main"));
   }
 
   void editOperation(BuildContext context, int id) {
-    // TODO Thunk?
-    final r = ChangeOperationRequest(id, itemChangedCtrl.text, personChangedCtrl.text, int.parse(summaChangedCtrl.text), dateChangedCtrl.text);
-    Ajax.changeOperation(r).then((_) {
-      GlobalOperationStore.invalidate(id);
-      Navigator.popUntil(context, ModalRoute.withName("/main"));
-    });
+    final action = OperationsThunk.changeOperation(id, itemChangedCtrl.text, personChangedCtrl.text, int.parse(summaChangedCtrl.text), dateChangedCtrl.text);
+    StoreProvider.of<AppState>(context).dispatch(action);
+    Navigator.popUntil(context, ModalRoute.withName("/main"));
   }
 }

@@ -7,7 +7,7 @@ class GlobalOperationStore {
   static Future<Operation> get(int id) async {
     if (_store.containsKey(id)) return _store[id];
 
-    final operation = await Ajax.fetchOperation(id);
+    final operation = await Ajax.fetchOperation(id); // no thunks needed
     _store.putIfAbsent(id, () => operation);
     return operation;
   }
