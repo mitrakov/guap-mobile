@@ -36,3 +36,33 @@ Map<String, dynamic> _$CategoryResponseToJson(CategoryResponse instance) =>
       'code': instance.code,
       'msg': instance.categories,
     };
+
+ChangeCategoryRequest _$ChangeCategoryRequestFromJson(
+    Map<String, dynamic> json) {
+  return ChangeCategoryRequest(
+    json['name'] as String,
+    json['newName'] as String,
+    json['newParentName'] as String,
+  );
+}
+
+Map<String, dynamic> _$ChangeCategoryRequestToJson(
+        ChangeCategoryRequest instance) =>
+    <String, dynamic>{
+      'name': instance.oldName,
+      'newName': instance.newName,
+      'newParentName': instance.newParentNullable,
+    };
+
+RemoveCategoryRequest _$RemoveCategoryRequestFromJson(
+    Map<String, dynamic> json) {
+  return RemoveCategoryRequest(
+    json['name'] as String,
+  );
+}
+
+Map<String, dynamic> _$RemoveCategoryRequestToJson(
+        RemoveCategoryRequest instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+    };

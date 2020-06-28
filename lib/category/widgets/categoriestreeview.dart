@@ -4,7 +4,7 @@ import 'package:guap_mobile/category/redux.dart';
 import 'package:guap_mobile/operation/redux.dart';
 import 'package:guap_mobile/redux/appstate.dart';
 
-class CategoriesTreeView extends StatelessWidget {
+class CategoriesLeftView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, CategoryState> (

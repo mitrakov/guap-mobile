@@ -14,7 +14,7 @@ class CategoriesDrawer extends StatelessWidget {
             child: Text("Categories", style: TextStyle(color: Colors.white, fontSize: 24)),
           ),
         ),
-        CategoriesTreeView(),
+        CategoriesLeftView(),
       ])
     );
   }
