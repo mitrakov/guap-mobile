@@ -7,13 +7,18 @@ import 'package:optional/optional.dart';
 
 class AddOperationScaffold extends StatelessWidget {
   final String category;
-  final Optional<int> idOpt;
-  final TextEditingController itemChangedCtrl = TextEditingController();
-  final TextEditingController personChangedCtrl = TextEditingController();
-  final TextEditingController dateChangedCtrl = TextEditingController();
-  final TextEditingController summaChangedCtrl = TextEditingController();
+  final Optional<Operation> operationOpt;
+  final TextEditingController itemChangedCtrl;
+  final TextEditingController personChangedCtrl;
+  final TextEditingController dateChangedCtrl;
+  final TextEditingController summaChangedCtrl;
 
-  AddOperationScaffold(this.category, this.idOpt, {Key key}) : super(key: key);
+  AddOperationScaffold(this.category, this.operationOpt, {Key key}) :
+        itemChangedCtrl = TextEditingController(text: operationOpt.map((o) => o.itemUtf8).orElseGet(() => "")),
+        personChangedCtrl = TextEditingController(text: operationOpt.map((o) => o.personUtf8).orElseGet(() => "")),
+        dateChangedCtrl = TextEditingController(text: operationOpt.map((o) => o.timeUtf8).orElseGet(() => "")),
+        summaChangedCtrl = TextEditingController(text: operationOpt.map((o) => o.summa.toString()).orElseGet(() => "")),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +40,7 @@ class AddOperationScaffold extends StatelessWidget {
   }
 
   void onPress(BuildContext context) {
-    idOpt.ifPresent((id) => editOperation(context, id), orElse: () => addOperation(context));
+    operationOpt.ifPresent((op) => editOperation(context, op.id), orElse: () => addOperation(context));
   }
 
   void addOperation(BuildContext context) {

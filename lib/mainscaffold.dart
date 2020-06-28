@@ -2,6 +2,7 @@ import 'package:tuple/tuple.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:guap_mobile/category/widgets/categoriesdrawer.dart';
+import 'package:guap_mobile/operation/operation.dart';
 import 'package:guap_mobile/operation/widgets/operationview.dart';
 import 'package:guap_mobile/redux/actions.dart';
 import 'package:guap_mobile/redux/appstate.dart';
@@ -25,7 +26,7 @@ class MainScaffold extends StatelessWidget {
           floatingActionButton: FloatingActionButton(
             child: Icon(Icons.add),
             tooltip: "Add operation",
-            onPressed: () => Navigator.pushNamed(context1, "/chooseCategory", arguments: Tuple2(Optional<int>.empty(), "/operation")),
+            onPressed: () => Navigator.pushNamed(context1, "/chooseCategory", arguments: Tuple2(Optional<Operation>.empty(), "/operation")),
           ),
           body: Column(children: <Widget>[
             Text(state.isEmpty ? "No errors": state),
@@ -46,7 +47,7 @@ class MainScaffold extends StatelessWidget {
   Widget _popupMenu(BuildContext context) {
     return PopupMenuButton<String>(
       icon: Icon(Icons.settings),
-      onSelected: (route) => Navigator.pushNamed(context, route, arguments: Tuple2(Optional<int>.empty(), "/items")),
+      onSelected: (route) => Navigator.pushNamed(context, route, arguments: Tuple2(Optional<Operation>.empty(), "/items")),
       itemBuilder: (context1) => [
         PopupMenuItem<String>(
           value: "/persons",

@@ -4,15 +4,16 @@ import 'package:flutter_treeview/tree_view.dart';
 import 'package:guap_mobile/category/category.dart';
 import 'package:guap_mobile/category/redux.dart';
 import 'package:guap_mobile/item/redux.dart';
+import 'package:guap_mobile/operation/operation.dart';
 import 'package:guap_mobile/redux/appstate.dart';
 import 'package:optional/optional.dart';
 import 'package:tuple/tuple.dart';
 
 class CategoriesChooser extends StatelessWidget {
-  final Optional<int> operationIdOpt;
+  final Optional<Operation> operationOpt;
   final String nextRoute;
 
-  CategoriesChooser(this.operationIdOpt, this.nextRoute, {Key key}) : super(key: key);
+  CategoriesChooser(this.operationOpt, this.nextRoute, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class CategoriesChooser extends StatelessWidget {
           //onExpansionChanged: _expandNodeHandler,
           onNodeTap: (key) {
             store.dispatch(ItemsThunk.fetchItems(key));
-            Navigator.pushNamed(context, nextRoute, arguments: Tuple2(key, operationIdOpt));
+            Navigator.pushNamed(context, nextRoute, arguments: Tuple2(key, operationOpt));
             //setState(() {
             //ctrl = ctrl.copyWith(selectedKey: key);
             //});

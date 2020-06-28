@@ -12,6 +12,7 @@ import 'package:guap_mobile/mainscaffold.dart';
 import 'package:guap_mobile/category/widgets/categorieschooser.dart';
 import 'package:guap_mobile/category/widgets/categoryeditor.dart';
 import 'package:guap_mobile/operation/widgets/operationscaffold.dart';
+import 'package:guap_mobile/operation/operation.dart';
 import 'package:guap_mobile/person/widgets/personeditor.dart';
 import 'package:guap_mobile/redux/appstate.dart';
 import 'package:guap_mobile/redux/reducers.dart';
@@ -50,14 +51,14 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: (routeSettings) {
           if (routeSettings.name == "/operation")
             return MaterialPageRoute(builder: (context1) {
-              final Tuple2<String, Optional<int>> args = routeSettings.arguments;
+              final Tuple2<String, Optional<Operation>> args = routeSettings.arguments;
               final category = args.item1;
-              final idOpt = args.item2;
-              return AddOperationScaffold(category, idOpt);
+              final operationOpt = args.item2;
+              return AddOperationScaffold(category, operationOpt);
             });
           if (routeSettings.name == "/chooseCategory")
             return MaterialPageRoute(builder: (context1) {
-              final Tuple2<Optional<int>, String> args = routeSettings.arguments;
+              final Tuple2<Optional<Operation>, String> args = routeSettings.arguments;
               final operationIdOpt = args.item1;
               final nextRoute = args.item2;
               return Scaffold(
@@ -67,7 +68,7 @@ class MyApp extends StatelessWidget {
             });
           if (routeSettings.name == "/items")
             return MaterialPageRoute(builder: (context1) {
-              final Tuple2<String, Optional<int>> args = routeSettings.arguments;
+              final Tuple2<String, Optional<Operation>> args = routeSettings.arguments;
               final category = args.item1;
               return Scaffold(
                 appBar: AppBar(title: Text("Guap application")),

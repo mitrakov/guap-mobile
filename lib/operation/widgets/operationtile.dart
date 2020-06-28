@@ -15,6 +15,7 @@ class OperationTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Slidable(
       actionPane: SlidableDrawerActionPane(),
       actionExtentRatio: 0.2,
@@ -24,7 +25,7 @@ class OperationTile extends StatelessWidget {
           caption: "Edit",
           color: Colors.grey[400],
           icon: Icons.mode_edit,
-          onTap: () => Navigator.pushNamed(context, "/chooseCategory", arguments: Tuple2(Optional.of(id), "/operation")),
+          onTap: () => onEdit(context),
         ),
         IconSlideAction(
           caption: "Delete",
@@ -51,5 +52,10 @@ class OperationTile extends StatelessWidget {
         return CircularProgressIndicator();
       }
     );
+  }
+
+  void onEdit(BuildContext context) async {
+    final operation = await GlobalOperationStore.get(id);
+    Navigator.pushNamed(context, "/chooseCategory", arguments: Tuple2(Optional.of(operation), "/operation"));
   }
 }
