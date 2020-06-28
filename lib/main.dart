@@ -16,6 +16,8 @@ import 'package:guap_mobile/operation/operation.dart';
 import 'package:guap_mobile/person/widgets/personeditor.dart';
 import 'package:guap_mobile/redux/appstate.dart';
 import 'package:guap_mobile/redux/reducers.dart';
+import 'package:guap_mobile/settings/settings.dart';
+import 'package:guap_mobile/settings/settingswidget.dart';
 
 void main() {
   final store = new Store<AppState>(AppReducer.reducer, initialState: AppState(), middleware: [thunkMiddleware]);
@@ -29,6 +31,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Settings.init();
     return StoreProvider<AppState> (
       store: store,
       child: MaterialApp(
@@ -46,6 +49,10 @@ class MyApp extends StatelessWidget {
           "/categories": (context1) => Scaffold(
             appBar: AppBar(title: Text("Guap application")),
             body: CategoryEditor(),
+          ),
+          "/settings": (context1) => Scaffold(
+            appBar: AppBar(title: Text("Guap application")),
+            body: SettingsWidget(),
           ),
         },
         onGenerateRoute: (routeSettings) {

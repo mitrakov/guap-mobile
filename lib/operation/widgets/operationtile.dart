@@ -8,6 +8,7 @@ import 'package:guap_mobile/operation/global.dart';
 import 'package:guap_mobile/operation/operation.dart';
 import 'package:guap_mobile/operation/redux.dart';
 import 'package:guap_mobile/redux/appstate.dart';
+import 'package:guap_mobile/settings/settings.dart';
 
 class OperationTile extends StatelessWidget {
   final int id;
@@ -42,12 +43,14 @@ class OperationTile extends StatelessWidget {
     return FutureBuilder<Operation>(
       future: GlobalOperationStore.get(id), // it's ok to run future here because it's cached
       builder: (context1, snapshot) {
-        if (snapshot.hasData)
+        if (snapshot.hasData) {
+          final person = Settings.showPersons() ? "\n${snapshot.data.personUtf8}" : "";
           return ListTile(
             title: Text(snapshot.data.itemUtf8),
-            subtitle: Text("${snapshot.data.timeUtf8}\n${snapshot.data.personUtf8}"),
+            subtitle: Text("${snapshot.data.timeUtf8}$person"),
             trailing: Text("${snapshot.data.summa} ₽", style: TextStyle(fontSize: 22)),
           );
+        }
         if (snapshot.hasError)
           return Text("${snapshot.error}");
         return CircularProgressIndicator();

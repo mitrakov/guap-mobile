@@ -61,6 +61,10 @@ class MainScaffold extends StatelessWidget {
           value: "/categories",
           child: Text("Categories"),
         ),
+        PopupMenuItem<String>(
+          value: "/settings",
+          child: Text("Settings"),
+        ),
       ],
     );
   }
