@@ -20,7 +20,7 @@ class MainScaffold extends StatelessWidget {
         return Scaffold (
           appBar: AppBar(
             title: Text("Guap application"),
-            actions: <Widget>[_popupMenu(context1)],
+            actions: <Widget>[_popupMenuCharts(context1), _popupMenuSettings(context1)],
           ),
           drawer: CategoriesDrawer(),
           floatingActionButton: FloatingActionButton(
@@ -44,7 +44,7 @@ class MainScaffold extends StatelessWidget {
     });
   }
 
-  Widget _popupMenu(BuildContext context) {
+  Widget _popupMenuSettings(BuildContext context) {
     return PopupMenuButton<String>(
       icon: Icon(Icons.settings),
       onSelected: (route) => Navigator.pushNamed(context, route, arguments: Tuple2(Optional<Operation>.empty(), "/items")),
@@ -64,6 +64,23 @@ class MainScaffold extends StatelessWidget {
         PopupMenuItem<String>(
           value: "/settings",
           child: Text("Settings"),
+        ),
+      ],
+    );
+  }
+
+  Widget _popupMenuCharts(BuildContext context) {
+    return PopupMenuButton<String>(
+      icon: Icon(Icons.insert_chart),
+      onSelected: (route) => Navigator.pushNamed(context, route),
+      itemBuilder: (context1) => [
+        PopupMenuItem<String>(
+          value: "/chart/pie",
+          child: Text("Pie chart"),
+        ),
+        PopupMenuItem<String>(
+          value: "/chart/time",
+          child: Text("Time chart"),
         ),
       ],
     );

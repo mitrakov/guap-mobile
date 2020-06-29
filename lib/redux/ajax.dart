@@ -3,6 +3,7 @@ import 'package:crypto/crypto.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:guap_mobile/category/category.dart';
+import 'package:guap_mobile/chart/chart.dart';
 import 'package:guap_mobile/item/item.dart';
 import 'package:guap_mobile/login/login.dart';
 import 'package:guap_mobile/operation/operation.dart';
@@ -204,6 +205,28 @@ class Ajax {
       if (itemResponse.code == 0) return;
       else throw Exception("Failed to add item (error code ${itemResponse.code})");
     } else throw Exception("Failed to add item (http code ${response.statusCode})");
+  }
+
+  static Future<String> pieChart(PieChartRequest request) async {
+    print("Ajax prepare: ${json.encode(request.toJson())}");
+    final response = await http.put("$baseUrl/chart/pie", headers: await _headers(), body: json.encode(request.toJson()));
+    if (response.statusCode == 200) {
+      print("Ajax pie chart: ${response.body}");
+      final uriResponse = UriResponse.fromJson(json.decode(response.body));
+      if (uriResponse.code == 0) return uriResponse.url;
+      else throw Exception("Failed to request pie chart (error code ${uriResponse.code})");
+    } else throw Exception("Failed to request pie chart (http code ${response.statusCode})");
+  }
+
+  static Future<String> timeChart(TimeChartRequest request) async {
+    print("Ajax prepare: ${json.encode(request.toJson())}");
+    final response = await http.put("$baseUrl/chart/time", headers: await _headers(), body: json.encode(request.toJson()));
+    if (response.statusCode == 200) {
+      print("Ajax time chart: ${response.body}");
+      final uriResponse = UriResponse.fromJson(json.decode(response.body));
+      if (uriResponse.code == 0) return uriResponse.url;
+      else throw Exception("Failed to request time chart (error code ${uriResponse.code})");
+    } else throw Exception("Failed to request time chart (http code ${response.statusCode})");
   }
 
   static Future<Map<String, String>> _headers() async {

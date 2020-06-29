@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
+import 'package:guap_mobile/chart/widgets/piechart.dart';
+import 'package:guap_mobile/chart/widgets/timechart.dart';
 import 'package:guap_mobile/item/widgets/itemeditor.dart';
 import 'package:guap_mobile/login/widgets/loginscreen.dart';
 import 'package:guap_mobile/login/widgets/passcodechecker.dart';
@@ -53,6 +55,14 @@ class MyApp extends StatelessWidget {
           "/settings": (context1) => Scaffold(
             appBar: AppBar(title: Text("Guap application")),
             body: SettingsWidget(),
+          ),
+          "/chart/pie": (context1) => Scaffold(
+            appBar: AppBar(title: Text("Guap application")),
+            body: PieChart(),
+          ),
+          "/chart/time": (context1) => Scaffold(
+            appBar: AppBar(title: Text("Guap application")),
+            body: TimeChart(),
           ),
         },
         onGenerateRoute: (routeSettings) {

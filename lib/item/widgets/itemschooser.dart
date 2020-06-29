@@ -20,7 +20,7 @@ class ItemsChooserState extends State<ItemsChooser> {
     return StoreConnector<AppState, ItemState>(
       distinct: true,
       converter: (store) => store.state.itemState,
-      builder: (context1, state) => DropdownButton(
+      builder: (context1, state) => DropdownButton<String>(
         value: ctrl.text.isEmpty ? null : ctrl.text, // hack: DropdownButtons cannot hold empty values, only NULLs 🙄
         hint: Text("Choose the value"),
         icon: Icon(Icons.keyboard_arrow_down),
