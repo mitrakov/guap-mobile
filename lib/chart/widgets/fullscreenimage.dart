@@ -11,15 +11,12 @@ class FullScreenImage extends StatelessWidget {
       appBar: AppBar(backgroundColor: Colors.black87),
       body: Container(
         color: Colors.black87,
-        child: RotatedBox(
-          quarterTurns: 1,
-          child: Image.network(
-            url,
-            fit: BoxFit.scaleDown,
-            height: double.infinity,
-            width: double.infinity,
-            alignment: Alignment.center,
-          ),
+        child: Image.network(
+          url,
+          fit: BoxFit.scaleDown,
+          height: double.infinity,
+          width: double.infinity,
+          alignment: Alignment.center,
         ),
       ),
     );
