@@ -11,7 +11,7 @@ import 'package:guap_mobile/redux/common.dart';
 import 'package:guap_mobile/person/person.dart';
 
 class Ajax {
-  static final baseUrl = "http://mitrakoff.com:8888/varlam";
+  static final baseUrl = "https://guap.mitrakoff.com/varlam";
   static String _username = "";
   static String _token = "";
 
