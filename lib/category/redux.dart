@@ -4,6 +4,7 @@ import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 import 'package:guap_mobile/category/category.dart';
 import 'package:guap_mobile/operation/global.dart';
+import 'package:guap_mobile/redux/appstate.dart';
 import 'package:guap_mobile/redux/actions.dart';
 import 'package:guap_mobile/redux/ajax.dart';
 
@@ -24,7 +25,7 @@ class CategoryState {
   int get hashCode => categories.hashCode;
 
   List<CategoryItem> asPlainList() {
-    final result = new List<CategoryItem>();
+    final result = <CategoryItem>[];
 
     CategoryListFunc f;
     f = (List<Category> lst, Optional<Category> parent, int level) {
@@ -45,8 +46,8 @@ class CategoriesFetchedAction {
 }
 
 class CategoryThunk {
-  static ThunkAction fetchCategories() {
-    return (Store store) async {
+  static ThunkAction<AppState> fetchCategories() {
+    return (Store<AppState> store) async {
       try {
         store.dispatch(CategoriesFetchedAction(await Ajax.fetchCategoriesTree()));
       } catch(e) {
@@ -55,8 +56,8 @@ class CategoryThunk {
     };
   }
 
-  static ThunkAction changeCategory(String oldName, String newName, String parent) {
-    return (Store store) async {
+  static ThunkAction<AppState> changeCategory(String oldName, String newName, String parent) {
+    return (Store<AppState> store) async {
       try {
         Ajax.changeCategory(ChangeCategoryRequest(oldName, newName, parent)).then((_) {
           store.dispatch(fetchCategories());
@@ -68,8 +69,8 @@ class CategoryThunk {
     };
   }
 
-  static ThunkAction removeCategory(String name) {
-    return (Store store) async {
+  static ThunkAction<AppState> removeCategory(String name) {
+    return (Store<AppState> store) async {
       try {
         Ajax.removeCategory(RemoveCategoryRequest(name)).then((_) => store.dispatch(fetchCategories()));
       } catch(e) {

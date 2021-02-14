@@ -18,6 +18,17 @@ class PersonResponse {
 }
 
 @JsonSerializable()
+class AddPersonRequest {
+  final String name;
+
+  AddPersonRequest(this.name);
+
+  factory AddPersonRequest.fromJson(Map<String, dynamic> json) => _$AddPersonRequestFromJson(json);
+
+  Map<String, dynamic> toJson() => _$AddPersonRequestToJson(this);
+}
+
+@JsonSerializable()
 class ChangePersonRequest {
   @JsonKey(name: "name")
   final String oldName;
@@ -29,7 +40,6 @@ class ChangePersonRequest {
 
   Map<String, dynamic> toJson() => _$ChangePersonRequestToJson(this);
 }
-
 
 @JsonSerializable()
 class RemovePersonRequest {

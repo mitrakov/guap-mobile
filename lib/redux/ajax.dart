@@ -41,6 +41,17 @@ class Ajax {
     } else throw Exception("Failed to load persons (http code ${response.statusCode})");
   }
 
+  static Future<void> addPerson(AddPersonRequest person) async {
+    print("Ajax prepare: ${json.encode(person.toJson())}");
+    final response = await http.post("$baseUrl/person/new", headers: await _headers(), body: json.encode(person.toJson()));
+    if (response.statusCode == 200) {
+      print("Ajax add person: ${response.body}");
+      final personResponse = CommonResponse.fromJson(json.decode(response.body));
+      if (personResponse.code == 0) return;
+      else throw Exception("Failed to add person (error code ${personResponse.code})");
+    } else throw Exception("Failed to add person (http code ${response.statusCode})");
+  }
+
   static Future<void> changePerson(ChangePersonRequest personRequest) async {
     print("Ajax prepare: ${json.encode(personRequest.toJson())}");
     final response = await http.put("$baseUrl/person/change", headers: await _headers(), body: json.encode(personRequest.toJson()));
@@ -48,8 +59,8 @@ class Ajax {
       print("Ajax change person: ${response.body}");
       final personResponse = CommonResponse.fromJson(json.decode(response.body));
       if (personResponse.code == 0) return;
-      else throw Exception("Failed to add person (error code ${personResponse.code})");
-    } else throw Exception("Failed to add person (http code ${response.statusCode})");
+      else throw Exception("Failed to change person (error code ${personResponse.code})");
+    } else throw Exception("Failed to change person (http code ${response.statusCode})");
   }
 
   static Future<void> removePerson(RemovePersonRequest personRequest) async {
@@ -84,8 +95,8 @@ class Ajax {
       print("Ajax change category: ${response.body}");
       final categoryResponse = CommonResponse.fromJson(json.decode(response.body));
       if (categoryResponse.code == 0) return;
-      else throw Exception("Failed to add category (error code ${categoryResponse.code})");
-    } else throw Exception("Failed to add category (http code ${response.statusCode})");
+      else throw Exception("Failed to change category (error code ${categoryResponse.code})");
+    } else throw Exception("Failed to change category (http code ${response.statusCode})");
   }
 
   static Future<void> removeCategory(RemoveCategoryRequest categoryRequest) async {
@@ -120,8 +131,8 @@ class Ajax {
       print("Ajax change item: ${response.body}");
       final itemResponse = CommonResponse.fromJson(json.decode(response.body));
       if (itemResponse.code == 0) return;
-      else throw Exception("Failed to add item (error code ${itemResponse.code})");
-    } else throw Exception("Failed to add item (http code ${response.statusCode})");
+      else throw Exception("Failed to change item (error code ${itemResponse.code})");
+    } else throw Exception("Failed to change item (http code ${response.statusCode})");
   }
 
   static Future<void> removeItem(RemoveItemRequest itemRequest) async {
@@ -178,8 +189,8 @@ class Ajax {
       print("Ajax change operation: ${response.body}");
       final operationResponse = CommonResponse.fromJson(json.decode(response.body));
       if (operationResponse.code == 0) return;
-      else throw Exception("Failed to add operation (error code ${operationResponse.code})");
-    } else throw Exception("Failed to add operation (http code ${response.statusCode})");
+      else throw Exception("Failed to change operation (error code ${operationResponse.code})");
+    } else throw Exception("Failed to change operation (http code ${response.statusCode})");
   }
 
   static Future<void> removeOperation(RemoveOperationRequest operation) async {

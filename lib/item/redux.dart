@@ -3,6 +3,7 @@ import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 import 'package:guap_mobile/item/item.dart';
 import 'package:guap_mobile/operation/global.dart';
+import 'package:guap_mobile/redux/appstate.dart';
 import 'package:guap_mobile/redux/actions.dart';
 import 'package:guap_mobile/redux/ajax.dart';
 
@@ -26,8 +27,8 @@ class ItemsFetchedAction {
 }
 
 class ItemsThunk {
-  static ThunkAction fetchItems(String category) {
-    return (Store store) async {
+  static ThunkAction<AppState> fetchItems(String category) {
+    return (Store<AppState> store) async {
       try {
         store.dispatch(ItemsFetchedAction(await Ajax.fetchItems(category)));
       } catch(e) {
@@ -36,8 +37,8 @@ class ItemsThunk {
     };
   }
 
-  static ThunkAction addItem(String item, String category) {
-    return (Store store) {
+  static ThunkAction<AppState> addItem(String item, String category) {
+    return (Store<AppState> store) {
       try {
         Ajax.addItem(AddItemRequest(item, category)).then((_) => store.dispatch(fetchItems(category)));
       } catch(e) {
@@ -46,8 +47,8 @@ class ItemsThunk {
     };
   }
 
-  static ThunkAction changeItem(String oldName, String newName, String newCategoryName) {
-    return (Store store) async {
+  static ThunkAction<AppState> changeItem(String oldName, String newName, String newCategoryName) {
+    return (Store<AppState> store) async {
       try {
         Ajax.changeItem(ChangeItemRequest(oldName, newName, newCategoryName)).then((_) {
           store.dispatch(fetchItems(newCategoryName));
@@ -59,8 +60,8 @@ class ItemsThunk {
     };
   }
 
-  static ThunkAction removeItem(String item, String category) {
-    return (Store store) async {
+  static ThunkAction<AppState> removeItem(String item, String category) {
+    return (Store<AppState> store) async {
       try {
         Ajax.removeItem(RemoveItemRequest(item)).then((_) => store.dispatch(fetchItems(category)));
       } catch(e) {

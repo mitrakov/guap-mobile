@@ -19,6 +19,17 @@ Map<String, dynamic> _$PersonResponseToJson(PersonResponse instance) =>
       'msg': instance.persons,
     };
 
+AddPersonRequest _$AddPersonRequestFromJson(Map<String, dynamic> json) {
+  return AddPersonRequest(
+    json['name'] as String,
+  );
+}
+
+Map<String, dynamic> _$AddPersonRequestToJson(AddPersonRequest instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+    };
+
 ChangePersonRequest _$ChangePersonRequestFromJson(Map<String, dynamic> json) {
   return ChangePersonRequest(
     json['name'] as String,

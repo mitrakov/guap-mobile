@@ -29,8 +29,8 @@ class OperationsFetchedAction {
 }
 
 class OperationsThunk {
-  static ThunkAction fetchOperations(String category) {
-    return (Store store) async {
+  static ThunkAction<AppState> fetchOperations(String category) {
+    return (Store<AppState> store) async {
       try {
         store.dispatch(OperationsFetchedAction(category, await Ajax.fetchOperations(category)));
       } catch(e) {

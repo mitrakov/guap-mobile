@@ -2,6 +2,7 @@ import 'package:optional/optional.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:guap_mobile/redux/appstate.dart';
+import 'package:guap_mobile/person/redux.dart';
 import 'package:guap_mobile/operation/operation.dart';
 import 'package:guap_mobile/operation/widgets/addoperation.dart';
 import 'package:guap_mobile/operation/redux.dart';
@@ -45,13 +46,21 @@ class AddOperationScaffold extends StatelessWidget {
   }
 
   void addOperation(BuildContext context) {
-    final action = OperationsThunk.addOperation(itemChangedCtrl.text, personChangedCtrl.text, int.parse(summaChangedCtrl.text),dateChangedCtrl.text);
-    StoreProvider.of<AppState>(context).dispatch(action);
+    final person = personChangedCtrl.text.trim();
+    final store = StoreProvider.of<AppState>(context);
+
+    if (!store.state.personsState.persons.contains(person)) {
+      final action = PersonsThunk.addPerson(person);
+      store.dispatch(action);
+    }
+    final action = OperationsThunk.addOperation(itemChangedCtrl.text, person, int.parse(summaChangedCtrl.text),dateChangedCtrl.text);
+    store.dispatch(action);
     Navigator.popUntil(context, ModalRoute.withName("/main"));
   }
 
   void editOperation(BuildContext context, int id) {
-    final action = OperationsThunk.changeOperation(id, itemChangedCtrl.text, personChangedCtrl.text, int.parse(summaChangedCtrl.text), dateChangedCtrl.text);
+    final person = personChangedCtrl.text.trim();
+    final action = OperationsThunk.changeOperation(id, itemChangedCtrl.text, person, int.parse(summaChangedCtrl.text), dateChangedCtrl.text);
     StoreProvider.of<AppState>(context).dispatch(action);
     Navigator.popUntil(context, ModalRoute.withName("/main"));
   }
