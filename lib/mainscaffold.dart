@@ -11,12 +11,14 @@ import 'package:optional/optional.dart';
 class MainScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<AppState, String> (
+    return StoreConnector<AppState, Tuple2<String, String>> (
       distinct: true,
-      converter: (store) => store.state.lastError,
+      converter: (store) => Tuple2(store.state.lastError, store.state.token),
       builder: (context1, state) {
         print("Rebiulding scaffold");
-        if (state.contains("(http code 401)")) relogin(context1);
+        final error = state.item1;
+        final token = state.item2;
+        if (error.contains("(http code 401)")) relogin(context1);
         return Scaffold (
           appBar: AppBar(
             title: Text("Guap application"),
@@ -29,7 +31,7 @@ class MainScaffold extends StatelessWidget {
             onPressed: () => Navigator.pushNamed(context1, "/chooseCategory", arguments: Tuple2(Optional<Operation>.empty(), "/operation")),
           ),
           body: Column(children: <Widget>[
-            Text(state.isEmpty ? "No errors": state),
+            Text(error.isEmpty ? "Token: $token": error),
             Expanded(child: OperationsView()),
           ])
         );

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:guap_mobile/chart/widgets/piechart.dart';
 import 'package:guap_mobile/chart/widgets/timechart.dart';
 import 'package:guap_mobile/item/widgets/itemeditor.dart';
@@ -16,6 +18,7 @@ import 'package:guap_mobile/category/widgets/categoryeditor.dart';
 import 'package:guap_mobile/operation/widgets/operationscaffold.dart';
 import 'package:guap_mobile/operation/operation.dart';
 import 'package:guap_mobile/person/widgets/personeditor.dart';
+import 'package:guap_mobile/redux/actions.dart';
 import 'package:guap_mobile/redux/appstate.dart';
 import 'package:guap_mobile/redux/reducers.dart';
 import 'package:guap_mobile/settings/settings.dart';
@@ -34,6 +37,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Settings.init();
+    initMessaging(store);
     return StoreProvider<AppState> (
       store: store,
       child: MaterialApp(
@@ -96,6 +100,23 @@ class MyApp extends StatelessWidget {
         },
       )
     );
+  }
+
+  void initMessaging(Store<AppState> store) async {
+    await Firebase.initializeApp();
+    final messaging = FirebaseMessaging.instance;
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: true,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+    final token = await messaging.getAPNSToken();
+    print("User granted permission: ${settings.authorizationStatus}; Token is: $token");
+    store.dispatch(TokenAction(token));
   }
 }
 

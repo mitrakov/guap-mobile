@@ -13,6 +13,7 @@ class AppReducer {
     TypedReducer<AppState, OperationsFetchedAction>((state, action) => state.copy(operations: action.operations, categoryToDisplay: action.category)),
     TypedReducer<AppState, PersonsFetchedAction>((state, action)    => state.copy(persons: action.persons)),
     TypedReducer<AppState, ErrorAction>((state, action)             => state.copy(lastError: action.error)),
+    TypedReducer<AppState, TokenAction>((state, action)             => state.copy(token: action.token)),
     TypedReducer<AppState, ResetAction>((s, a) => AppState()),
   ]);
 }

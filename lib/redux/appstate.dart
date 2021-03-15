@@ -11,6 +11,7 @@ class AppState {
   final PersonsState personsState;
   final String categoryToDisplay; // this CANNOT be used to determine item's category!
   final String lastError;
+  final String token;
 
   AppState({
     this.categoryState = const CategoryState(),
@@ -19,8 +20,9 @@ class AppState {
     this.personsState = const PersonsState(),
     this.categoryToDisplay = '',
     this.lastError = '',
+    this.token = '',
   }) {
-   print("Creating Appstate: categories ${categoryState.categories.length}, items ${itemState.items.length}, operations ${operationsState.operations.length}, persons ${personsState.persons.length}, $categoryToDisplay, $lastError");
+   print("Creating Appstate: categories ${categoryState.categories.length}, items ${itemState.items.length}, operations ${operationsState.operations.length}, persons ${personsState.persons.length}, $categoryToDisplay, $lastError, $token");
   }
 
   AppState copy({
@@ -29,7 +31,9 @@ class AppState {
     List<int> operations,
     List<String> persons,
     String categoryToDisplay,
-    String lastError}) {
+    String lastError,
+    String token,
+  }) {
 
     return AppState(
       categoryState: categories != null ? CategoryState(categories: categories) : this.categoryState,
@@ -38,6 +42,7 @@ class AppState {
       personsState: persons != null ? PersonsState(persons: persons) : this.personsState,
       categoryToDisplay: categoryToDisplay ?? this.categoryToDisplay,
       lastError: lastError ?? this.lastError,
+      token: token ?? this.token,
     );
   }
 
@@ -51,8 +56,10 @@ class AppState {
               operationsState == other.operationsState &&
               personsState == other.personsState &&
               categoryToDisplay == other.categoryToDisplay &&
-              lastError == other.lastError;
+              lastError == other.lastError &&
+              token == other.token
+  ;
 
   @override
-  int get hashCode => categoryState.hashCode ^ itemState.hashCode ^ operationsState.hashCode ^ personsState.hashCode ^ categoryToDisplay.hashCode ^ lastError.hashCode;
+  int get hashCode => categoryState.hashCode ^ itemState.hashCode ^ operationsState.hashCode ^ personsState.hashCode ^ categoryToDisplay.hashCode ^ lastError.hashCode ^ token.hashCode;
 }
