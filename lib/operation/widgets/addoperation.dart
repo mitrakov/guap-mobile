@@ -22,7 +22,7 @@ class AddOperationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    dateChangedCtrl.text = formatter.format(DateTime.now());
+    dateChangedCtrl.text = dateChangedCtrl.text.isEmpty ? formatter.format(DateTime.now()) : dateChangedCtrl.text;
     return Column(children: <Widget>[
       Row(
         children: <Widget>[
