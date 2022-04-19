@@ -11,7 +11,7 @@ import 'package:guap_mobile/redux/common.dart';
 import 'package:guap_mobile/person/person.dart';
 
 class Ajax {
-  static final baseUrl = "https://guap.mitrakoff.com/varlam";
+  static final baseUrl = "http://mitrakoff.com:8080/varlam"; // http should be allowed, see https://stackoverflow.com/questions/64172791/
   static String _username = "";
   static String _token = "";
 
