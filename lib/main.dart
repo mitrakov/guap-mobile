@@ -119,6 +119,3 @@ class MyApp extends StatelessWidget {
     store.dispatch(TokenAction(token));
   }
 }
-
-// TODO
-//
