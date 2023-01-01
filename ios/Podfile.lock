@@ -111,7 +111,7 @@ SPEC CHECKSUMS:
   FirebaseInstallations: 7f7ed0e7e27fb51f57291e1876e2ddb1524126c1
   FirebaseInstanceID: aaecc93b4528bbcafea12c477e26827719ca1183
   FirebaseMessaging: 68d1bcb14880189558a8ae57167abe0b7e417232
-  Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_keyboard_visibility: 6195387fb6d8f46e5cd6dda4a4154e41f800f545
   GoogleDataTransport: b006084b73915a42c28a3466961a4edda3065da6
   GoogleUtilities: abda45f519bc4073aa1171d2f8742108def46017

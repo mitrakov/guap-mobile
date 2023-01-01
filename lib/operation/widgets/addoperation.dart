@@ -8,6 +8,7 @@ import 'package:guap_mobile/item/widgets/itemschooser.dart';
 import 'package:guap_mobile/item/redux.dart';
 import 'package:guap_mobile/person/widgets/personchooser.dart';
 import 'package:guap_mobile/redux/appstate.dart';
+import 'package:guap_mobile/operation/widgets/dropdown.dart';
 
 class AddOperationScreen extends StatelessWidget {
   final String category;
@@ -15,14 +16,16 @@ class AddOperationScreen extends StatelessWidget {
   final TextEditingController personChangedCtrl;
   final TextEditingController dateChangedCtrl;
   final TextEditingController summaChangedCtrl;
+  final TextEditingController currencyChangedCtrl;
   final TextEditingController addItemCtrl = TextEditingController();
   final DateFormat formatter = DateFormat("dd-MM-yyyy");
 
-  AddOperationScreen(this.category, {this.itemChangedCtrl, this.personChangedCtrl, this.dateChangedCtrl, this.summaChangedCtrl, Key key}) : super(key: key);
+  AddOperationScreen(this.category, {this.itemChangedCtrl, this.personChangedCtrl, this.dateChangedCtrl, this.summaChangedCtrl, this.currencyChangedCtrl, Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     dateChangedCtrl.text = dateChangedCtrl.text.isEmpty ? formatter.format(DateTime.now()) : dateChangedCtrl.text;
+    currencyChangedCtrl.text = currencyChangedCtrl.text.isEmpty ? "AMD" : currencyChangedCtrl.text;
     return Column(children: <Widget>[
       Row(
         children: <Widget>[
@@ -30,13 +33,28 @@ class AddOperationScreen extends StatelessWidget {
           IconButton(icon: Icon(Icons.add_circle), onPressed: () => addItemDialog(context).show()),
         ]
       ),
-      TextField(
-        controller: summaChangedCtrl,
-        decoration: InputDecoration(border: OutlineInputBorder(), labelText: "Input sum"),
-        inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
-        keyboardType: TextInputType.number,
+      SizedBox(height: 10),
+      Row(
+        children: [
+          Expanded(flex: 2, child: TextField(
+            controller: summaChangedCtrl,
+            decoration: InputDecoration(border: OutlineInputBorder(), labelText: "Input sum"),
+            inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[\d.]'))],  // digits and "."
+            keyboardType: TextInputType.number,
+          )),
+          SizedBox(width: 10),
+          Expanded(child: AppDropdownInput<String>(
+            hintText: "Currency",
+            options: ["USD", "EUR", "RUB", "AMD", "THB"],
+            value: currencyChangedCtrl.text,
+            onChanged: (String currencyCode) { currencyChangedCtrl.text = currencyCode; },
+            getLabel: (String value) => value,
+          )),
+        ],
       ),
+      SizedBox(height: 10),
       PersonChooser(personChangedCtrl),
+      SizedBox(height: 10),
       TextField(
         controller: dateChangedCtrl,
         decoration: InputDecoration(

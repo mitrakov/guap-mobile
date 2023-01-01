@@ -7,11 +7,13 @@ class Operation {
   final int id;
   final String item;
   final String category;
-  final int summa;
+  final double summa;
   final String time;
   final String person;
+  final String currency;
+  final double currencyRate;
 
-  Operation(this.id, this.item, this.category, this.summa, this.time, this.person);
+  Operation(this.id, this.item, this.category, this.summa, this.time, this.person, this.currency, this.currencyRate);
 
   factory Operation.fromJson(Map<String, dynamic> json) => _$OperationFromJson(json);
 
@@ -24,6 +26,8 @@ class Operation {
   String get timeUtf8 => time != null ? utf8.decode(time.runes.toList()) : '';
 
   String get personUtf8 => person != null ? utf8.decode(person.runes.toList()) : '';
+
+  String get currencyUtf8 => currency != null ? utf8.decode(currency.runes.toList()) : '';
 }
 
 @JsonSerializable()
@@ -55,10 +59,12 @@ class OperationListResponse {
 class AddOperationRequest {
   final String itemName;
   final String personName;
-  final int summa;
+  final double summa;
   final String date;
+  final String currency;
+  final double currencyRate;
 
-  AddOperationRequest(this.itemName, this.personName, this.summa, this.date);
+  AddOperationRequest(this.itemName, this.personName, this.summa, this.date, this.currency, this.currencyRate);
 
   factory AddOperationRequest.fromJson(Map<String, dynamic> json) => _$AddOperationRequestFromJson(json);
 
@@ -69,7 +75,8 @@ class AddOperationRequest {
 class ChangeOperationRequest extends AddOperationRequest {
   final int id;
 
-  ChangeOperationRequest(this.id, String itemName, String personName, int summa, String date) : super(itemName, personName, summa, date);
+  ChangeOperationRequest(this.id, String itemName, String personName, double summa, String date, String currency, double currencyRate)
+      : super(itemName, personName, summa, date, currency, currencyRate);
 
   factory ChangeOperationRequest.fromJson(Map<String, dynamic> json) => _$ChangeOperationRequestFromJson(json);
 

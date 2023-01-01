@@ -14,12 +14,14 @@ class AddOperationScaffold extends StatelessWidget {
   final TextEditingController personChangedCtrl;
   final TextEditingController dateChangedCtrl;
   final TextEditingController summaChangedCtrl;
+  final TextEditingController currencyChangedCtrl;
 
   AddOperationScaffold(this.category, this.operationOpt, {Key key}) :
         itemChangedCtrl = TextEditingController(text: operationOpt.map((o) => o.itemUtf8).orElseGet(() => "")),
         personChangedCtrl = TextEditingController(text: operationOpt.map((o) => o.personUtf8).orElseGet(() => "")),
         dateChangedCtrl = TextEditingController(text: operationOpt.map((o) => o.timeUtf8).orElseGet(() => "")),
         summaChangedCtrl = TextEditingController(text: operationOpt.map((o) => o.summa.toString()).orElseGet(() => "")),
+        currencyChangedCtrl = TextEditingController(text: operationOpt.map((o) => o.currency.toString()).orElseGet(() => "")),
         super(key: key);
 
   @override
@@ -32,6 +34,7 @@ class AddOperationScaffold extends StatelessWidget {
         dateChangedCtrl: dateChangedCtrl,
         personChangedCtrl: personChangedCtrl,
         summaChangedCtrl: summaChangedCtrl,
+        currencyChangedCtrl: currencyChangedCtrl,
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.check, size: 36),
@@ -53,14 +56,16 @@ class AddOperationScaffold extends StatelessWidget {
       final action = PersonsThunk.addPerson(person);
       store.dispatch(action);
     }
-    final action = OperationsThunk.addOperation(itemChangedCtrl.text, person, int.parse(summaChangedCtrl.text),dateChangedCtrl.text);
+    final summa = double.parse(summaChangedCtrl.text);
+    final action = OperationsThunk.addOperation(itemChangedCtrl.text, person, summa, dateChangedCtrl.text, currencyChangedCtrl.text, -1);
     store.dispatch(action);
     Navigator.popUntil(context, ModalRoute.withName("/main"));
   }
 
   void editOperation(BuildContext context, int id) {
     final person = personChangedCtrl.text.trim();
-    final action = OperationsThunk.changeOperation(id, itemChangedCtrl.text, person, int.parse(summaChangedCtrl.text), dateChangedCtrl.text);
+    final summa = double.parse(summaChangedCtrl.text);
+    final action = OperationsThunk.changeOperation(id, itemChangedCtrl.text, person, summa, dateChangedCtrl.text, currencyChangedCtrl.text, -1);
     StoreProvider.of<AppState>(context).dispatch(action);
     Navigator.popUntil(context, ModalRoute.withName("/main"));
   }

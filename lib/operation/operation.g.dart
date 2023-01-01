@@ -11,9 +11,11 @@ Operation _$OperationFromJson(Map<String, dynamic> json) {
     json['id'] as int,
     json['item'] as String,
     json['category'] as String,
-    json['summa'] as int,
+    (json['summa'] as num)?.toDouble(),
     json['time'] as String,
     json['person'] as String,
+    json['currency'] as String,
+    (json['currencyRate'] as num)?.toDouble(),
   );
 }
 
@@ -24,6 +26,8 @@ Map<String, dynamic> _$OperationToJson(Operation instance) => <String, dynamic>{
       'summa': instance.summa,
       'time': instance.time,
       'person': instance.person,
+      'currency': instance.currency,
+      'currencyRate': instance.currencyRate,
     };
 
 OperationResponse _$OperationResponseFromJson(Map<String, dynamic> json) {
@@ -60,8 +64,10 @@ AddOperationRequest _$AddOperationRequestFromJson(Map<String, dynamic> json) {
   return AddOperationRequest(
     json['itemName'] as String,
     json['personName'] as String,
-    json['summa'] as int,
+    (json['summa'] as num)?.toDouble(),
     json['date'] as String,
+    json['currency'] as String,
+    (json['currencyRate'] as num)?.toDouble(),
   );
 }
 
@@ -72,6 +78,8 @@ Map<String, dynamic> _$AddOperationRequestToJson(
       'personName': instance.personName,
       'summa': instance.summa,
       'date': instance.date,
+      'currency': instance.currency,
+      'currencyRate': instance.currencyRate,
     };
 
 ChangeOperationRequest _$ChangeOperationRequestFromJson(
@@ -80,8 +88,10 @@ ChangeOperationRequest _$ChangeOperationRequestFromJson(
     json['id'] as int,
     json['itemName'] as String,
     json['personName'] as String,
-    json['summa'] as int,
+    (json['summa'] as num)?.toDouble(),
     json['date'] as String,
+    json['currency'] as String,
+    (json['currencyRate'] as num)?.toDouble(),
   );
 }
 
@@ -92,6 +102,8 @@ Map<String, dynamic> _$ChangeOperationRequestToJson(
       'personName': instance.personName,
       'summa': instance.summa,
       'date': instance.date,
+      'currency': instance.currency,
+      'currencyRate': instance.currencyRate,
       'id': instance.id,
     };
 

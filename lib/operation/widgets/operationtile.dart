@@ -17,7 +17,6 @@ class OperationTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Slidable(
       actionPane: SlidableDrawerActionPane(),
       actionExtentRatio: 0.2,
@@ -27,7 +26,7 @@ class OperationTile extends StatelessWidget {
           caption: "Edit",
           color: Colors.grey[400],
           icon: Icons.mode_edit,
-          onTap: () => onEdit(context),
+          onTap: () => _onEdit(context),
         ),
         IconSlideAction(
           caption: "Delete",
@@ -48,7 +47,7 @@ class OperationTile extends StatelessWidget {
           return ListTile(
             title: Text(snapshot.data.itemUtf8),
             subtitle: Text("${snapshot.data.timeUtf8}$person"),
-            trailing: Text("${snapshot.data.summa} ₽", style: TextStyle(fontSize: 22)),
+            trailing: Text("${snapshot.data.summa} ${_currencyMapping(snapshot.data.currency)}", style: TextStyle(fontSize: 22)),
           );
         }
         if (snapshot.hasError)
@@ -58,7 +57,7 @@ class OperationTile extends StatelessWidget {
     );
   }
 
-  void onEdit(BuildContext context) async {
+  void _onEdit(BuildContext context) async {
     final operation = await GlobalOperationStore.get(id);
     Navigator.pushNamed(context, "/chooseCategory", arguments: Tuple2(Optional.of(operation), "/operation"));
   }
@@ -83,5 +82,16 @@ class OperationTile extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  String _currencyMapping(String currencyCode) {
+    switch(currencyCode) {
+      case "USD": return "\$";
+      case "EUR": return "€";
+      case "RUB": return "₽";
+      case "AMD": return "֏";
+      case "THB": return "฿";
+      default: return "?";
+    }
   }
 }
