@@ -25,7 +25,7 @@ class AddOperationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     dateChangedCtrl.text = dateChangedCtrl.text.isEmpty ? formatter.format(DateTime.now()) : dateChangedCtrl.text;
-    currencyChangedCtrl.text = currencyChangedCtrl.text.isEmpty ? "AMD" : currencyChangedCtrl.text;
+    currencyChangedCtrl.text = currencyChangedCtrl.text.isEmpty ? "USD" : currencyChangedCtrl.text;
     return Column(children: <Widget>[
       Row(
         children: <Widget>[

@@ -85,7 +85,7 @@ class OperationTile extends StatelessWidget {
   }
 
   String _currencyMapping(String currencyCode) {
-    switch(currencyCode) {
+    switch (currencyCode) {
       case "USD": return "\$";
       case "EUR": return "€";
       case "RUB": return "₽";

@@ -17,17 +17,17 @@ class AddOperationScaffold extends StatelessWidget {
   final TextEditingController currencyChangedCtrl;
 
   AddOperationScaffold(this.category, this.operationOpt, {Key key}) :
-        itemChangedCtrl = TextEditingController(text: operationOpt.map((o) => o.itemUtf8).orElseGet(() => "")),
-        personChangedCtrl = TextEditingController(text: operationOpt.map((o) => o.personUtf8).orElseGet(() => "")),
-        dateChangedCtrl = TextEditingController(text: operationOpt.map((o) => o.timeUtf8).orElseGet(() => "")),
-        summaChangedCtrl = TextEditingController(text: operationOpt.map((o) => o.summa.toString()).orElseGet(() => "")),
-        currencyChangedCtrl = TextEditingController(text: operationOpt.map((o) => o.currency.toString()).orElseGet(() => "")),
+        itemChangedCtrl = TextEditingController(text: operationOpt.map((o) => o.itemUtf8).orElse("")),
+        personChangedCtrl = TextEditingController(text: operationOpt.map((o) => o.personUtf8).orElse("")),
+        dateChangedCtrl = TextEditingController(text: operationOpt.map((o) => o.timeUtf8).orElse("")),
+        summaChangedCtrl = TextEditingController(text: operationOpt.map((o) => o.summa.toString()).orElse("")),
+        currencyChangedCtrl = TextEditingController(text: operationOpt.map((o) => o.currency.toString()).orElse("")),
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Guap application")),
+      appBar: AppBar(title: Text("Guap Application")),
       body: AddOperationScreen(
         category,
         itemChangedCtrl: itemChangedCtrl,
@@ -39,34 +39,49 @@ class AddOperationScaffold extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.check, size: 36),
         tooltip: "Confirm",
-        onPressed: () => onPress(context),
+        onPressed: () => _onPress(context),
       )
     );
   }
 
-  void onPress(BuildContext context) {
-    operationOpt.ifPresent((op) => editOperation(context, op.id), orElse: () => addOperation(context));
+  void _onPress(BuildContext context) {
+    operationOpt.ifPresent((op) => _editOperation(context, op.id), orElse: () => _addOperation(context));
   }
 
-  void addOperation(BuildContext context) {
+  void _addOperation(BuildContext context) {
     final person = personChangedCtrl.text.trim();
     final store = StoreProvider.of<AppState>(context);
 
     if (!store.state.personsState.persons.contains(person)) {
       final action = PersonsThunk.addPerson(person);
       store.dispatch(action);
+      // TODO: here we need some pause (event, callback) to let Server finish adding a new person
     }
     final summa = double.parse(summaChangedCtrl.text);
-    final action = OperationsThunk.addOperation(itemChangedCtrl.text, person, summa, dateChangedCtrl.text, currencyChangedCtrl.text, -1);
+    final currencyRate = _getCurrencyRate(currencyChangedCtrl.text, dateChangedCtrl.text);
+    final action = OperationsThunk.addOperation(itemChangedCtrl.text, person, summa, dateChangedCtrl.text, currencyChangedCtrl.text, currencyRate);
     store.dispatch(action);
     Navigator.popUntil(context, ModalRoute.withName("/main"));
   }
 
-  void editOperation(BuildContext context, int id) {
+  void _editOperation(BuildContext context, int id) {
     final person = personChangedCtrl.text.trim();
     final summa = double.parse(summaChangedCtrl.text);
-    final action = OperationsThunk.changeOperation(id, itemChangedCtrl.text, person, summa, dateChangedCtrl.text, currencyChangedCtrl.text, -1);
+    final currencyRate = _getCurrencyRate(currencyChangedCtrl.text, dateChangedCtrl.text);
+    final action = OperationsThunk.changeOperation(id, itemChangedCtrl.text, person, summa, dateChangedCtrl.text, currencyChangedCtrl.text, currencyRate);
     StoreProvider.of<AppState>(context).dispatch(action);
     Navigator.popUntil(context, ModalRoute.withName("/main"));
+  }
+
+  double _getCurrencyRate(String currency, String date) {
+    // TODO: taken from Google.Finance at 2023-01-02: need to fetch dynamically for a given date
+    switch (currency) {
+      case "USD": return 1;
+      case "EUR": return 1.0666;
+      case "RUB": return 0.0138;
+      case "AMD": return 0.0026;
+      case "THB": return 0.029;
+      default:    return 1;      // default no-op multiplicator
+    }
   }
 }

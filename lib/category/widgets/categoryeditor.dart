@@ -28,7 +28,7 @@ class CategoryEditor extends StatelessWidget {
 
   Widget _createTile(BuildContext context, CategoryItem item) {
     final String categoryText = "${" " * 6 * item.level}${item.category.labelUtf8}";
-    final String parent = item.parentOpt.map((c) => "${c.labelUtf8}").orElseGet(() => "");
+    final String parent = item.parentOpt.map((c) => "${c.labelUtf8}").orElse("");
     return Slidable(
       actionPane: SlidableDrawerActionPane(),
       actionExtentRatio: 0.2,
