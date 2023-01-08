@@ -4,7 +4,7 @@ description: Mobile version of GUAP application
 # Flutter 2.0.0+ will NOT work.
 # To build for Android, add "key.properties" to android/ folder
 
-version: 23.1.2+11
+version: 23.1.8+12
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -35,5 +35,4 @@ dev_dependencies:
   json_serializable: ^3.2.0          # json auto-generation
 
 flutter:
-
   uses-material-design: true

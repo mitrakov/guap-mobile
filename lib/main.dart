@@ -23,6 +23,7 @@ import 'package:guap_mobile/redux/appstate.dart';
 import 'package:guap_mobile/redux/reducers.dart';
 import 'package:guap_mobile/settings/settings.dart';
 import 'package:guap_mobile/settings/settingswidget.dart';
+import 'package:guap_mobile/query/widgets/aggregate.dart';
 
 void main() {
   final store = new Store<AppState>(AppReducer.reducer, initialState: AppState(), middleware: [thunkMiddleware]);
@@ -44,30 +45,34 @@ class MyApp extends StatelessWidget {
         title: "Guap",
         initialRoute: "/checkPasscode",
         routes: {
-          "/checkPasscode": (context1) => PasscodeChecker(),
-          "/login": (context1) => LoginScreen(),
-          "/setPasscode": (context1) => PasscodeSetter(),
-          "/main": (context1) => MainScaffold(),
-          "/persons": (context1) => Scaffold(
+          "/checkPasscode": (context) => PasscodeChecker(),
+          "/login": (context) => LoginScreen(),
+          "/setPasscode": (context) => PasscodeSetter(),
+          "/main": (context) => MainScaffold(),
+          "/persons": (context) => Scaffold(
             appBar: AppBar(title: Text("Guap application")),
             body: PersonEditor(),
           ),
-          "/categories": (context1) => Scaffold(
+          "/categories": (context) => Scaffold(
             appBar: AppBar(title: Text("Guap application")),
             body: CategoryEditor(),
           ),
-          "/settings": (context1) => Scaffold(
+          "/settings": (context) => Scaffold(
             appBar: AppBar(title: Text("Guap application")),
             body: SettingsWidget(),
           ),
-          "/chart/pie": (context1) => Scaffold(
+          "/chart/pie": (context) => Scaffold(
             appBar: AppBar(title: Text("Guap application")),
             body: PieChart(),
           ),
-          "/chart/time": (context1) => Scaffold(
+          "/chart/time": (context) => Scaffold(
             appBar: AppBar(title: Text("Guap application")),
             body: TimeChart(),
           ),
+          "/query/aggregate": (context) => Scaffold(
+            appBar: AppBar(title: Text("Guap application")),
+            body: QueryAggregateScreen(),
+          )
         },
         onGenerateRoute: (routeSettings) {
           if (routeSettings.name == "/operation")

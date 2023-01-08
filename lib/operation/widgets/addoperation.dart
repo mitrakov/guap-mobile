@@ -8,7 +8,7 @@ import 'package:guap_mobile/item/widgets/itemschooser.dart';
 import 'package:guap_mobile/item/redux.dart';
 import 'package:guap_mobile/person/widgets/personchooser.dart';
 import 'package:guap_mobile/redux/appstate.dart';
-import 'package:guap_mobile/operation/widgets/dropdown.dart';
+import 'package:guap_mobile/common/widgets/dropdown.dart';
 
 class AddOperationScreen extends StatelessWidget {
   final String category;
@@ -31,7 +31,7 @@ class AddOperationScreen extends StatelessWidget {
       Row(
         children: <Widget>[
           Expanded(child: ItemsChooser(itemChangedCtrl)),
-          IconButton(icon: Icon(Icons.add_circle), onPressed: () => addItemDialog(context).show()),
+          IconButton(icon: Icon(Icons.add_circle), onPressed: () => _addItemDialog(context).show()),
         ]
       ),
       SizedBox(height: 10),
@@ -44,7 +44,7 @@ class AddOperationScreen extends StatelessWidget {
             keyboardType: TextInputType.number,
           )),
           SizedBox(width: 10),
-          Expanded(child: AppDropdownInput<String>(
+          Expanded(child: TrixDropdown<String>(
             hintText: "Currency",
             options: ["USD", "EUR", "RUB", "AMD", "THB"],
             value: currencyChangedCtrl.text,
@@ -81,7 +81,7 @@ class AddOperationScreen extends StatelessWidget {
     borderRadius: 16,
   );
 
-  Alert addItemDialog(BuildContext context) {
+  Alert _addItemDialog(BuildContext context) {
     return Alert(
       context: context,
       title: "Add item",

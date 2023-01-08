@@ -84,6 +84,10 @@ class MainScaffold extends StatelessWidget {
           value: "/chart/time",
           child: Text("Time chart"),
         ),
+        PopupMenuItem<String>(
+          value: "/query/aggregate",
+          child: Text("Aggregation"),
+        ),
       ],
     );
   }

@@ -40,17 +40,18 @@ class TimeChartState extends State<TimeChart> {
       builder: (context1, state) => Column(children: <Widget>[
         yearDropdown,
         RaisedButton(
-            color: Theme.of(context).primaryColor,
-            child: Text("Come on", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 18)),
-            onPressed: () {
-              final date = formatter.format(DateTime(yearDropdown.value));
-              final categories = state.asPlainList().map((c) => c.category.labelUtf8).toList();
-              Ajax.timeChart(TimeChartRequest("month", date, categories)).then((uri) {
-                Navigator.push(context, MaterialPageRoute(builder: (context1) => FullScreenImage(uri)));
-              });
-            }
-          )
-        ]),
+          color: Theme.of(context).primaryColor,
+          child: Text("Come on", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 18)),
+          onPressed: () {
+            // no need to dispatch actions here, because it's used only here
+            final date = formatter.format(DateTime(yearDropdown.value));
+            final categories = state.asPlainList().map((c) => c.category.labelUtf8).toList();
+            Ajax.timeChart(TimeChartRequest("month", date, categories)).then((uri) {
+              Navigator.push(context, MaterialPageRoute(builder: (context1) => FullScreenImage(uri)));
+            });
+          }
+        )
+      ])
     );
   }
 }

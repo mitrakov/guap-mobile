@@ -52,6 +52,7 @@ class PieChartState extends State<PieChart> {
         color: Theme.of(context).primaryColor,
         child: Text("Go", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 18)),
         onPressed: () {
+          // no need to dispatch actions here, because it's used only here
           Ajax.pieChart(PieChartRequest(formatter.parse(monthDropdown.value).month, yearDropdown.value)).then((uri) {
             Navigator.push(context, MaterialPageRoute(builder: (context1) => FullScreenImage(uri)));
           });

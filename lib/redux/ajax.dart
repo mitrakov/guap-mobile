@@ -9,6 +9,7 @@ import 'package:guap_mobile/login/login.dart';
 import 'package:guap_mobile/operation/operation.dart';
 import 'package:guap_mobile/redux/common.dart';
 import 'package:guap_mobile/person/person.dart';
+import 'package:guap_mobile/query/query.dart';
 
 class Ajax {
   static final baseUrl = "http://mitrakoff.com:8080/varlam"; // http should be allowed, see https://stackoverflow.com/questions/64172791/
@@ -35,8 +36,7 @@ class Ajax {
     if (response.statusCode == 200) {
       print("Ajax persons: ${response.body}");
       final personResponse = PersonResponse.fromJson(json.decode(response.body));
-      if (personResponse.code == 0)
-        return personResponse.personsUtf8;
+      if (personResponse.code == 0) return personResponse.personsUtf8;
       else throw Exception("Failed to load persons (error code ${personResponse.code})");
     } else throw Exception("Failed to load persons (http code ${response.statusCode})");
   }
@@ -82,8 +82,7 @@ class Ajax {
     if (response.statusCode == 200) {
       print("Ajax categories tree: ${response.body}");
       final categoryResponse = CategoryResponse.fromJson(json.decode(response.body));
-      if (categoryResponse.code == 0)
-        return categoryResponse.categories;
+      if (categoryResponse.code == 0) return categoryResponse.categories;
       else throw Exception("Failed to load categories (error code ${categoryResponse.code})");
     } else throw Exception("Failed to load categories (http code ${response.statusCode})");
   }
@@ -118,8 +117,7 @@ class Ajax {
     if (response.statusCode == 200) {
       print("Ajax items: ${response.body}");
       final itemResponse = ItemResponse.fromJson(json.decode(response.body));
-      if (itemResponse.code == 0)
-        return itemResponse.itemsUtf8;
+      if (itemResponse.code == 0) return itemResponse.itemsUtf8;
       else throw Exception("Failed to load items (error code ${itemResponse.code})");
     } else throw Exception("Failed to load items (http code ${response.statusCode})");
   }
@@ -154,8 +152,7 @@ class Ajax {
     if (response.statusCode == 200) {
       print("Ajax operations: ${response.body}");
       final operationListResponse = OperationListResponse.fromJson(json.decode(response.body));
-      if (operationListResponse.code == 0)
-        return operationListResponse.ids;
+      if (operationListResponse.code == 0) return operationListResponse.ids;
       else throw Exception("Failed to load operations (error code ${operationListResponse.code})");
     } else throw Exception("Failed to load operations (http code ${response.statusCode})");
   }
@@ -165,8 +162,7 @@ class Ajax {
     if (response.statusCode == 200) {
       print("Ajax operation: ${response.body}");
       final operationResponse = OperationResponse.fromJson(json.decode(response.body));
-      if (operationResponse.code == 0)
-        return operationResponse.operation;
+      if (operationResponse.code == 0) return operationResponse.operation;
       else throw Exception("Failed to load operation (error code ${operationResponse.code})");
     } else throw Exception("Failed to load operation (http code ${response.statusCode})");
   }
@@ -238,6 +234,16 @@ class Ajax {
       if (uriResponse.code == 0) return uriResponse.url;
       else throw Exception("Failed to request time chart (error code ${uriResponse.code})");
     } else throw Exception("Failed to request time chart (http code ${response.statusCode})");
+  }
+
+  static Future<double> queryAggregate(String function, String from, String to) async {
+    final response = await http.get("$baseUrl/query/operations/aggregate?from=$from&to=$to&function=$function", headers: await _headers());
+    if (response.statusCode == 200) {
+      print("Ajax query aggregate: ${response.body}");
+      final aggregateResponse = QueryAggregateResponse.fromJson(json.decode(response.body));
+      if (aggregateResponse.code == 0) return aggregateResponse.value;
+      else throw Exception("Failed to request query aggregate (error code ${aggregateResponse.code})");
+    } else throw Exception("Failed to request query aggregate (http code ${response.statusCode})");
   }
 
   static Future<Map<String, String>> _headers() async {
