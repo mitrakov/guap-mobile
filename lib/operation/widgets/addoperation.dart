@@ -17,10 +17,11 @@ class AddOperationScreen extends StatelessWidget {
   final TextEditingController dateChangedCtrl;
   final TextEditingController summaChangedCtrl;
   final TextEditingController currencyChangedCtrl;
+  final TextEditingController commentChangedCtrl;
   final TextEditingController addItemCtrl = TextEditingController();
   final DateFormat formatter = DateFormat("dd-MM-yyyy");
 
-  AddOperationScreen(this.category, {this.itemChangedCtrl, this.personChangedCtrl, this.dateChangedCtrl, this.summaChangedCtrl, this.currencyChangedCtrl, Key key}) : super(key: key);
+  AddOperationScreen(this.category, {this.itemChangedCtrl, this.personChangedCtrl, this.dateChangedCtrl, this.summaChangedCtrl, this.currencyChangedCtrl, this.commentChangedCtrl, Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +68,8 @@ class AddOperationScreen extends StatelessWidget {
           dateChangedCtrl.text = formatter.format(newDate);
         }
       ),
+      SizedBox(height: 10),
+      TextField(controller: commentChangedCtrl, decoration: InputDecoration(border: OutlineInputBorder(), labelText: "Add comment (optional)"))
     ]);
   }
 

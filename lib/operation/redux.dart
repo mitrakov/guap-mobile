@@ -39,10 +39,10 @@ class OperationsThunk {
     };
   }
 
-  static ThunkAction<AppState> addOperation(String item, String person, double summa, String date, String currency, double currencyRate) {
+  static ThunkAction<AppState> addOperation(String item, String person, double summa, String date, String currency, double currencyRate, String comment) {
     return (Store<AppState> store) {
       try {
-        Ajax.addOperation(AddOperationRequest(item, person, summa, date, currency, currencyRate))
+        Ajax.addOperation(AddOperationRequest(item, person, summa, date, currency, currencyRate, comment))
             .then((_) => store.dispatch(fetchOperations(store.state.categoryToDisplay)));
       } catch(e) {
         store.dispatch(ErrorAction(e.toString()));
@@ -50,10 +50,10 @@ class OperationsThunk {
     };
   }
 
-  static ThunkAction<AppState> changeOperation(int id, String item, String person, double summa, String date, String currency, double currencyRate) {
+  static ThunkAction<AppState> changeOperation(int id, String item, String person, double summa, String date, String currency, double currencyRate, String comment) {
     return (Store<AppState> store) async {
       try {
-        Ajax.changeOperation(ChangeOperationRequest(id, item, person, summa, date, currency, currencyRate)).then((_) {
+        Ajax.changeOperation(ChangeOperationRequest(id, item, person, summa, date, currency, currencyRate, comment)).then((_) {
           store.dispatch(fetchOperations(store.state.categoryToDisplay));
           GlobalOperationStore.invalidateAll(); // recreate all operations to update their names
         });

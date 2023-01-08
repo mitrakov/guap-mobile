@@ -15,6 +15,7 @@ class AddOperationScaffold extends StatelessWidget {
   final TextEditingController dateChangedCtrl;
   final TextEditingController summaChangedCtrl;
   final TextEditingController currencyChangedCtrl;
+  final TextEditingController commentChangedCtrl;
 
   AddOperationScaffold(this.category, this.operationOpt, {Key key}) :
         itemChangedCtrl = TextEditingController(text: operationOpt.map((o) => o.itemUtf8).orElse("")),
@@ -22,6 +23,7 @@ class AddOperationScaffold extends StatelessWidget {
         dateChangedCtrl = TextEditingController(text: operationOpt.map((o) => o.timeUtf8).orElse("")),
         summaChangedCtrl = TextEditingController(text: operationOpt.map((o) => o.summa.toString()).orElse("")),
         currencyChangedCtrl = TextEditingController(text: operationOpt.map((o) => o.currency.toString()).orElse("")),
+        commentChangedCtrl = TextEditingController(text: operationOpt.map((o) => o.commentUtf8).orElse("")),
         super(key: key);
 
   @override
@@ -35,6 +37,7 @@ class AddOperationScaffold extends StatelessWidget {
         personChangedCtrl: personChangedCtrl,
         summaChangedCtrl: summaChangedCtrl,
         currencyChangedCtrl: currencyChangedCtrl,
+        commentChangedCtrl: commentChangedCtrl,
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.check, size: 36),
@@ -59,7 +62,8 @@ class AddOperationScaffold extends StatelessWidget {
     }
     final summa = double.parse(summaChangedCtrl.text);
     final currencyRate = _getCurrencyRate(currencyChangedCtrl.text, dateChangedCtrl.text);
-    final action = OperationsThunk.addOperation(itemChangedCtrl.text, person, summa, dateChangedCtrl.text, currencyChangedCtrl.text, currencyRate);
+    final comment = commentChangedCtrl.text.trim();
+    final action = OperationsThunk.addOperation(itemChangedCtrl.text, person, summa, dateChangedCtrl.text, currencyChangedCtrl.text, currencyRate, comment);
     store.dispatch(action);
     Navigator.popUntil(context, ModalRoute.withName("/main"));
   }
@@ -68,7 +72,8 @@ class AddOperationScaffold extends StatelessWidget {
     final person = personChangedCtrl.text.trim();
     final summa = double.parse(summaChangedCtrl.text);
     final currencyRate = _getCurrencyRate(currencyChangedCtrl.text, dateChangedCtrl.text);
-    final action = OperationsThunk.changeOperation(id, itemChangedCtrl.text, person, summa, dateChangedCtrl.text, currencyChangedCtrl.text, currencyRate);
+    final comment = commentChangedCtrl.text.trim();
+    final action = OperationsThunk.changeOperation(id, itemChangedCtrl.text, person, summa, dateChangedCtrl.text, currencyChangedCtrl.text, currencyRate, comment);
     StoreProvider.of<AppState>(context).dispatch(action);
     Navigator.popUntil(context, ModalRoute.withName("/main"));
   }

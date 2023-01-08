@@ -16,6 +16,7 @@ Operation _$OperationFromJson(Map<String, dynamic> json) {
     json['person'] as String,
     json['currency'] as String,
     (json['currencyRate'] as num)?.toDouble(),
+    json['comment'] as String,
   );
 }
 
@@ -28,6 +29,7 @@ Map<String, dynamic> _$OperationToJson(Operation instance) => <String, dynamic>{
       'person': instance.person,
       'currency': instance.currency,
       'currencyRate': instance.currencyRate,
+      'comment': instance.comment,
     };
 
 OperationResponse _$OperationResponseFromJson(Map<String, dynamic> json) {
@@ -68,6 +70,7 @@ AddOperationRequest _$AddOperationRequestFromJson(Map<String, dynamic> json) {
     json['date'] as String,
     json['currency'] as String,
     (json['currencyRate'] as num)?.toDouble(),
+    json['comment'] as String,
   );
 }
 
@@ -80,6 +83,7 @@ Map<String, dynamic> _$AddOperationRequestToJson(
       'date': instance.date,
       'currency': instance.currency,
       'currencyRate': instance.currencyRate,
+      'comment': instance.comment,
     };
 
 ChangeOperationRequest _$ChangeOperationRequestFromJson(
@@ -92,6 +96,7 @@ ChangeOperationRequest _$ChangeOperationRequestFromJson(
     json['date'] as String,
     json['currency'] as String,
     (json['currencyRate'] as num)?.toDouble(),
+    json['comment'] as String,
   );
 }
 
@@ -104,6 +109,7 @@ Map<String, dynamic> _$ChangeOperationRequestToJson(
       'date': instance.date,
       'currency': instance.currency,
       'currencyRate': instance.currencyRate,
+      'comment': instance.comment,
       'id': instance.id,
     };
 

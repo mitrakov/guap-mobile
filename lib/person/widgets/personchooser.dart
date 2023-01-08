@@ -23,7 +23,7 @@ class PersonChooser extends StatelessWidget {
           textFieldConfiguration: TextFieldConfiguration(
             controller: ctrl,
             style: DefaultTextStyle.of(context1).style.copyWith(fontStyle: FontStyle.italic),
-            decoration: InputDecoration(border: OutlineInputBorder(), labelText: "Choose person"),
+            decoration: InputDecoration(border: OutlineInputBorder(), labelText: "Choose person (optional)"),
           ),
           suggestionsCallback: (prefix) {
             final list = new List<String>.from(state.persons);
