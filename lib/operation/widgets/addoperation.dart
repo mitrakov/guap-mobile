@@ -11,6 +11,7 @@ import 'package:guap_mobile/redux/appstate.dart';
 import 'package:guap_mobile/common/widgets/dropdown.dart';
 
 class AddOperationScreen extends StatelessWidget {
+  static final double MARGIN = 6;
   final String category;
   final TextEditingController itemChangedCtrl;
   final TextEditingController personChangedCtrl;
@@ -34,7 +35,7 @@ class AddOperationScreen extends StatelessWidget {
           IconButton(icon: Icon(Icons.add_circle), onPressed: () => _addItemDialog(context).show()),
         ]
       ),
-      SizedBox(height: 10),
+      SizedBox(height: MARGIN),
       Row(
         children: [
           Expanded(flex: 2, child: TextField(
@@ -53,9 +54,9 @@ class AddOperationScreen extends StatelessWidget {
           )),
         ],
       ),
-      SizedBox(height: 10),
+      SizedBox(height: MARGIN),
       PersonChooser(personChangedCtrl),
-      SizedBox(height: 10),
+      SizedBox(height: MARGIN),
       TextField(
         controller: dateChangedCtrl,
         decoration: InputDecoration(
@@ -68,7 +69,7 @@ class AddOperationScreen extends StatelessWidget {
           dateChangedCtrl.text = formatter.format(newDate);
         }
       ),
-      SizedBox(height: 10),
+      SizedBox(height: MARGIN),
       TextField(controller: commentChangedCtrl, decoration: InputDecoration(border: OutlineInputBorder(), labelText: "Add comment (optional)"))
     ]);
   }
