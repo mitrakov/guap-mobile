@@ -82,10 +82,10 @@ class AddOperationScaffold extends StatelessWidget {
     // TODO: taken from Google.Finance at 2023-01-12: need to fetch dynamically for a given date
     switch (currency) {
       case "USD": return 1;
-      case "EUR": return 1.0752;
-      case "RUB": return 0.0148;
+      case "EUR": return 1.0984;
+      case "RUB": return 0.0143;
       case "AMD": return 0.0026;
-      case "THB": return 0.0299;
+      case "THB": return 0.0305;
       default:    return 1;      // default no-op multiplicator
     }
   }

@@ -12,9 +12,10 @@ class QueryAggregateScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final now = DateTime.now();
     functionCtrl.text = functionCtrl.text.isEmpty ? "SUM" : functionCtrl.text;
-    dateFromCtrl.text = dateFromCtrl.text.isEmpty ? formatter.format(DateTime(DateTime.now().year)) : dateFromCtrl.text;
-    dateToCtrl.text = dateToCtrl.text.isEmpty ? formatter.format(DateTime.now()) : dateToCtrl.text;
+    dateFromCtrl.text = dateFromCtrl.text.isEmpty ? formatter.format(DateTime(now.year, now.month)) : dateFromCtrl.text;
+    dateToCtrl.text = dateToCtrl.text.isEmpty ? formatter.format(now) : dateToCtrl.text;
     return Padding(
       padding: EdgeInsets.all(10),
       child: Column(children: <Widget>[
