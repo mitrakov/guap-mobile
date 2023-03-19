@@ -6,6 +6,7 @@ import 'package:guap_mobile/person/redux.dart';
 import 'package:guap_mobile/operation/operation.dart';
 import 'package:guap_mobile/operation/widgets/addoperation.dart';
 import 'package:guap_mobile/operation/redux.dart';
+import 'package:guap_mobile/settings/settings.dart';
 
 class AddOperationScaffold extends StatelessWidget {
   final String category;
@@ -61,7 +62,7 @@ class AddOperationScaffold extends StatelessWidget {
       // TODO: here we need some pause (event, callback) to let Server finish adding a new person
     }
     final summa = double.parse(summaChangedCtrl.text);
-    final currencyRate = _getCurrencyRate(currencyChangedCtrl.text, dateChangedCtrl.text);
+    final currencyRate = Settings.getCurrencyRate(currencyChangedCtrl.text);
     final comment = commentChangedCtrl.text.trim();
     final action = OperationsThunk.addOperation(itemChangedCtrl.text, person, summa, dateChangedCtrl.text, currencyChangedCtrl.text, currencyRate, comment);
     store.dispatch(action);
@@ -71,22 +72,10 @@ class AddOperationScaffold extends StatelessWidget {
   void _editOperation(BuildContext context, int id) {
     final person = personChangedCtrl.text.trim();
     final summa = double.parse(summaChangedCtrl.text);
-    final currencyRate = _getCurrencyRate(currencyChangedCtrl.text, dateChangedCtrl.text);
+    final currencyRate = Settings.getCurrencyRate(currencyChangedCtrl.text);
     final comment = commentChangedCtrl.text.trim();
     final action = OperationsThunk.changeOperation(id, itemChangedCtrl.text, person, summa, dateChangedCtrl.text, currencyChangedCtrl.text, currencyRate, comment);
     StoreProvider.of<AppState>(context).dispatch(action);
     Navigator.popUntil(context, ModalRoute.withName("/main"));
-  }
-
-  double _getCurrencyRate(String currency, String date) {
-    // TODO: taken from Google.Finance at 2023-01-12: need to fetch dynamically for a given date
-    switch (currency) {
-      case "USD": return 1;
-      case "EUR": return 1.0984;
-      case "RUB": return 0.0143;
-      case "AMD": return 0.0026;
-      case "THB": return 0.0305;
-      default:    return 1;      // default no-op multiplicator
-    }
   }
 }
