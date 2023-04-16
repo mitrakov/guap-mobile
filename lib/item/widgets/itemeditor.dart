@@ -9,7 +9,7 @@ class ItemEditor extends StatelessWidget {
   final String category;
   final TextEditingController changeItemCtrl = TextEditingController();
 
-  ItemEditor(this.category, {Key key}): super(key: key);
+  ItemEditor(this.category, {Key? key}): super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,26 +27,28 @@ class ItemEditor extends StatelessWidget {
 
   Widget _createTile(BuildContext context, String item) {
     return Slidable(
-        actionPane: SlidableDrawerActionPane(),
-        actionExtentRatio: 0.2,
-        child: ListTile(
-          title: Text(item),
-          leading: Icon(Icons.satellite),
-        ),
-        secondaryActions: <Widget>[
-          IconSlideAction(
-            caption: "Edit",
-            color: Colors.grey[400],
+      endActionPane: ActionPane(
+        motion: DrawerMotion(),
+        extentRatio: 0.5,
+        children: [
+          SlidableAction(
+            label: "Edit",
+            backgroundColor: Colors.grey[400]!,
             icon: Icons.mode_edit,
-            onTap: () => _changeItemDialog(context, item).show(),
+            onPressed: (_) => _changeItemDialog(context, item).show(), // don't use the context from "_"
           ),
-          IconSlideAction(
-            caption: "Delete",
-            color: Colors.red[400],
+          SlidableAction(
+            label: "Delete",
+            backgroundColor: Colors.red[400]!,
             icon: Icons.delete,
-            onTap: () => _removeItemDialog(context, item).show(),
-          ),
-        ]
+            onPressed: (_) => _removeItemDialog(context, item).show(), // don't use the context from "_"
+          )
+        ],
+      ),
+      child: ListTile(
+        title: Text(item),
+        leading: Icon(Icons.satellite),
+      )
     );
   }
 
@@ -55,7 +57,6 @@ class ItemEditor extends StatelessWidget {
     return Alert(
       context: context,
       title: "Rename item",
-      closeFunction: () => {},
       content: Column(
         children: <Widget>[
           TextField(
@@ -83,7 +84,6 @@ class ItemEditor extends StatelessWidget {
     return Alert(
       context: context,
       title: "Are you sure to remove item $item?",
-      closeFunction: () => {},
       buttons: [
         DialogButton(
           child: Text("Cancel", style: TextStyle(color: Colors.white, fontSize: 20)),

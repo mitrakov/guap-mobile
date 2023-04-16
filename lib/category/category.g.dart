@@ -9,10 +9,9 @@ part of 'category.dart';
 Category _$CategoryFromJson(Map<String, dynamic> json) {
   return Category(
     json['label'] as String,
-    (json['items'] as List)
-        ?.map((e) =>
-            e == null ? null : Category.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    (json['items'] as List<dynamic>)
+        .map((e) => Category.fromJson(e as Map<String, dynamic>))
+        .toList(),
   );
 }
 
@@ -24,10 +23,9 @@ Map<String, dynamic> _$CategoryToJson(Category instance) => <String, dynamic>{
 CategoryResponse _$CategoryResponseFromJson(Map<String, dynamic> json) {
   return CategoryResponse(
     json['code'] as int,
-    (json['msg'] as List)
-        ?.map((e) =>
-            e == null ? null : Category.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    (json['msg'] as List<dynamic>)
+        .map((e) => Category.fromJson(e as Map<String, dynamic>))
+        .toList(),
   );
 }
 

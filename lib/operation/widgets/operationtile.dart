@@ -18,23 +18,25 @@ class OperationTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Slidable(
-      actionPane: SlidableDrawerActionPane(),
-      actionExtentRatio: 0.2,
       child: _createTile(),
-      secondaryActions: <Widget>[
-        IconSlideAction(
-          caption: "Edit",
-          color: Colors.grey[400],
-          icon: Icons.mode_edit,
-          onTap: () => _onEdit(context),
-        ),
-        IconSlideAction(
-          caption: "Delete",
-          color: Colors.red[400],
-          icon: Icons.delete_forever,
-          onTap: () => _removeOperationDialog(context).show(),
-        ),
-      ]
+      endActionPane: ActionPane(
+        motion: DrawerMotion(),
+        extentRatio: 0.5,
+        children: [
+          SlidableAction(
+            label: "Edit",
+            backgroundColor: Colors.grey[400]!,
+            icon: Icons.mode_edit,
+            onPressed: (_) => _onEdit(context), // don't use the context from "_"
+          ),
+          SlidableAction(
+            label: "Delete",
+            backgroundColor: Colors.red[400]!,
+            icon: Icons.delete_forever,
+            onPressed: (_) => _removeOperationDialog(context).show(), // don't use the context from "_"
+          )
+        ],
+      )
     );
   }
 
@@ -43,11 +45,12 @@ class OperationTile extends StatelessWidget {
       future: GlobalOperationStore.get(id), // it's ok to run future here because it's cached
       builder: (context1, snapshot) {
         if (snapshot.hasData) {
-          final person = Settings.showPersons() ? "\n${snapshot.data.personUtf8}" : "";
+          final data = snapshot.data!;
+          final person = Settings.showPersons() ? "\n${data.personUtf8}" : "";
           return ListTile(
-            title: Text(snapshot.data.itemUtf8),
-            subtitle: Text("${snapshot.data.timeUtf8}$person"),
-            trailing: Text("${snapshot.data.summa} ${_currencyMapping(snapshot.data.currency)}", style: TextStyle(fontSize: 22)),
+            title: Text(data.itemUtf8),
+            subtitle: Text("${data.timeUtf8}$person"),
+            trailing: Text("${data.summa} ${_currencyMapping(data.currency)}", style: TextStyle(fontSize: 22)),
           );
         }
         if (snapshot.hasError)
@@ -66,7 +69,6 @@ class OperationTile extends StatelessWidget {
     return Alert(
       context: context,
       title: "Are you sure to remove this operation?",
-      closeFunction: () => {},
       buttons: [
         DialogButton(
           child: Text("Cancel", style: TextStyle(color: Colors.white, fontSize: 20)),

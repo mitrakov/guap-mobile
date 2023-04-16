@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rounded_date_picker/rounded_picker.dart';
+import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 import 'package:guap_mobile/common/widgets/dropdown.dart';
 import 'package:guap_mobile/redux/ajax.dart';
 
@@ -61,7 +61,7 @@ class QueryAggregateScreen extends StatelessWidget {
     );
   }
 
-  Future<DateTime> _showCalendar(BuildContext context, DateTime initialDate) => showRoundedDatePicker(
+  Future<DateTime?> _showCalendar(BuildContext context, DateTime initialDate) => showRoundedDatePicker(
     context: context,
     initialDate: initialDate,
     firstDate: DateTime(DateTime.now().year - 1),

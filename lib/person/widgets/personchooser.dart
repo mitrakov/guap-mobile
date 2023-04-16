@@ -8,7 +8,7 @@ import 'package:guap_mobile/redux/appstate.dart';
 class PersonChooser extends StatelessWidget {
   final TextEditingController ctrl;
 
-  const PersonChooser(this.ctrl, {Key key}) : super(key: key);
+  const PersonChooser(this.ctrl, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class PersonChooser extends StatelessWidget {
       builder: (context1, state) {
         if (state.persons.isEmpty)
           StoreProvider.of<AppState>(context1).dispatch(PersonsThunk.fetchPersons());
-        return TypeAheadField(
+        return TypeAheadField<String>(
           textFieldConfiguration: TextFieldConfiguration(
             controller: ctrl,
             style: DefaultTextStyle.of(context1).style.copyWith(fontStyle: FontStyle.italic),

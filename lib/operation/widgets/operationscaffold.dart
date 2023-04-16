@@ -18,7 +18,7 @@ class AddOperationScaffold extends StatelessWidget {
   final TextEditingController currencyChangedCtrl;
   final TextEditingController commentChangedCtrl;
 
-  AddOperationScaffold(this.category, this.operationOpt, {Key key}) :
+  AddOperationScaffold(this.category, this.operationOpt, {Key? key}) :
         itemChangedCtrl = TextEditingController(text: operationOpt.map((o) => o.itemUtf8).orElse("")),
         personChangedCtrl = TextEditingController(text: operationOpt.map((o) => o.personUtf8).orElse("")),
         dateChangedCtrl = TextEditingController(text: operationOpt.map((o) => o.timeUtf8).orElse("")),

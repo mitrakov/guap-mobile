@@ -1,38 +1,34 @@
 name: guap_mobile
 description: Mobile version of GUAP application
-# Built with Flutter 1.22.6 with "--no-tree-shake-icons" flag
-# Flutter 2.0.0+ will NOT work.
+# Built with Flutter 2.0.0 (note that previously it was built with Flutter 1.22.6 that doesn't support NULL-safety: there might be some flaws).
 # To build for Android, add "key.properties" to android/ folder
 
-version: 23.3.19+15
+version: 23.4.16+16
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  tuple: ^1.0.3                      # tuples support
-  optional: ^5.0.0                   # options support
-  intl: ^0.16.1                      # formatting messages
-  http: ^0.12.1                      # http client
-  crypto: 2.1.4                      # SHA-256
-  shared_preferences: ^0.5.7+3       # key-value storage
-  flutter_redux: 0.5.0               # redux
-  redux_thunk: ^0.2.1                # redux thunk middleware
-  json_annotation: ^3.0.0            # json auto-generation
-  flutter_slidable: ^0.5.4           # dismissible list tiles
-  flutter_treeview: ^0.4.1+1         # treeview
-  flutter_typeahead: ^1.8.3          # auto-complete textbox
-  flutter_rounded_date_picker: 1.0.4 # calendar
-  rflutter_alert: ^1.0.2             # pop-ups
-  firebase_messaging: ^8.0.0-dev.15  # push notifications
+  tuple: ^2.0.0                       # tuples support
+  optional: ^6.0.0                    # options support
+  intl: ^0.17.0                       # formatting messages
+  http: ^0.13.1                       # http client
+  crypto: ^3.0.1                      # SHA-256
+  shared_preferences: ^2.0.6          # key-value storage
+  flutter_redux: ^0.8.2               # redux
+  redux_thunk: ^0.4.0                 # redux thunk middleware
+  json_annotation: ^4.0.1             # json auto-generation
+  flutter_slidable: ^1.0.0            # dismissible list tiles
+  flutter_treeview: ^1.0.3+2          # treeview
+  flutter_typeahead: ^3.1.1           # auto-complete textbox
+  flutter_rounded_date_picker: ^2.0.2 # calendar
+  rflutter_alert: ^2.0.2              # pop-ups
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  build_runner: ^1.0.0               # json auto-generation
-  json_serializable: ^3.2.0          # json auto-generation
+  build_runner: ^2.0.3               # json auto-generation
+  json_serializable: ^4.1.0          # json auto-generation
 
 flutter:
   uses-material-design: true

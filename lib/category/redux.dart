@@ -27,7 +27,7 @@ class CategoryState {
   List<CategoryItem> asPlainList() {
     final result = <CategoryItem>[];
 
-    CategoryListFunc f;
+    late CategoryListFunc f;
     f = (List<Category> lst, Optional<Category> parent, int level) {
       lst.forEach((c) {
         result.add(CategoryItem(c, parent, level));

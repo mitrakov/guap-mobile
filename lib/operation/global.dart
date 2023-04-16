@@ -5,15 +5,11 @@ class GlobalOperationStore {
   static final Map<int, Operation> _store = {};
 
   static Future<Operation> get(int id) async {
-    if (_store.containsKey(id)) return _store[id];
+    if (_store.containsKey(id)) return _store[id]!;
 
     final operation = await Ajax.fetchOperation(id); // no thunks needed
     _store.putIfAbsent(id, () => operation);
     return operation;
-  }
-
-  static Operation invalidate(int id) {
-    return _store.remove(id);
   }
 
   static void invalidateAll() {

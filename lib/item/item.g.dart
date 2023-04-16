@@ -9,7 +9,7 @@ part of 'item.dart';
 ItemResponse _$ItemResponseFromJson(Map<String, dynamic> json) {
   return ItemResponse(
     json['code'] as int,
-    (json['msg'] as List)?.map((e) => e as String)?.toList(),
+    (json['msg'] as List<dynamic>).map((e) => e as String).toList(),
   );
 }
 

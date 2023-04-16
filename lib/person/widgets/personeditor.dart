@@ -26,26 +26,28 @@ class PersonEditor extends StatelessWidget {
 
   Widget _createTile(BuildContext context, String person) {
     return Slidable(
-      actionPane: SlidableDrawerActionPane(),
-      actionExtentRatio: 0.2,
+      endActionPane: ActionPane(
+        motion: DrawerMotion(),
+        extentRatio: 0.5,
+        children: [
+          SlidableAction(
+            label: "Edit",
+            backgroundColor: Colors.grey[400]!,
+            icon: Icons.mode_edit,
+            onPressed: (_) => _changePersonDialog(context, person).show(), // don't use the context from "_"
+          ),
+          SlidableAction(
+            label: "Delete",
+            backgroundColor: Colors.red[400]!,
+            icon: Icons.delete,
+            onPressed: (_) => _removePersonDialog(context, person).show(), // don't use the context from "_"
+          ),
+        ],
+      ),
       child: ListTile(
         title: Text(person),
         leading: Icon(Icons.person),
-      ),
-      secondaryActions: <Widget>[
-        IconSlideAction(
-          caption: "Edit",
-          color: Colors.grey[400],
-          icon: Icons.mode_edit,
-          onTap: () => _changePersonDialog(context, person).show(),
-        ),
-        IconSlideAction(
-          caption: "Delete",
-          color: Colors.red[400],
-          icon: Icons.delete,
-          onTap: () => _removePersonDialog(context, person).show(),
-        ),
-      ]
+      )
     );
   }
 
@@ -54,7 +56,6 @@ class PersonEditor extends StatelessWidget {
     return Alert(
       context: context,
       title: "Rename person",
-      closeFunction: () => {},
       content: Column(
         children: <Widget>[
           TextField(
@@ -82,7 +83,6 @@ class PersonEditor extends StatelessWidget {
     return Alert(
       context: context,
       title: "Are you sure to remove person $person?",
-      closeFunction: () => {},
       buttons: [
         DialogButton(
           child: Text("Cancel", style: TextStyle(color: Colors.white, fontSize: 20)),

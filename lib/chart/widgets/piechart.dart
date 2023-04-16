@@ -26,9 +26,9 @@ class PieChartState extends State<PieChart> {
       icon: Icon(Icons.arrow_drop_down),
       items: months.map((month) => DropdownMenuItem(value: month, child: Text(month))).toList(),
       elevation: 12,
-      onChanged: (String newValue) {
+      onChanged: (String? newValue) {
         setState(() {
-          monthCtrl.text = newValue;
+          monthCtrl.text = newValue ?? "";
         });
       }
     );
@@ -38,7 +38,7 @@ class PieChartState extends State<PieChart> {
         icon: Icon(Icons.arrow_drop_down),
         items: years.map((year) => DropdownMenuItem(value: year, child: Text(year.toString()))).toList(),
         elevation: 12,
-        onChanged: (int newValue) {
+        onChanged: (int? newValue) {
           setState(() {
             yearCtrl.text = newValue.toString();
           });
@@ -53,7 +53,7 @@ class PieChartState extends State<PieChart> {
         child: Text("Go", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 18)),
         onPressed: () {
           // no need to dispatch actions here, because it's used only here
-          Ajax.pieChart(PieChartRequest(formatter.parse(monthDropdown.value).month, yearDropdown.value)).then((uri) {
+          Ajax.pieChart(PieChartRequest(formatter.parse(monthDropdown.value ?? "").month, yearDropdown.value ?? 0)).then((uri) {
             Navigator.push(context, MaterialPageRoute(builder: (context1) => FullScreenImage(uri)));
           });
         }

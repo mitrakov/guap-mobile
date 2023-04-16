@@ -23,7 +23,7 @@ TimeChartRequest _$TimeChartRequestFromJson(Map<String, dynamic> json) {
   return TimeChartRequest(
     json['step'] as String,
     json['from'] as String,
-    (json['categories'] as List)?.map((e) => e as String)?.toList(),
+    (json['categories'] as List<dynamic>).map((e) => e as String).toList(),
   );
 }
 

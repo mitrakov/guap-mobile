@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:flutter_treeview/tree_view.dart';
+import 'package:flutter_treeview/flutter_treeview.dart';
 import 'package:guap_mobile/category/category.dart';
 import 'package:guap_mobile/category/redux.dart';
 import 'package:guap_mobile/item/redux.dart';
@@ -13,7 +13,7 @@ class CategoriesChooser extends StatelessWidget {
   final Optional<Operation> operationOpt;
   final String nextRoute;
 
-  CategoriesChooser(this.operationOpt, this.nextRoute, {Key key}) : super(key: key);
+  CategoriesChooser(this.operationOpt, this.nextRoute, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class CategoriesChooser extends StatelessWidget {
       label: category.labelUtf8,
       children: category.items.map(toNode).toList(),
       expanded: true,
-      icon: NodeIcon.fromIconData(category.items.isEmpty ? Icons.stop : Icons.folder),
+      icon: category.items.isEmpty ? Icons.stop : Icons.folder,
       data: category,
     );
   }

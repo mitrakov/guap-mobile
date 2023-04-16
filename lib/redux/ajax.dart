@@ -21,7 +21,7 @@ class Ajax {
     final request = LoginRequest(name, hash);
     print("Ajax prepare: ${json.encode(request.toJson())}");
 
-    final response = await http.put("$baseUrl/sign/in", body: json.encode(request.toJson()));
+    final response = await http.put(Uri.parse("$baseUrl/sign/in"), body: json.encode(request.toJson()));
     if (response.statusCode == 200) {
       print("Ajax sign in: ${response.body}");
       final tokenResponse = TokenResponse.fromJson(json.decode(response.body));
@@ -32,7 +32,7 @@ class Ajax {
   }
 
   static Future<List<String>> fetchPersons() async {
-    final response = await http.get("$baseUrl/person/list", headers: await _headers());
+    final response = await http.get(Uri.parse("$baseUrl/person/list"), headers: await _headers());
     if (response.statusCode == 200) {
       print("Ajax persons: ${response.body}");
       final personResponse = PersonResponse.fromJson(json.decode(response.body));
@@ -43,7 +43,7 @@ class Ajax {
 
   static Future<void> addPerson(AddPersonRequest person) async {
     print("Ajax prepare: ${json.encode(person.toJson())}");
-    final response = await http.post("$baseUrl/person/new", headers: await _headers(), body: json.encode(person.toJson()));
+    final response = await http.post(Uri.parse("$baseUrl/person/new"), headers: await _headers(), body: json.encode(person.toJson()));
     if (response.statusCode == 200) {
       print("Ajax add person: ${response.body}");
       final personResponse = CommonResponse.fromJson(json.decode(response.body));
@@ -54,7 +54,7 @@ class Ajax {
 
   static Future<void> changePerson(ChangePersonRequest personRequest) async {
     print("Ajax prepare: ${json.encode(personRequest.toJson())}");
-    final response = await http.put("$baseUrl/person/change", headers: await _headers(), body: json.encode(personRequest.toJson()));
+    final response = await http.put(Uri.parse("$baseUrl/person/change"), headers: await _headers(), body: json.encode(personRequest.toJson()));
     if (response.statusCode == 200) {
       print("Ajax change person: ${response.body}");
       final personResponse = CommonResponse.fromJson(json.decode(response.body));
@@ -78,7 +78,7 @@ class Ajax {
   }
 
   static Future<List<Category>> fetchCategoriesTree() async {
-    final response = await http.get("$baseUrl/category/list", headers: await _headers());
+    final response = await http.get(Uri.parse("$baseUrl/category/list"), headers: await _headers());
     if (response.statusCode == 200) {
       print("Ajax categories tree: ${response.body}");
       final categoryResponse = CategoryResponse.fromJson(json.decode(response.body));
@@ -89,7 +89,7 @@ class Ajax {
 
   static Future<void> changeCategory(ChangeCategoryRequest categoryRequest) async {
     print("Ajax prepare: ${json.encode(categoryRequest.toJson())}");
-    final response = await http.put("$baseUrl/category/change", headers: await _headers(), body: json.encode(categoryRequest.toJson()));
+    final response = await http.put(Uri.parse("$baseUrl/category/change"), headers: await _headers(), body: json.encode(categoryRequest.toJson()));
     if (response.statusCode == 200) {
       print("Ajax change category: ${response.body}");
       final categoryResponse = CommonResponse.fromJson(json.decode(response.body));
@@ -113,7 +113,7 @@ class Ajax {
   }
 
   static Future<List<String>> fetchItems(String category) async {
-    final response = await http.get("$baseUrl/item/list?category=$category", headers: await _headers());
+    final response = await http.get(Uri.parse("$baseUrl/item/list?category=$category"), headers: await _headers());
     if (response.statusCode == 200) {
       print("Ajax items: ${response.body}");
       final itemResponse = ItemResponse.fromJson(json.decode(response.body));
@@ -124,7 +124,7 @@ class Ajax {
 
   static Future<void> changeItem(ChangeItemRequest itemRequest) async {
     print("Ajax prepare: ${json.encode(itemRequest.toJson())}");
-    final response = await http.put("$baseUrl/item/change", headers: await _headers(), body: json.encode(itemRequest.toJson()));
+    final response = await http.put(Uri.parse("$baseUrl/item/change"), headers: await _headers(), body: json.encode(itemRequest.toJson()));
     if (response.statusCode == 200) {
       print("Ajax change item: ${response.body}");
       final itemResponse = CommonResponse.fromJson(json.decode(response.body));
@@ -148,7 +148,7 @@ class Ajax {
   }
 
   static Future<List<int>> fetchOperations(String category) async {
-    final response = await http.get("$baseUrl/operation/list?category=$category", headers: await _headers());
+    final response = await http.get(Uri.parse("$baseUrl/operation/list?category=$category"), headers: await _headers());
     if (response.statusCode == 200) {
       print("Ajax operations: ${response.body}");
       final operationListResponse = OperationListResponse.fromJson(json.decode(response.body));
@@ -158,7 +158,7 @@ class Ajax {
   }
 
   static Future<Operation> fetchOperation(int id) async {
-    final response = await http.get("$baseUrl/operation/get?id=$id", headers: await _headers());
+    final response = await http.get(Uri.parse("$baseUrl/operation/get?id=$id"), headers: await _headers());
     if (response.statusCode == 200) {
       print("Ajax operation: ${response.body}");
       final operationResponse = OperationResponse.fromJson(json.decode(response.body));
@@ -169,7 +169,7 @@ class Ajax {
 
   static Future<void> addOperation(AddOperationRequest operation) async {
     print("Ajax prepare: ${json.encode(operation.toJson())}");
-    final response = await http.post("$baseUrl/operation/new", headers: await _headers(), body: json.encode(operation.toJson()));
+    final response = await http.post(Uri.parse("$baseUrl/operation/new"), headers: await _headers(), body: json.encode(operation.toJson()));
     if (response.statusCode == 200) {
       print("Ajax add operation: ${response.body}");
       final operationResponse = CommonResponse.fromJson(json.decode(response.body));
@@ -180,7 +180,7 @@ class Ajax {
 
   static Future<void> changeOperation(ChangeOperationRequest operation) async {
     print("Ajax prepare: ${json.encode(operation.toJson())}");
-    final response = await http.put("$baseUrl/operation/change", headers: await _headers(), body: json.encode(operation.toJson()));
+    final response = await http.put(Uri.parse("$baseUrl/operation/change"), headers: await _headers(), body: json.encode(operation.toJson()));
     if (response.statusCode == 200) {
       print("Ajax change operation: ${response.body}");
       final operationResponse = CommonResponse.fromJson(json.decode(response.body));
@@ -205,7 +205,7 @@ class Ajax {
 
   static Future<void> addItem(AddItemRequest item) async {
     print("Ajax prepare: ${json.encode(item.toJson())}");
-    final response = await http.post("$baseUrl/item/new", headers: await _headers(), body: json.encode(item.toJson()));
+    final response = await http.post(Uri.parse("$baseUrl/item/new"), headers: await _headers(), body: json.encode(item.toJson()));
     if (response.statusCode == 200) {
       print("Ajax add item: ${response.body}");
       final itemResponse = CommonResponse.fromJson(json.decode(response.body));
@@ -216,7 +216,7 @@ class Ajax {
 
   static Future<String> pieChart(PieChartRequest request) async {
     print("Ajax prepare: ${json.encode(request.toJson())}");
-    final response = await http.put("$baseUrl/chart/pie", headers: await _headers(), body: json.encode(request.toJson()));
+    final response = await http.put(Uri.parse("$baseUrl/chart/pie"), headers: await _headers(), body: json.encode(request.toJson()));
     if (response.statusCode == 200) {
       print("Ajax pie chart: ${response.body}");
       final uriResponse = UriResponse.fromJson(json.decode(response.body));
@@ -227,7 +227,7 @@ class Ajax {
 
   static Future<String> timeChart(TimeChartRequest request) async {
     print("Ajax prepare: ${json.encode(request.toJson())}");
-    final response = await http.put("$baseUrl/chart/time", headers: await _headers(), body: json.encode(request.toJson()));
+    final response = await http.put(Uri.parse("$baseUrl/chart/time"), headers: await _headers(), body: json.encode(request.toJson()));
     if (response.statusCode == 200) {
       print("Ajax time chart: ${response.body}");
       final uriResponse = UriResponse.fromJson(json.decode(response.body));
@@ -237,7 +237,7 @@ class Ajax {
   }
 
   static Future<double> queryAggregate(String function, String from, String to) async {
-    final response = await http.get("$baseUrl/query/operations/aggregate?from=$from&to=$to&function=$function", headers: await _headers());
+    final response = await http.get(Uri.parse("$baseUrl/query/operations/aggregate?from=$from&to=$to&function=$function"), headers: await _headers());
     if (response.statusCode == 200) {
       print("Ajax query aggregate: ${response.body}");
       final aggregateResponse = QueryAggregateResponse.fromJson(json.decode(response.body));
@@ -249,8 +249,8 @@ class Ajax {
   static Future<Map<String, String>> _headers() async {
     if (_token.isEmpty || _username.isEmpty) {
       final storage = await SharedPreferences.getInstance();
-      _token = storage.containsKey("token") ? storage.getString("token") : "no token";
-      _username = storage.containsKey("username") ? storage.getString("username") : "no username";
+      _token = (storage.containsKey("token") ? storage.getString("token") : "no token") ?? "";
+      _username = (storage.containsKey("username") ? storage.getString("username") : "no username") ?? "";
     }
 
     return {"username": _username, "token": _token};

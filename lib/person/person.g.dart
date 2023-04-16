@@ -9,7 +9,7 @@ part of 'person.dart';
 PersonResponse _$PersonResponseFromJson(Map<String, dynamic> json) {
   return PersonResponse(
     json['code'] as int,
-    (json['msg'] as List)?.map((e) => e as String)?.toList(),
+    (json['msg'] as List<dynamic>).map((e) => e as String).toList(),
   );
 }
 

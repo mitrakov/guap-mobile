@@ -44,7 +44,7 @@ class PasscodeCheckerState extends State<PasscodeChecker> {
     super.initState();
     SharedPreferences.getInstance().then((storage) {
       if (storage.containsKey("passcode"))
-        curPasscodeCtrl.text = storage.getString("passcode");
+        curPasscodeCtrl.text = storage.getString("passcode") ?? "";
       else Future.delayed(Duration(seconds: 0), () => Navigator.popAndPushNamed(context, "/login"));
     });
   }

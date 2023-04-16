@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:guap_mobile/chart/widgets/piechart.dart';
 import 'package:guap_mobile/chart/widgets/timechart.dart';
 import 'package:guap_mobile/item/widgets/itemeditor.dart';
@@ -18,7 +16,6 @@ import 'package:guap_mobile/category/widgets/categoryeditor.dart';
 import 'package:guap_mobile/operation/widgets/operationscaffold.dart';
 import 'package:guap_mobile/operation/operation.dart';
 import 'package:guap_mobile/person/widgets/personeditor.dart';
-import 'package:guap_mobile/redux/actions.dart';
 import 'package:guap_mobile/redux/appstate.dart';
 import 'package:guap_mobile/redux/reducers.dart';
 import 'package:guap_mobile/settings/settings.dart';
@@ -33,12 +30,11 @@ void main() {
 class MyApp extends StatelessWidget {
   final Store<AppState> store;
 
-  const MyApp(this.store, {Key key}) : super(key: key);
+  const MyApp(this.store, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Settings.init();
-    initMessaging(store);
     return StoreProvider<AppState> (
       store: store,
       child: MaterialApp(
@@ -77,14 +73,14 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: (routeSettings) {
           if (routeSettings.name == "/operation")
             return MaterialPageRoute(builder: (context1) {
-              final Tuple2<String, Optional<Operation>> args = routeSettings.arguments;
+              final args = routeSettings.arguments as Tuple2<String, Optional<Operation>>;
               final category = args.item1;
               final operationOpt = args.item2;
               return AddOperationScaffold(category, operationOpt);
             });
           if (routeSettings.name == "/chooseCategory")
             return MaterialPageRoute(builder: (context1) {
-              final Tuple2<Optional<Operation>, String> args = routeSettings.arguments;
+              final args = routeSettings.arguments as Tuple2<Optional<Operation>, String>;
               final operationIdOpt = args.item1;
               final nextRoute = args.item2;
               return Scaffold(
@@ -94,7 +90,7 @@ class MyApp extends StatelessWidget {
             });
           if (routeSettings.name == "/items")
             return MaterialPageRoute(builder: (context1) {
-              final Tuple2<String, Optional<Operation>> args = routeSettings.arguments;
+              final args = routeSettings.arguments as Tuple2<String, Optional<Operation>>;
               final category = args.item1;
               return Scaffold(
                 appBar: AppBar(title: Text("Guap application")),
@@ -105,22 +101,5 @@ class MyApp extends StatelessWidget {
         },
       )
     );
-  }
-
-  void initMessaging(Store<AppState> store) async {
-    await Firebase.initializeApp();
-    final messaging = FirebaseMessaging.instance;
-    NotificationSettings settings = await messaging.requestPermission(
-      alert: true,
-      announcement: false,
-      badge: true,
-      carPlay: true,
-      criticalAlert: false,
-      provisional: false,
-      sound: true,
-    );
-    final token = await messaging.getAPNSToken();
-    print("User granted permission: ${settings.authorizationStatus}; Token is: $token");
-    store.dispatch(TokenAction(token));
   }
 }

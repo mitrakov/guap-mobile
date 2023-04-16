@@ -22,7 +22,7 @@ class SettingsWidgetState extends State<SettingsWidget> {
           value: Settings.showPersons(),
           onChanged: (value) {
             setState(() {
-              Settings.setShowPersons(value);
+              Settings.setShowPersons(value ?? true);
             });
           },
         ),

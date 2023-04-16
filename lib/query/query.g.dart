@@ -10,7 +10,7 @@ QueryAggregateResponse _$QueryAggregateResponseFromJson(
     Map<String, dynamic> json) {
   return QueryAggregateResponse(
     json['code'] as int,
-    (json['msg'] as num)?.toDouble(),
+    (json['msg'] as num).toDouble(),
   );
 }
 

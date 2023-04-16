@@ -13,8 +13,3 @@ class ErrorAction {
   final String error;
   ErrorAction(this.error);
 }
-
-class TokenAction {
-  final String token;
-  TokenAction(this.token);
-}

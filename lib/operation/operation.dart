@@ -9,10 +9,10 @@ class Operation {
   final String category;
   final double summa;
   final String time;
-  final String person;
+  final String? person;
   final String currency;
-  final double currencyRate;
-  final String comment;
+  final double? currencyRate;
+  final String? comment;
 
   Operation(this.id, this.item, this.category, this.summa, this.time, this.person, this.currency, this.currencyRate, this.comment);
 
@@ -26,11 +26,11 @@ class Operation {
 
   String get timeUtf8 => time != null ? utf8.decode(time.runes.toList()) : '';
 
-  String get personUtf8 => person != null ? utf8.decode(person.runes.toList()) : '';
+  String get personUtf8 => person != null ? utf8.decode(person!.runes.toList()) : '';
 
   String get currencyUtf8 => currency != null ? utf8.decode(currency.runes.toList()) : '';
 
-  String get commentUtf8 => comment != null ? utf8.decode(comment.runes.toList()) : '';
+  String get commentUtf8 => comment != null ? utf8.decode(comment!.runes.toList()) : '';
 }
 
 @JsonSerializable()

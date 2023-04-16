@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:flutter_rounded_date_picker/rounded_picker.dart';
+import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:intl/intl.dart';
 import 'package:guap_mobile/item/widgets/itemschooser.dart';
@@ -22,12 +22,13 @@ class AddOperationScreen extends StatelessWidget {
   final TextEditingController addItemCtrl = TextEditingController();
   final DateFormat formatter = DateFormat("dd-MM-yyyy");
 
-  AddOperationScreen(this.category, {this.itemChangedCtrl, this.personChangedCtrl, this.dateChangedCtrl, this.summaChangedCtrl, this.currencyChangedCtrl, this.commentChangedCtrl, Key key}) : super(key: key);
+  AddOperationScreen(this.category, {required this.itemChangedCtrl, required this.personChangedCtrl, required this.dateChangedCtrl,
+    required this.summaChangedCtrl, required this.currencyChangedCtrl, required this.commentChangedCtrl, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     dateChangedCtrl.text = dateChangedCtrl.text.isEmpty ? formatter.format(DateTime.now()) : dateChangedCtrl.text;
-    currencyChangedCtrl.text = currencyChangedCtrl.text.isEmpty ? "USD" : currencyChangedCtrl.text;
+    currencyChangedCtrl.text = currencyChangedCtrl.text.isEmpty ? "RUB" : currencyChangedCtrl.text;
     return Column(children: <Widget>[
       Row(
         children: <Widget>[
@@ -47,7 +48,7 @@ class AddOperationScreen extends StatelessWidget {
           SizedBox(width: 10),
           Expanded(child: TrixDropdown<String>(
             hintText: "Currency",
-            options: ["USD", "EUR", "RUB", "AMD", "THB"],
+            options: ["RUB", "USD", "EUR", "AMD", "THB"],
             value: currencyChangedCtrl.text,
             onChanged: (String currencyCode) { currencyChangedCtrl.text = currencyCode; },
             getLabel: (String value) => value,
@@ -74,7 +75,7 @@ class AddOperationScreen extends StatelessWidget {
     ]);
   }
 
-  Future<DateTime> _showCalendar(BuildContext context, DateTime initialDate) => showRoundedDatePicker(
+  Future<DateTime?> _showCalendar(BuildContext context, DateTime initialDate) => showRoundedDatePicker(
     context: context,
     initialDate: initialDate,
     firstDate: DateTime(DateTime.now().year - 1),
@@ -86,7 +87,6 @@ class AddOperationScreen extends StatelessWidget {
     return Alert(
       context: context,
       title: "Add item",
-      closeFunction: () => {},
       content: Column(
         children: <Widget>[
           TextField(

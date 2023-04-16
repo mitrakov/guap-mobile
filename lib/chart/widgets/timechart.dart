@@ -27,7 +27,7 @@ class TimeChartState extends State<TimeChart> {
       icon: Icon(Icons.arrow_drop_down),
       items: years.map((year) => DropdownMenuItem(value: year, child: Text(year.toString()))).toList(),
       elevation: 12,
-      onChanged: (int newValue) {
+      onChanged: (int? newValue) {
         setState(() {
           yearCtrl.text = newValue.toString();
         });
@@ -44,7 +44,7 @@ class TimeChartState extends State<TimeChart> {
           child: Text("Come on", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 18)),
           onPressed: () {
             // no need to dispatch actions here, because it's used only here
-            final date = formatter.format(DateTime(yearDropdown.value));
+            final date = formatter.format(DateTime(yearDropdown.value ?? 0));
             final categories = state.asPlainList().map((c) => c.category.labelUtf8).toList();
             Ajax.timeChart(TimeChartRequest("month", date, categories)).then((uri) {
               Navigator.push(context, MaterialPageRoute(builder: (context1) => FullScreenImage(uri)));

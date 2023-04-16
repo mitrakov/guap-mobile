@@ -1,7 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Settings {
-  static SharedPreferences _storage;
+  static SharedPreferences? _storage;
   static const String _showPersonsKey = "showPersons";
   static const String _currencyRatesKey = "currencyRate";
 
@@ -12,18 +12,18 @@ class Settings {
 
   static bool showPersons() {
     _check();
-    return _storage.containsKey(_showPersonsKey) ? _storage.getBool(_showPersonsKey) : true;
+    return (_storage!.containsKey(_showPersonsKey) ? _storage!.getBool(_showPersonsKey) : true) ?? true; // TODO update for null-safety
   }
 
   static void setShowPersons(bool value) {
     _check();
-    _storage.setBool(_showPersonsKey, value);
+    _storage!.setBool(_showPersonsKey, value);
   }
 
   static double getCurrencyRate(String currency) {
     _check();
-    if (_storage.containsKey("$_currencyRatesKey$currency"))
-      return _storage.getDouble("$_currencyRatesKey$currency");
+    if (_storage!.containsKey("$_currencyRatesKey$currency"))
+      return _storage!.getDouble("$_currencyRatesKey$currency") ?? 1;
     switch (currency) {          // data by Google Finance 2023-03-19
       case "USD": return 1;
       case "EUR": return 1.0776;
@@ -36,7 +36,7 @@ class Settings {
 
   static void setCurrencyRate(String currency, double value) {
     _check();
-    _storage.setDouble("$_currencyRatesKey$currency", value);
+    _storage!.setDouble("$_currencyRatesKey$currency", value);
   }
 
   static void _check() {

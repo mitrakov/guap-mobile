@@ -11,12 +11,12 @@ Operation _$OperationFromJson(Map<String, dynamic> json) {
     json['id'] as int,
     json['item'] as String,
     json['category'] as String,
-    (json['summa'] as num)?.toDouble(),
+    (json['summa'] as num).toDouble(),
     json['time'] as String,
-    json['person'] as String,
+    json['person'] as String?,
     json['currency'] as String,
-    (json['currencyRate'] as num)?.toDouble(),
-    json['comment'] as String,
+    (json['currencyRate'] as num?)?.toDouble(),
+    json['comment'] as String?,
   );
 }
 
@@ -35,9 +35,7 @@ Map<String, dynamic> _$OperationToJson(Operation instance) => <String, dynamic>{
 OperationResponse _$OperationResponseFromJson(Map<String, dynamic> json) {
   return OperationResponse(
     json['code'] as int,
-    json['operation'] == null
-        ? null
-        : Operation.fromJson(json['operation'] as Map<String, dynamic>),
+    Operation.fromJson(json['operation'] as Map<String, dynamic>),
   );
 }
 
@@ -51,7 +49,7 @@ OperationListResponse _$OperationListResponseFromJson(
     Map<String, dynamic> json) {
   return OperationListResponse(
     json['code'] as int,
-    (json['msg'] as List)?.map((e) => e as int)?.toList(),
+    (json['msg'] as List<dynamic>).map((e) => e as int).toList(),
   );
 }
 
@@ -66,10 +64,10 @@ AddOperationRequest _$AddOperationRequestFromJson(Map<String, dynamic> json) {
   return AddOperationRequest(
     json['itemName'] as String,
     json['personName'] as String,
-    (json['summa'] as num)?.toDouble(),
+    (json['summa'] as num).toDouble(),
     json['date'] as String,
     json['currency'] as String,
-    (json['currencyRate'] as num)?.toDouble(),
+    (json['currencyRate'] as num).toDouble(),
     json['comment'] as String,
   );
 }
@@ -92,10 +90,10 @@ ChangeOperationRequest _$ChangeOperationRequestFromJson(
     json['id'] as int,
     json['itemName'] as String,
     json['personName'] as String,
-    (json['summa'] as num)?.toDouble(),
+    (json['summa'] as num).toDouble(),
     json['date'] as String,
     json['currency'] as String,
-    (json['currencyRate'] as num)?.toDouble(),
+    (json['currencyRate'] as num).toDouble(),
     json['comment'] as String,
   );
 }

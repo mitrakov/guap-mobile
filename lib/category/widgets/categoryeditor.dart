@@ -30,26 +30,28 @@ class CategoryEditor extends StatelessWidget {
     final String categoryText = "${" " * 6 * item.level}${item.category.labelUtf8}";
     final String parent = item.parentOpt.map((c) => "${c.labelUtf8}").orElse("");
     return Slidable(
-      actionPane: SlidableDrawerActionPane(),
-      actionExtentRatio: 0.2,
+      endActionPane: ActionPane(
+        motion: DrawerMotion(),
+        extentRatio: 0.5,
+        children: [
+          SlidableAction(
+            label: "Edit",
+            backgroundColor: Colors.grey[400]!,
+            icon: Icons.mode_edit,
+            onPressed: (_) => _changeCategoryDialog(context, item.category.labelUtf8, parent).show(), // don't use the context from "_"
+          ),
+          SlidableAction(
+            label: "Delete",
+            backgroundColor: Colors.red[400]!,
+            icon: Icons.delete,
+            onPressed: (_) => _removeCategoryDialog(context, item.category.labelUtf8).show(), // don't use the context from "_"
+          ),
+        ],
+      ),
       child: ListTile(
         title: Text(categoryText),
         leading: Icon(item.level == 0 ? Icons.screen_lock_landscape : Icons.stop),
-      ),
-      secondaryActions: <Widget>[
-        IconSlideAction(
-          caption: "Edit",
-          color: Colors.grey[400],
-          icon: Icons.mode_edit,
-          onTap: () => _changeCategoryDialog(context, item.category.labelUtf8, parent).show(),
-        ),
-        IconSlideAction(
-          caption: "Delete",
-          color: Colors.red[400],
-          icon: Icons.delete,
-          onTap: () => _removeCategoryDialog(context, item.category.labelUtf8).show(),
-        ),
-      ]
+      )
     );
   }
 
@@ -58,7 +60,6 @@ class CategoryEditor extends StatelessWidget {
     return Alert(
       context: context,
       title: "Rename category",
-      closeFunction: () => {},
       content: Column(
         children: <Widget>[
           TextField(
@@ -86,7 +87,6 @@ class CategoryEditor extends StatelessWidget {
     return Alert(
       context: context,
       title: "Are you sure to remove category $category?",
-      closeFunction: () => {},
       buttons: [
         DialogButton(
           child: Text("Cancel", style: TextStyle(color: Colors.white, fontSize: 20)),
