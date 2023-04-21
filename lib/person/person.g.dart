@@ -6,12 +6,11 @@ part of 'person.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-PersonResponse _$PersonResponseFromJson(Map<String, dynamic> json) {
-  return PersonResponse(
-    json['code'] as int,
-    (json['msg'] as List<dynamic>).map((e) => e as String).toList(),
-  );
-}
+PersonResponse _$PersonResponseFromJson(Map<String, dynamic> json) =>
+    PersonResponse(
+      json['code'] as int,
+      (json['msg'] as List<dynamic>).map((e) => e as String).toList(),
+    );
 
 Map<String, dynamic> _$PersonResponseToJson(PersonResponse instance) =>
     <String, dynamic>{
@@ -19,23 +18,21 @@ Map<String, dynamic> _$PersonResponseToJson(PersonResponse instance) =>
       'msg': instance.persons,
     };
 
-AddPersonRequest _$AddPersonRequestFromJson(Map<String, dynamic> json) {
-  return AddPersonRequest(
-    json['name'] as String,
-  );
-}
+AddPersonRequest _$AddPersonRequestFromJson(Map<String, dynamic> json) =>
+    AddPersonRequest(
+      json['name'] as String,
+    );
 
 Map<String, dynamic> _$AddPersonRequestToJson(AddPersonRequest instance) =>
     <String, dynamic>{
       'name': instance.name,
     };
 
-ChangePersonRequest _$ChangePersonRequestFromJson(Map<String, dynamic> json) {
-  return ChangePersonRequest(
-    json['name'] as String,
-    json['newName'] as String,
-  );
-}
+ChangePersonRequest _$ChangePersonRequestFromJson(Map<String, dynamic> json) =>
+    ChangePersonRequest(
+      json['name'] as String,
+      json['newName'] as String,
+    );
 
 Map<String, dynamic> _$ChangePersonRequestToJson(
         ChangePersonRequest instance) =>
@@ -44,11 +41,10 @@ Map<String, dynamic> _$ChangePersonRequestToJson(
       'newName': instance.newName,
     };
 
-RemovePersonRequest _$RemovePersonRequestFromJson(Map<String, dynamic> json) {
-  return RemovePersonRequest(
-    json['name'] as String,
-  );
-}
+RemovePersonRequest _$RemovePersonRequestFromJson(Map<String, dynamic> json) =>
+    RemovePersonRequest(
+      json['name'] as String,
+    );
 
 Map<String, dynamic> _$RemovePersonRequestToJson(
         RemovePersonRequest instance) =>

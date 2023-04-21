@@ -6,28 +6,25 @@ part of 'category.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Category _$CategoryFromJson(Map<String, dynamic> json) {
-  return Category(
-    json['label'] as String,
-    (json['items'] as List<dynamic>)
-        .map((e) => Category.fromJson(e as Map<String, dynamic>))
-        .toList(),
-  );
-}
+Category _$CategoryFromJson(Map<String, dynamic> json) => Category(
+      json['label'] as String,
+      (json['items'] as List<dynamic>)
+          .map((e) => Category.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
 
 Map<String, dynamic> _$CategoryToJson(Category instance) => <String, dynamic>{
       'label': instance.label,
       'items': instance.items,
     };
 
-CategoryResponse _$CategoryResponseFromJson(Map<String, dynamic> json) {
-  return CategoryResponse(
-    json['code'] as int,
-    (json['msg'] as List<dynamic>)
-        .map((e) => Category.fromJson(e as Map<String, dynamic>))
-        .toList(),
-  );
-}
+CategoryResponse _$CategoryResponseFromJson(Map<String, dynamic> json) =>
+    CategoryResponse(
+      json['code'] as int,
+      (json['msg'] as List<dynamic>)
+          .map((e) => Category.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
 
 Map<String, dynamic> _$CategoryResponseToJson(CategoryResponse instance) =>
     <String, dynamic>{
@@ -36,13 +33,12 @@ Map<String, dynamic> _$CategoryResponseToJson(CategoryResponse instance) =>
     };
 
 ChangeCategoryRequest _$ChangeCategoryRequestFromJson(
-    Map<String, dynamic> json) {
-  return ChangeCategoryRequest(
-    json['name'] as String,
-    json['newName'] as String,
-    json['newParentName'] as String,
-  );
-}
+        Map<String, dynamic> json) =>
+    ChangeCategoryRequest(
+      json['name'] as String,
+      json['newName'] as String,
+      json['newParentName'] as String,
+    );
 
 Map<String, dynamic> _$ChangeCategoryRequestToJson(
         ChangeCategoryRequest instance) =>
@@ -53,11 +49,10 @@ Map<String, dynamic> _$ChangeCategoryRequestToJson(
     };
 
 RemoveCategoryRequest _$RemoveCategoryRequestFromJson(
-    Map<String, dynamic> json) {
-  return RemoveCategoryRequest(
-    json['name'] as String,
-  );
-}
+        Map<String, dynamic> json) =>
+    RemoveCategoryRequest(
+      json['name'] as String,
+    );
 
 Map<String, dynamic> _$RemoveCategoryRequestToJson(
         RemoveCategoryRequest instance) =>

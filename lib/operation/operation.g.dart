@@ -6,19 +6,17 @@ part of 'operation.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Operation _$OperationFromJson(Map<String, dynamic> json) {
-  return Operation(
-    json['id'] as int,
-    json['item'] as String,
-    json['category'] as String,
-    (json['summa'] as num).toDouble(),
-    json['time'] as String,
-    json['person'] as String?,
-    json['currency'] as String,
-    (json['currencyRate'] as num?)?.toDouble(),
-    json['comment'] as String?,
-  );
-}
+Operation _$OperationFromJson(Map<String, dynamic> json) => Operation(
+      json['id'] as int,
+      json['item'] as String,
+      json['category'] as String,
+      (json['summa'] as num).toDouble(),
+      json['time'] as String,
+      json['person'] as String?,
+      json['currency'] as String,
+      (json['currencyRate'] as num?)?.toDouble(),
+      json['comment'] as String?,
+    );
 
 Map<String, dynamic> _$OperationToJson(Operation instance) => <String, dynamic>{
       'id': instance.id,
@@ -32,12 +30,11 @@ Map<String, dynamic> _$OperationToJson(Operation instance) => <String, dynamic>{
       'comment': instance.comment,
     };
 
-OperationResponse _$OperationResponseFromJson(Map<String, dynamic> json) {
-  return OperationResponse(
-    json['code'] as int,
-    Operation.fromJson(json['operation'] as Map<String, dynamic>),
-  );
-}
+OperationResponse _$OperationResponseFromJson(Map<String, dynamic> json) =>
+    OperationResponse(
+      json['code'] as int,
+      Operation.fromJson(json['operation'] as Map<String, dynamic>),
+    );
 
 Map<String, dynamic> _$OperationResponseToJson(OperationResponse instance) =>
     <String, dynamic>{
@@ -46,12 +43,11 @@ Map<String, dynamic> _$OperationResponseToJson(OperationResponse instance) =>
     };
 
 OperationListResponse _$OperationListResponseFromJson(
-    Map<String, dynamic> json) {
-  return OperationListResponse(
-    json['code'] as int,
-    (json['msg'] as List<dynamic>).map((e) => e as int).toList(),
-  );
-}
+        Map<String, dynamic> json) =>
+    OperationListResponse(
+      json['code'] as int,
+      (json['msg'] as List<dynamic>).map((e) => e as int).toList(),
+    );
 
 Map<String, dynamic> _$OperationListResponseToJson(
         OperationListResponse instance) =>
@@ -60,17 +56,16 @@ Map<String, dynamic> _$OperationListResponseToJson(
       'msg': instance.ids,
     };
 
-AddOperationRequest _$AddOperationRequestFromJson(Map<String, dynamic> json) {
-  return AddOperationRequest(
-    json['itemName'] as String,
-    json['personName'] as String,
-    (json['summa'] as num).toDouble(),
-    json['date'] as String,
-    json['currency'] as String,
-    (json['currencyRate'] as num).toDouble(),
-    json['comment'] as String,
-  );
-}
+AddOperationRequest _$AddOperationRequestFromJson(Map<String, dynamic> json) =>
+    AddOperationRequest(
+      json['itemName'] as String,
+      json['personName'] as String,
+      (json['summa'] as num).toDouble(),
+      json['date'] as String,
+      json['currency'] as String,
+      (json['currencyRate'] as num).toDouble(),
+      json['comment'] as String,
+    );
 
 Map<String, dynamic> _$AddOperationRequestToJson(
         AddOperationRequest instance) =>
@@ -85,18 +80,17 @@ Map<String, dynamic> _$AddOperationRequestToJson(
     };
 
 ChangeOperationRequest _$ChangeOperationRequestFromJson(
-    Map<String, dynamic> json) {
-  return ChangeOperationRequest(
-    json['id'] as int,
-    json['itemName'] as String,
-    json['personName'] as String,
-    (json['summa'] as num).toDouble(),
-    json['date'] as String,
-    json['currency'] as String,
-    (json['currencyRate'] as num).toDouble(),
-    json['comment'] as String,
-  );
-}
+        Map<String, dynamic> json) =>
+    ChangeOperationRequest(
+      json['id'] as int,
+      json['itemName'] as String,
+      json['personName'] as String,
+      (json['summa'] as num).toDouble(),
+      json['date'] as String,
+      json['currency'] as String,
+      (json['currencyRate'] as num).toDouble(),
+      json['comment'] as String,
+    );
 
 Map<String, dynamic> _$ChangeOperationRequestToJson(
         ChangeOperationRequest instance) =>
@@ -112,11 +106,10 @@ Map<String, dynamic> _$ChangeOperationRequestToJson(
     };
 
 RemoveOperationRequest _$RemoveOperationRequestFromJson(
-    Map<String, dynamic> json) {
-  return RemoveOperationRequest(
-    json['id'] as int,
-  );
-}
+        Map<String, dynamic> json) =>
+    RemoveOperationRequest(
+      json['id'] as int,
+    );
 
 Map<String, dynamic> _$RemoveOperationRequestToJson(
         RemoveOperationRequest instance) =>

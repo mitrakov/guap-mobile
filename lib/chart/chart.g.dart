@@ -6,12 +6,11 @@ part of 'chart.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-PieChartRequest _$PieChartRequestFromJson(Map<String, dynamic> json) {
-  return PieChartRequest(
-    json['month'] as int,
-    json['year'] as int,
-  );
-}
+PieChartRequest _$PieChartRequestFromJson(Map<String, dynamic> json) =>
+    PieChartRequest(
+      json['month'] as int,
+      json['year'] as int,
+    );
 
 Map<String, dynamic> _$PieChartRequestToJson(PieChartRequest instance) =>
     <String, dynamic>{
@@ -19,13 +18,12 @@ Map<String, dynamic> _$PieChartRequestToJson(PieChartRequest instance) =>
       'year': instance.year,
     };
 
-TimeChartRequest _$TimeChartRequestFromJson(Map<String, dynamic> json) {
-  return TimeChartRequest(
-    json['step'] as String,
-    json['from'] as String,
-    (json['categories'] as List<dynamic>).map((e) => e as String).toList(),
-  );
-}
+TimeChartRequest _$TimeChartRequestFromJson(Map<String, dynamic> json) =>
+    TimeChartRequest(
+      json['step'] as String,
+      json['from'] as String,
+      (json['categories'] as List<dynamic>).map((e) => e as String).toList(),
+    );
 
 Map<String, dynamic> _$TimeChartRequestToJson(TimeChartRequest instance) =>
     <String, dynamic>{
@@ -34,12 +32,10 @@ Map<String, dynamic> _$TimeChartRequestToJson(TimeChartRequest instance) =>
       'categories': instance.categories,
     };
 
-UriResponse _$UriResponseFromJson(Map<String, dynamic> json) {
-  return UriResponse(
-    json['code'] as int,
-    json['url'] as String,
-  );
-}
+UriResponse _$UriResponseFromJson(Map<String, dynamic> json) => UriResponse(
+      json['code'] as int,
+      json['url'] as String,
+    );
 
 Map<String, dynamic> _$UriResponseToJson(UriResponse instance) =>
     <String, dynamic>{

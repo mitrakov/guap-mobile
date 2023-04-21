@@ -1,34 +1,34 @@
 name: guap_mobile
 description: Mobile version of GUAP application
-# Built with Flutter 2.0.0 (note that previously it was built with Flutter 1.22.6 that doesn't support NULL-safety: there might be some flaws).
+# Built with Flutter 2.10.5 (note that previously it was built with Flutter 1.22.6 that doesn't support NULL-safety: there might be some flaws).
 # To build for Android, add "key.properties" to android/ folder
 
-version: 23.4.16+16
+version: 23.4.21+17
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.16.2 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  tuple: ^2.0.0                       # tuples support
-  optional: ^6.0.0                    # options support
-  intl: ^0.17.0                       # formatting messages
-  http: ^0.13.1                       # http client
-  crypto: ^3.0.1                      # SHA-256
-  shared_preferences: ^2.0.6          # key-value storage
-  flutter_redux: ^0.8.2               # redux
-  redux_thunk: ^0.4.0                 # redux thunk middleware
-  json_annotation: ^4.0.1             # json auto-generation
-  flutter_slidable: ^1.0.0            # dismissible list tiles
-  flutter_treeview: ^1.0.3+2          # treeview
-  flutter_typeahead: ^3.1.1           # auto-complete textbox
-  flutter_rounded_date_picker: ^2.0.2 # calendar
-  rflutter_alert: ^2.0.2              # pop-ups
+  tuple: 2.0.1                       # tuples support
+  optional: 6.1.0+1                  # options support
+  intl: 0.18.1                       # formatting messages
+  http: 0.13.5                       # http client
+  crypto: 3.0.2                      # SHA-256
+  shared_preferences: 2.0.17         # key-value storage (2.0.18 requires Flutter-3)
+  flutter_redux: 0.9.0               # redux (0.10.0 is incompatible)
+  redux_thunk: 0.4.0                 # redux thunk middleware
+  json_annotation: 4.6.0             # json auto-generation (4.7.0 requires Flutter-3)
+  flutter_slidable: 1.3.2            # dismissible list tiles (2.0.0 requires Flutter-3)
+  flutter_treeview: 1.0.7+1          # treeview
+  flutter_typeahead: 3.2.7           # auto-complete textbox (4.0.0 is incompatible)
+  flutter_rounded_date_picker: 2.0.2 # calendar (3.0.1 requires Flutter-3)
+  rflutter_alert: 2.0.4              # pop-ups
 
 dev_dependencies:
-  build_runner: ^2.0.3               # json auto-generation
-  json_serializable: ^4.1.0          # json auto-generation
+  build_runner: ^2.2.0               # json auto-generation (2.2.1 depends on analyser 4.2.0, which requires Flutter-3)
+  json_serializable: ^6.3.1          # json auto-generation (6.3.2 requires Flutter-3)
 
 flutter:
   uses-material-design: true

@@ -7,12 +7,11 @@ part of 'query.dart';
 // **************************************************************************
 
 QueryAggregateResponse _$QueryAggregateResponseFromJson(
-    Map<String, dynamic> json) {
-  return QueryAggregateResponse(
-    json['code'] as int,
-    (json['msg'] as num).toDouble(),
-  );
-}
+        Map<String, dynamic> json) =>
+    QueryAggregateResponse(
+      json['code'] as int,
+      (json['msg'] as num).toDouble(),
+    );
 
 Map<String, dynamic> _$QueryAggregateResponseToJson(
         QueryAggregateResponse instance) =>
