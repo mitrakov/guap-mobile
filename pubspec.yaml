@@ -3,7 +3,7 @@ description: Mobile version of GUAP application
 # Built with Flutter 2.10.5 (note that previously it was built with Flutter 1.22.6 that doesn't support NULL-safety: there might be some flaws).
 # To build for Android, add "key.properties" to android/ folder
 
-version: 23.4.23+18
+version: 23.4.23+19
 
 environment:
   sdk: ">=2.16.2 <3.0.0"
