@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mitrakov.self.guap.guap_mobile">
-   <application
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <application
         android:label="GUAP Mobile"
         android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
