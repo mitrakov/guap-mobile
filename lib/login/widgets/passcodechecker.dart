@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PasscodeChecker extends StatefulWidget {
@@ -24,13 +23,12 @@ class PasscodeCheckerState extends State<PasscodeChecker> {
         ),
         Padding(
           padding: EdgeInsets.all(40),
-          child: Builder(builder: (context1) => RaisedButton(
-              color: Theme.of(context1).primaryColor,
+          child: Builder(builder: (context1) => ElevatedButton(
               child: Text("Verify", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 18)),
               onPressed: () {
                 if (myPasscodeCtrl.text == curPasscodeCtrl.text)
                   Navigator.popAndPushNamed(context1, "/main");
-                else Scaffold.of(context1).showSnackBar(SnackBar(content: Text("Incorrect passcode")));
+                else ScaffoldMessenger.of(context1).showSnackBar(SnackBar(content: Text("Incorrect passcode")));
               },
           ))
         ),

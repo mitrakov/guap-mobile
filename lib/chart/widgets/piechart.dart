@@ -48,8 +48,7 @@ class PieChartState extends State<PieChart> {
     return Column(children: <Widget>[
       monthDropdown,
       yearDropdown,
-      RaisedButton(
-        color: Theme.of(context).primaryColor,
+      ElevatedButton(
         child: Text("Go", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 18)),
         onPressed: () {
           // no need to dispatch actions here, because it's used only here

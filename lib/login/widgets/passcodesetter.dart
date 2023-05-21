@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PasscodeSetter extends StatelessWidget {
@@ -31,15 +30,14 @@ class PasscodeSetter extends StatelessWidget {
         ),
         Padding(
           padding: EdgeInsets.all(40),
-          child: Builder(builder: (context1) => RaisedButton(
-            color: Theme.of(context1).primaryColor,
+          child: Builder(builder: (context1) => ElevatedButton(
             child: Text("Set passcode", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 18)),
             onPressed: () {
               if (ctrl1.text.isEmpty || ctrl2.text.isEmpty)
-                Scaffold.of(context1).showSnackBar(SnackBar(content: Text("Empty passcode!")));
+                ScaffoldMessenger.of(context1).showSnackBar(SnackBar(content: Text("Empty passcode!")));
               else if (ctrl1.text == ctrl2.text)
                 setPasscode(ctrl1.text).then((b) => Navigator.popAndPushNamed(context1, "/main"));
-              else Scaffold.of(context1).showSnackBar(SnackBar(content: Text("Passcode fields differ!")));
+              else ScaffoldMessenger.of(context1).showSnackBar(SnackBar(content: Text("Passcode fields differ!")));
             }
           ))
         ),

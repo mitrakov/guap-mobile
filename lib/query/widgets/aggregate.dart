@@ -47,13 +47,12 @@ class QueryAggregateScreen extends StatelessWidget {
           }
         ),
         SizedBox(height: 10),
-        RaisedButton(
-          color: Theme.of(context).primaryColor,
+        ElevatedButton(
           child: Text("Query", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 18)),
           onPressed: () {
             // no need to dispatch actions here, because it's used only here
             Ajax.queryAggregate(functionCtrl.text, dateFromCtrl.text, dateToCtrl.text).then((value) {
-              Scaffold.of(context).showSnackBar(SnackBar(content: Text("Result is $value")));
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Result is $value")));
             });
           }
         )

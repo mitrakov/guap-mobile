@@ -39,8 +39,7 @@ class TimeChartState extends State<TimeChart> {
       converter: (store) => store.state.categoryState,
       builder: (context1, state) => Column(children: <Widget>[
         yearDropdown,
-        RaisedButton(
-          color: Theme.of(context).primaryColor,
+        ElevatedButton(
           child: Text("Come on", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 18)),
           onPressed: () {
             // no need to dispatch actions here, because it's used only here
