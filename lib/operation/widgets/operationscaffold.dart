@@ -61,7 +61,7 @@ class AddOperationScaffold extends StatelessWidget {
       store.dispatch(action);
       // TODO: here we need some pause (event, callback) to let Server finish adding a new person
     }
-    final summa = double.parse(summaChangedCtrl.text);
+    final summa = double.parse(summaChangedCtrl.text.replaceAll(",", "."));
     final currencyRate = Settings.getCurrencyRate(currencyChangedCtrl.text);
     final comment = commentChangedCtrl.text.trim();
     final action = OperationsThunk.addOperation(itemChangedCtrl.text, person, summa, dateChangedCtrl.text, currencyChangedCtrl.text, currencyRate, comment);
@@ -71,7 +71,7 @@ class AddOperationScaffold extends StatelessWidget {
 
   void _editOperation(BuildContext context, int id) {
     final person = personChangedCtrl.text.trim();
-    final summa = double.parse(summaChangedCtrl.text);
+    final summa = double.parse(summaChangedCtrl.text.replaceAll(",", "."));
     final currencyRate = Settings.getCurrencyRate(currencyChangedCtrl.text);
     final comment = commentChangedCtrl.text.trim();
     final action = OperationsThunk.changeOperation(id, itemChangedCtrl.text, person, summa, dateChangedCtrl.text, currencyChangedCtrl.text, currencyRate, comment);

@@ -3,7 +3,7 @@
 name: guap_mobile
 description: Mobile version of GUAP application
 
-version: 23.5.21+22
+version: 23.7.29+23
 
 environment:
   sdk: ">=2.19.6 <3.0.0"

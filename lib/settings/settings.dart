@@ -25,11 +25,12 @@ class Settings {
     if (_storage!.containsKey("$_currencyRatesKey$currency"))
       return _storage!.getDouble("$_currencyRatesKey$currency") ?? 1;
     switch (currency) {          // data by Google Finance 2023-03-19
+      case "RUB": return 0.010862;
       case "USD": return 1;
-      case "EUR": return 1.0776;
-      case "RUB": return 0.0130;
-      case "AMD": return 0.0026;
-      case "THB": return 0.0293;
+      case "EUR": return 1.103144;
+      case "KGS": return 0.01141;
+      case "AMD": return 0.002588;
+      case "THB": return 0.029253;
       default:    return 1;      // default no-op multiplicator
     }
   }

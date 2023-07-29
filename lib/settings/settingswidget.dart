@@ -7,8 +7,9 @@ class SettingsWidget extends StatefulWidget { // StatefulWidget needed for setSt
 }
 
 class SettingsWidgetState extends State<SettingsWidget> {
-  final eurToUsdCtrl = TextEditingController(text: Settings.getCurrencyRate("EUR").toString());
   final rubToUsdCtrl = TextEditingController(text: Settings.getCurrencyRate("RUB").toString());
+  final eurToUsdCtrl = TextEditingController(text: Settings.getCurrencyRate("EUR").toString());
+  final kgsToUsdCtrl = TextEditingController(text: Settings.getCurrencyRate("KGS").toString());
   final amdToUsdCtrl = TextEditingController(text: Settings.getCurrencyRate("AMD").toString());
   final thbToUsdCtrl = TextEditingController(text: Settings.getCurrencyRate("THB").toString());
 
@@ -27,14 +28,19 @@ class SettingsWidgetState extends State<SettingsWidget> {
           },
         ),
         ListTile(
+          title: Text("RUB rate"),
+          subtitle: Text("Currency rate RUB to USD"),
+          trailing: SizedBox(width: 100, child: TextField(controller: rubToUsdCtrl, onChanged: (s) => _setCurrency("RUB", s), decoration: const InputDecoration(border: OutlineInputBorder()))),
+        ),
+        ListTile(
           title: Text("EUR rate"),
           subtitle: Text("Currency rate EUR to USD"),
           trailing: SizedBox(width: 100, child: TextField(controller: eurToUsdCtrl, onChanged: (s) => _setCurrency("EUR", s), decoration: const InputDecoration(border: OutlineInputBorder()))),
         ),
         ListTile(
-          title: Text("RUB rate"),
-          subtitle: Text("Currency rate RUB to USD"),
-          trailing: SizedBox(width: 100, child: TextField(controller: rubToUsdCtrl, onChanged: (s) => _setCurrency("RUB", s), decoration: const InputDecoration(border: OutlineInputBorder()))),
+          title: Text("KGS rate"),
+          subtitle: Text("Currency rate KGS to USD"),
+          trailing: SizedBox(width: 100, child: TextField(controller: kgsToUsdCtrl, onChanged: (s) => _setCurrency("KGS", s), decoration: const InputDecoration(border: OutlineInputBorder()))),
         ),
         ListTile(
           title: Text("AMD rate"),

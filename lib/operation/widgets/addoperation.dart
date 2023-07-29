@@ -42,13 +42,13 @@ class AddOperationScreen extends StatelessWidget {
           Expanded(flex: 2, child: TextField(
             controller: summaChangedCtrl,
             decoration: InputDecoration(border: OutlineInputBorder(), labelText: "Input sum"),
-            inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[\d.]'))],  // digits and "."
-            keyboardType: TextInputType.number,
+            inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[\d.,]'))],  // digits, "." for Android, "," for iOS (which may show either of them depending on locale)
+            keyboardType: TextInputType.numberWithOptions(decimal: true),
           )),
           SizedBox(width: 10),
           Expanded(child: TrixDropdown<String>(
             hintText: "Currency",
-            options: ["RUB", "USD", "EUR", "AMD", "THB"],
+            options: ["RUB", "USD", "EUR", "KGS", "AMD", "THB"],
             value: currencyChangedCtrl.text,
             onChanged: (String currencyCode) { currencyChangedCtrl.text = currencyCode; },
             getLabel: (String value) => value,
