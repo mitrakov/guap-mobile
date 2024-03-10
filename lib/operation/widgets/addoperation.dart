@@ -33,7 +33,7 @@ class AddOperationScreen extends StatelessWidget {
       Row(
         children: <Widget>[
           Expanded(child: ItemsChooser(itemChangedCtrl)),
-          IconButton(icon: Icon(Icons.add_circle), onPressed: () => _addItemDialog(context).show()),
+          IconButton(icon: const Icon(Icons.add_circle), onPressed: () => _addItemDialog(context).show()),
         ]
       ),
       SizedBox(height: MARGIN),
@@ -41,14 +41,14 @@ class AddOperationScreen extends StatelessWidget {
         children: [
           Expanded(flex: 2, child: TextField(
             controller: summaChangedCtrl,
-            decoration: InputDecoration(border: OutlineInputBorder(), labelText: "Input sum"),
+            decoration: const InputDecoration(border: OutlineInputBorder(), labelText: "Input sum"),
             inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[\d.,]'))],  // digits, "." for Android, "," for iOS (which may show either of them depending on locale)
-            keyboardType: TextInputType.numberWithOptions(decimal: true),
+            keyboardType: const TextInputType.numberWithOptions(decimal: true),
           )),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           Expanded(child: TrixDropdown<String>(
             hintText: "Currency",
-            options: ["RUB", "USD", "EUR", "KGS", "AMD", "THB"],
+            options: const ["RUB", "USD", "EUR", "GBP", "KGS", "AMD", "THB", "INR"],
             value: currencyChangedCtrl.text,
             onChanged: (String currencyCode) { currencyChangedCtrl.text = currencyCode; },
             getLabel: (String value) => value,
@@ -60,7 +60,7 @@ class AddOperationScreen extends StatelessWidget {
       SizedBox(height: MARGIN),
       TextField(
         controller: dateChangedCtrl,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           border: OutlineInputBorder(),
           labelText: "Choose the date"
         ),
@@ -71,7 +71,7 @@ class AddOperationScreen extends StatelessWidget {
         }
       ),
       SizedBox(height: MARGIN),
-      TextField(controller: commentChangedCtrl, decoration: InputDecoration(border: OutlineInputBorder(), labelText: "Add comment (optional)"))
+      TextField(controller: commentChangedCtrl, decoration: const InputDecoration(border: OutlineInputBorder(), labelText: "Add comment (optional)"))
     ]);
   }
 
@@ -91,13 +91,13 @@ class AddOperationScreen extends StatelessWidget {
         children: <Widget>[
           TextField(
             controller: addItemCtrl,
-            decoration: InputDecoration(icon: Icon(Icons.call_to_action), labelText: "Item name"),
+            decoration: const InputDecoration(icon: Icon(Icons.call_to_action), labelText: "Item name"),
           )
         ],
       ),
       buttons: [
         DialogButton(
-          child: Text("Add", style: TextStyle(color: Colors.white, fontSize: 20)),
+          child: const Text("Add", style: TextStyle(color: Colors.white, fontSize: 20)),
           onPressed: () {
             StoreProvider.of<AppState>(context).dispatch(ItemsThunk.addItem(addItemCtrl.text, category));
             Navigator.pop(context);

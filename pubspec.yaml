@@ -1,9 +1,9 @@
-# Built with Flutter 3.7.12, CocoaPods 1.11.3
+# Built with Flutter 3.16.9, CocoaPods 1.14.3
 # (note that previously it was built with Flutter 1.22.6 that doesn't support NULL-safety: there might be some artifacts).
 name: guap_mobile
 description: Mobile version of GUAP application
-
-version: 23.7.29+23
+publish_to: 'none' # to prevent publish with 'flutter pub publish'
+version: 24.3.10+24
 
 environment:
   sdk: ">=2.19.6 <3.0.0"
@@ -27,6 +27,7 @@ dependencies:
   rflutter_alert: 2.0.6              # pop-ups
 
 dev_dependencies:
+  flutter_lints: 3.0.1
   build_runner: 2.3.3                # json auto-generation
   json_serializable: 6.6.2           # json auto-generation
 

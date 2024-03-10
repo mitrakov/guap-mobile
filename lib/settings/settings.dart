@@ -6,8 +6,7 @@ class Settings {
   static const String _currencyRatesKey = "currencyRate";
 
   static void init() async {
-    if (_storage == null)
-      _storage = await SharedPreferences.getInstance();
+    _storage ??= await SharedPreferences.getInstance();
   }
 
   static bool showPersons() {
@@ -24,13 +23,15 @@ class Settings {
     _check();
     if (_storage!.containsKey("$_currencyRatesKey$currency"))
       return _storage!.getDouble("$_currencyRatesKey$currency") ?? 1;
-    switch (currency) {          // data by Google Finance 2023-03-19
-      case "RUB": return 0.010862;
+    switch (currency) {          // data by Forbes 2024-03-10
+      case "RUB": return 0.010995;
       case "USD": return 1;
-      case "EUR": return 1.103144;
+      case "EUR": return 1.09435;
+      case "GBP": return 1.2858;
       case "KGS": return 0.01141;
-      case "AMD": return 0.002588;
-      case "THB": return 0.029253;
+      case "AMD": return 0.002481;
+      case "THB": return 0.028287;
+      case "INR": return 0.012084;
       default:    return 1;      // default no-op multiplicator
     }
   }
@@ -42,6 +43,6 @@ class Settings {
 
   static void _check() {
     if (_storage == null)
-      throw new Exception("Call Settings.init() in main app widget");
+      throw Exception("Call Settings.init() in main app widget");
   }
 }

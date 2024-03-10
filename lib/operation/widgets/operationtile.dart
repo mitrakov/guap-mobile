@@ -91,9 +91,11 @@ class OperationTile extends StatelessWidget {
       case "RUB": return "₽";
       case "USD": return "\$";
       case "EUR": return "€";
+      case "GBP": return "£";
       case "KGS": return "лв";
       case "AMD": return "֏";
       case "THB": return "฿";
+      case "INR": return "₹";
       default: return "?";
     }
   }
