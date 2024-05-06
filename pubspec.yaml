@@ -1,9 +1,9 @@
-# Built with Flutter 3.16.9, CocoaPods 1.14.3
+# Built with Flutter 3.19.4, CocoaPods 1.15.2
 # (note that previously it was built with Flutter 1.22.6 that doesn't support NULL-safety: there might be some artifacts).
 name: guap_mobile
 description: Mobile version of GUAP application
 publish_to: 'none' # to prevent publish with 'flutter pub publish'
-version: 24.3.10+24
+version: 24.5.6+25
 
 environment:
   sdk: ">=2.19.6 <3.0.0"
@@ -20,7 +20,7 @@ dependencies:
   flutter_redux: 0.10.0              # redux
   redux_thunk: 0.4.0                 # redux thunk middleware
   json_annotation: 4.8.1             # json auto-generation
-  flutter_slidable: 3.0.0            # dismissible list tiles
+  flutter_slidable: 3.0.1            # dismissible list tiles (3.0.0 doesn't work)
   flutter_treeview: 1.0.7+1          # treeview
   flutter_typeahead: 4.4.0           # auto-complete textbox
   flutter_rounded_date_picker: 3.0.3 # calendar
