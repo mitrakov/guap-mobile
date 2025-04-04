@@ -1,4 +1,4 @@
-# Built with Flutter 3.19.4, CocoaPods 1.15.2
+# Built with Flutter 3.19.4, CocoaPods 1.16.2
 # (note that previously it was built with Flutter 1.22.6 that doesn't support NULL-safety: there might be some artifacts).
 name: guap_mobile
 description: Mobile version of GUAP application
